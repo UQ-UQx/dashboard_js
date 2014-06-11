@@ -1,79 +1,197 @@
-/* Space out content a bit */
 body {
-  padding-top: 20px;
-  padding-bottom: 20px;
+    background:#fff;
+    font-family:"Helvetica Neue","Helvetica",sans-serif;
 }
+/* HEADER */
+header {
+    background:#4A105A;
+    padding:10px;
+    border-bottom:1px solid #fff;
+}
+header p#title {
+    position:absolute;
+    top:44px;
+    color:#fff;
+    left:314px;
+}
+header p#user_welcome {
+    position:absolute;
+    top:44px;
+    right:10px;
+    color:#fff;
+    font-size:110%;
+    font-weight:100;
+    letter-spacing:0.1em;
+}
+/* MAIN NAV */
+nav#nav {
+    border-bottom:1px solid #fff;
+    font-size:120%;
+    font-weight:100;
+    letter-spacing:0.1em;
 
-/* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
-.marketing,
-.footer {
-  padding-left: 15px;
-  padding-right: 15px;
-}
+    background: #5a5a5a; /* Old browsers */
+    background: -moz-linear-gradient(top, #5a5a5a 0%, #494949 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#5a5a5a), color-stop(100%,#494949)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #5a5a5a 0%,#494949 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #5a5a5a 0%,#494949 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #5a5a5a 0%,#494949 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #5a5a5a 0%,#494949 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5a5a5a', endColorstr='#494949',GradientType=0 ); /* IE6-9 */
 
-/* Custom page header */
-.header {
-  border-bottom: 1px solid #e5e5e5;
+    -webkit-box-shadow: 0px 3px 4px 0px rgba(50, 50, 50, 0.63);
+    -moz-box-shadow:    0px 3px 4px 0px rgba(50, 50, 50, 0.63);
+    box-shadow:         0px 3px 4px 0px rgba(50, 50, 50, 0.63);
 }
-/* Make the masthead heading the same height as the navigation */
-.header h3 {
-  margin-top: 0;
-  margin-bottom: 0;
-  line-height: 40px;
-  padding-bottom: 19px;
+nav ul.nav li a {
+    color:#fff;
+    background:none;
 }
+nav ul.nav li a:hover {
+    background:none;
+    color:#ddddff;
+}
+nav ul li.active a {
+    color:#ffde6d;
+}
+nav ul li.active a:hover {
+    color:#ffde6d;
+}
+/* FOOTER */
+footer#footer {
+    background:#4A105A;
+    color:#fff;
+    margin-top:-1px;
+    clear:both;
+}
+footer#footer div.footer-column {
+    width:25%;
+    float:left;
+    padding:10px;
+    text-align:center;
+    margin-top:10px;
+}
+footer#footer div.footer-column:first-child {
+    margin-top:30px;
+}
+/* DASHBOARD */
+div#dashboard_container {
+    background:#9A9CA2;
+}
+div#dashboard_container ul#vis-nav {
+    list-style-type:none;
+    margin:0;
+    padding:0;
+    height:41px;
+}
+div#dashboard_container ul#vis-nav li {
+    float:left;
+    margin:0;
+    padding:0;
+}
+div#dashboard_container ul#vis-nav li a {
+    padding:10px 30px;
+    display:block;
+    color:#494949;
+    border-right:1px solid #9A9CA2;
+    border-bottom:1px solid #9A9CA2;
+    text-align:center;
 
-/* Custom page footer */
-.footer {
-  padding-top: 19px;
-  color: #777;
-  border-top: 1px solid #e5e5e5;
+    background:#e0e2e5;
 }
-
-/* Customize container */
-@media (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
+div#dashboard_container ul#vis-nav li.selected a {
+    background:#fff;
+    border-bottom:1px solid #fff;
 }
-.container-narrow > hr {
-  margin: 30px 0;
+div#dashboard_container ul#vis-nav li:first-child a {
+    width:120px;
+    font-size:200%;
+    height:40px;
+    padding-top:0;
+    background:none;
+    color:#fff;
+    border-bottom:0;
 }
-
-/* Main marketing message and sign up button */
-.jumbotron {
-  text-align: center;
-  border-bottom: 1px solid #e5e5e5;
+div#dashboard_container ul#vis-nav li a:hover {
+    color:#4A105A;
+    text-decoration:none;
 }
-.jumbotron .btn {
-  font-size: 21px;
-  padding: 14px 24px;
+div#dashboard_container ul#coursenav {
+    margin:0;
+    padding:0;
+    list-style-type:none;
+    float:left;
+    clear:left;
 }
-
-/* Supporting marketing content */
-.marketing {
-  margin: 40px 0;
+div#dashboard_container ul#coursenav li {
+    width:120px;
+    margin:0;
+    padding:0;
+    background: #e0e2e5;
 }
-.marketing p + h4 {
-  margin-top: 28px;
+div#dashboard_container ul#coursenav li a {
+    padding:18px 0 15px 0;
+    text-align:center;
+    font-size:90%;
+    display:block;
+    border-bottom:1px solid #9A9CA2;
+    border-right:1px solid #9A9CA2;
+    color:#494949;
 }
-
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing,
-  .footer {
-    padding-left: 0;
-    padding-right: 0;
-  }
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
-  }
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
-  }
+div#dashboard_container ul#coursenav li a:hover {
+    text-decoration:none;
+    color:#4A105A;
+}
+div#dashboard_container ul#coursenav li.selected a {
+    background:#fff;
+    border-right:1px solid #fff;
+    color:#4A105A;
+    font-weight:bold;
+}
+div#dashboard_container ul#coursenav li a i {
+    display:block;
+    font-size:280%;
+    margin-bottom:5px;
+}
+/* CONTENT */
+div#content_wrapper {
+    clear:left;
+    width:100%;
+}
+div#main_content {
+    border:1px solid #9A9CA2;
+    margin-left:119px;
+    background:#fff;
+    min-height:500px;
+    padding:20px 0 0 20px;
+    border-right:0;
+    border-top:0;
+}
+div#main_content h1 {
+    color:#4A105A;
+    font-weight:200;
+    margin:0;
+}
+ul#actions {
+    list-style-type: none;
+    margin-top:10px;
+}
+ul#actions li {
+    float:right;
+    margin-right:14px;
+}
+div#inner_content {
+    background:#fafafa;
+    border-left:1px solid #eee;
+    border-top:1px solid #eee;
+    min-height:500px;
+    margin-top:10px;
+    padding:10px;
+    position:relative;
+}
+div#dashboard_content {
+    min-height:500px;
+}
+iframe {
+    border:0;
 }

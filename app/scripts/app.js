@@ -15,19 +15,35 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'ui.router'
   ])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
-      })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
+  .config(function ($stateProvider, $urlRouterProvider) {
+    $stateProvider
+    .state('dashboard', {
+        url: '/dashboard',
+        templateUrl: 'views/dashboard.html',
+        controller: 'DashboardCtrl'
+    })
+    .state('explorer', {
+        url: '/explorer',
+        templateUrl: 'views/explorer.html',
+        controller: 'ExplorerCtrl'
+    })
+    .state('status', {
+        url: '/status',
+        templateUrl: 'views/status.html',
+        controller: 'StatusCtrl'
+    })
+    .state('dashboard.visualisation', {
+        url: '/:visualisation/:course',
+        //templateUrl: 'visualisations/enrolmentmetadata/template.html',
+        templateUrl: function(stateParams) { return 'visualisations/'+stateParams.visualisation+'/template.html'; },
+        controllerProvider: function($stateParams) { return "Visualisation_" + $stateParams.visualisation + "_Ctrl"; },
+        //controller: 'VisualisationEnrolmentmetadataCtrl'
+    });
+    $urlRouterProvider.otherwise('dashboard');
+  })
+  .controller('AppCtrl', function ($scope, $state) {
+    $scope.$state = $state;
   });

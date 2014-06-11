@@ -8,7 +8,7 @@
  * Controller of the dashboardJsApp
  */
 angular.module('dashboardJsApp')
-  .controller('AboutCtrl', function ($scope) {
+  .controller('StatusCtrl', function ($scope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',

@@ -9,6 +9,7 @@
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -21,33 +22,77 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="container">
-      <div class="header">
-        <ul class="nav nav-pills pull-right">
-          <li class="active"><a ng-href="#">Home</a></li>
-          <li><a ng-href="#/about">About</a></li>
-          <li><a ng-href="#">Contact</a></li>
+    <div ng-controller="AppCtrl">
+    {{testing}}
+    {{state}}
+    <header>
+      <a ng-href="#" title="Home" rel="home" id="logo">
+        <img src="https://online.ceit.uq.edu.au/sites/all/themes/uqx_ceit_bartik/images/uq-logo.png" alt="Home">
+        <img src="https://online.ceit.uq.edu.au/sites/all/themes/uqx_ceit_bartik/uqx-logo.png" alt="Home">
+        <p id="title">DASHBOARD</p>
+        <p id="user_welcome">Welcome uqadekke</p>
+      </a>
+    </header>
+    <nav id="nav" class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+        <ul class="nav navbar-nav">
+            <li ui-sref-active="active"><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li ui-sref-active="active"><a ui-sref="explorer"><i class="fa fa-database"></i> Data Explorer</a></li>
+            <li ui-sref-active="active"><a ui-sref="status"><i class="fa fa-spinner"></i> Data Status</a></li>
         </ul>
-        <h3 class="text-muted">dashboardJs</h3>
-      </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a target="_blank" href="http://online.ceit.uq.edu.au"><i class="fa fa-home"></i> UQx</a></li>
+        </ul>
+    </nav>
 
-      <div ng-view=""></div>
+    <div ng-view=""></div>
+    <div ui-view=""></div>
 
-      <div class="footer">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
-      </div>
+
+
+    <footer id="footer" role="contentinfo" class="clearfix">
+        <div class="region region-footer">
+            <div id="block-block-2" class="block block-block contextual-links-region">
+
+
+                <div class="content">
+                    <div class="footer-column">
+                        <a href="http://www.uq.edu.au"><img alt="The University of Queensland Australia"
+                                                            src="https://online.ceit.uq.edu.au/sites/all/themes/uqx_ceit_bartik/images/uq-logo.png"/></a>
+                    </div>
+
+                    <div class="footer-column">
+                        <p>The University of Queensland<br/>
+                            Brisbane St Lucia, QLD 4072</p>
+
+                        <p>© The University of Queensland</p>
+                    </div>
+
+                    <div class="footer-column">
+                        <p>ABN 63 942 912 684<br/>
+                            CRICOS Provider No:00025B</p>
+
+                        <p>Authorised by: Director of CEIT<br/>
+                            Maintained by: <a href="mailto:online@ceit.uq.edu.au">online@ceit.uq.edu.au</a></p>
+                    </div>
+
+                    <div class="footer-column">
+                        <p>HELP AND SUPPORT<br/>
+                            Contact <a href="mailto:online@ceit.uq.edu.au">online@ceit.uq.edu.au</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
     </div>
-
-
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-     <script>
-       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
+        ga('create', 'UA-51272350-1', 'uq.edu.au');
+        ga('send', 'pageview');
     </script>
 
     <!--[if lt IE 9]>
@@ -67,13 +112,18 @@
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/d3/d3.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/about.js"></script>
+        <script src="scripts/controllers/dashboard.js"></script>
+        <script src="scripts/controllers/explorer.js"></script>
+        <script src="scripts/controllers/status.js"></script>
         <!-- endbuild -->
+        <script src="visualisations/enrolmentmetadata/controller.js"></script>
+        <script src="visualisations/enrolment/controller.js"></script>
+        <script src="scripts/services/request.js"></script>
 </body>
 </html>

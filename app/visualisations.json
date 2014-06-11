@@ -1,0 +1,42 @@
+[
+    {
+        "id": "enrolment",
+        "name": "Enrolment Data",
+        "icon": "fa-university"
+    },
+    {
+        "id": "coursestructure",
+        "name": "Course Structure",
+        "icon": "fa-sitemap"
+    },
+    {
+        "id": "activeusers",
+        "name": "Active Users",
+        "icon": "fa-users"
+    },
+    {
+        "id": "enrolmentmap",
+        "name": "Enrolment Countries",
+        "icon": "fa-globe"
+    },
+    {
+        "id": "apachelogs",
+        "name": "Video Downloads",
+        "icon": "fa-cloud-download"
+    },
+    {
+        "id": "discussion_forum_data",
+        "name": "Discussion Forums",
+        "icon": "fa-comments"
+    },
+    {
+        "id": "enrolmentmetadata",
+        "name": "Enrolment Meta-Data",
+        "icon": "fa-tag"
+    },
+    {
+        "id": "discussion_forum_map",
+        "name": "Discussion Forum Map",
+        "icon": "fa-globe"
+    }
+]
