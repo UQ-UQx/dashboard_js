@@ -16,7 +16,8 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'ui.router'
+    'ui.router',
+    'charts'
   ])
   .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
@@ -39,7 +40,7 @@ angular
         url: '/:visualisation/:course',
         //templateUrl: 'visualisations/enrolmentmetadata/template.html',
         templateUrl: function(stateParams) { return 'visualisations/'+stateParams.visualisation+'/template.html'; },
-        controllerProvider: function($stateParams) { return "Visualisation_" + $stateParams.visualisation + "_Ctrl"; },
+        controllerProvider: function($stateParams) { return 'Visualisation_' + $stateParams.visualisation + '_Ctrl'; },
         //controller: 'VisualisationEnrolmentmetadataCtrl'
     });
     $urlRouterProvider.otherwise('dashboard');

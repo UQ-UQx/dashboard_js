@@ -8,11 +8,8 @@
     <h3>{{data.selectedcoursename }} Education Distribution</h3>
     <div id="chart_div_education" style="width: 100%; height: 500px;"></div>
     <h3>User Enrolment Types</h3>
-    <ul>
-        <li ng-repeat="(key, value) in data.modes">
-            <strong>{{key}}</strong> {{value}}
-        </li>
-    </ul>
+    <vis-key-value data="data.modes"></vis-key-value>
+
 
 
 
