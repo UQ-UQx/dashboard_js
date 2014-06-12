@@ -8,7 +8,8 @@
  *
  * Main module of the application.
  */
-angular
+
+var app = angular
   .module('dashboardJsApp', [
     'ngAnimate',
     'ngCookies',
@@ -16,8 +17,7 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'ui.router',
-    'charts'
+    'ui.router'
   ])
   .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
@@ -48,3 +48,4 @@ angular
   .controller('AppCtrl', function ($scope, $state) {
     $scope.$state = $state;
   });
+console.log(app);

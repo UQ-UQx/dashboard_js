@@ -8,8 +8,7 @@
  * Controller of the dashboardJsApp
  */
 
-angular.module('charts', [])
-    .directive('visKeyValue', function() {
+app.directive('visKeyValue', function() {
         return {
             restrict: 'EA',
             scope: {
