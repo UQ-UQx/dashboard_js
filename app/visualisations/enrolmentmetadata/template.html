@@ -1,1 +1,99 @@
-Hello Enrolment Meta Data
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+    <h3>{{data.selectedcoursename }} Age Distribution</h3>
+    <div id="chart_div_age" style="width: 100%; height: 500px;"></div>
+    <h3>{{data.selectedcoursename }} Gender Distribution</h3>
+    <div id="chart_div_gender" style="width: 100%; height: 500px;"></div>
+    <h3>{{data.selectedcoursename }} Education Distribution</h3>
+    <div id="chart_div_education" style="width: 100%; height: 500px;"></div>
+    <h3>User Enrolment Types</h3>
+    <ul>
+        <li ng-repeat="(key, value) in data.modes">
+            <strong>{{key}}</strong> {{value}}
+        </li>
+    </ul>
+
+
+
+    <div id="chart_div_types" style="width: 100%; height: 500px;"></div>
+
+
+
+
+    <script type="text/javascript">
+        //google.load("visualization", "1", {packages:["corechart"]});
+//        google.setOnLoadCallback(drawChart);
+//        function drawChart() {
+//
+//            /* AGE */
+//            var age_data = google.visualization.arrayToDataTable([
+//                ['Age', 'Count'],
+//                {% for the_age in age %}
+//                    ['{{ the_age }}', {{ age|get_item:the_age }}],
+//                {% endfor %}
+//            ]);
+//            var options = {
+//                title: '',
+//                sliceVisibilityThreshold: 0,
+//                backgroundColor: "#FAFAFA",
+//                //colors: ['red','blue','green','orange','yellow'],
+//            };
+//            var chart = new google.visualization.PieChart(document.getElementById('chart_div_age'));
+//                chart.draw(age_data, options);
+//
+//            /* GENDER */
+//            var gender_data = google.visualization.arrayToDataTable([
+//                ['Gender', 'Count'],
+//                ['Male', {{ gender|get_item:'Male' }}],
+//                ['Female', {{ gender|get_item:'Female' }}],
+//                ['Other', {{ gender|get_item:'Other' }}],
+//                ['Unspecified', {{ gender|get_item:'Unspecified' }}],
+//            ]);
+//            var options = {
+//                title: '',
+//                sliceVisibilityThreshold: 0,
+//                backgroundColor: "#FAFAFA",
+//                colors: ['blue','pink','orange','#666666'],
+//            };
+//            var chart = new google.visualization.PieChart(document.getElementById('chart_div_gender'));
+//                chart.draw(gender_data, options);
+//
+//            /* EDUCATION */
+//            var education_data = google.visualization.arrayToDataTable([
+//                ['Education Level', 'Count'],
+//                {% for the_education in education %}
+//                    ['{{ the_education }}', {{ education|get_item:the_education }}],
+//                {% endfor %}
+//            ]);
+//            var options = {
+//                title: '',
+//                sliceVisibilityThreshold: 0,
+//                backgroundColor: "#FAFAFA",
+//            };
+//            var chart = new google.visualization.PieChart(document.getElementById('chart_div_education'));
+//                chart.draw(education_data, options);
+//
+//            /* ENROLMENT TYPES */
+//            var type_data = google.visualization.arrayToDataTable([
+//                ['Mode', 'Number of Enrolments'],
+//                {% for mode in modetypes %}
+//                    ['{{ mode }}', {{ modes|get_item:mode }}],
+//                {% endfor %}
+//            ]);
+//            var options = {
+//                title: '',
+//                sliceVisibilityThreshold: 0,
+//                backgroundColor: "#FAFAFA",
+//                colors: ['red','blue','green','orange','yellow']
+//            };
+//            var chart = new google.visualization.PieChart(document.getElementById('chart_div_types'));
+//                chart.draw(type_data, options);
+//        }
+//
+//        $(document).ready(function () {
+//            $(window).resize(function(){
+//                drawChart();
+//            });
+//        });
+    </script>
