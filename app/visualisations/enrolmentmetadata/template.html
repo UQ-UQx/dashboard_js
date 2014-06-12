@@ -2,22 +2,14 @@
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
     <h3>{{data.selectedcoursename }} Age Distribution</h3>
-    <div id="chart_div_age" style="width: 100%; height: 500px;"></div>
+    <div id="chart_div_age" vis-pie data="[{ label: '0-10', value: '3' }, { label: '11-20', value: '5' }, { label: '21-100', value: '5'}]" style="width: 100%; height: 500px;"></div>
     <h3>{{data.selectedcoursename }} Gender Distribution</h3>
     <div id="chart_div_gender" style="width: 100%; height: 500px;"></div>
     <h3>{{data.selectedcoursename }} Education Distribution</h3>
     <div id="chart_div_education" style="width: 100%; height: 500px;"></div>
     <h3>User Enrolment Types</h3>
     <vis-key-value data="data.modes"></vis-key-value>
-
-
-
-
     <div id="chart_div_types" style="width: 100%; height: 500px;"></div>
-
-
-
-
     <script type="text/javascript">
         //google.load("visualization", "1", {packages:["corechart"]});
 //        google.setOnLoadCallback(drawChart);
