@@ -1,5 +1,6 @@
 <style>
     .col-md-6 {
+        border:1px solid red;
         padding:10px;
     }
     .col-md-6 h3 {
@@ -32,59 +33,3 @@
 </div>
 </div>
 <div style="clear:left"></div>
-    <script type="text/javascript">
-//            /* GENDER */
-//            var gender_data = google.visualization.arrayToDataTable([
-//                ['Gender', 'Count'],
-//                ['Male', {{ gender|get_item:'Male' }}],
-//                ['Female', {{ gender|get_item:'Female' }}],
-//                ['Other', {{ gender|get_item:'Other' }}],
-//                ['Unspecified', {{ gender|get_item:'Unspecified' }}],
-//            ]);
-//            var options = {
-//                title: '',
-//                sliceVisibilityThreshold: 0,
-//                backgroundColor: "#FAFAFA",
-//                colors: ['blue','pink','orange','#666666'],
-//            };
-//            var chart = new google.visualization.PieChart(document.getElementById('chart_div_gender'));
-//                chart.draw(gender_data, options);
-//
-//            /* EDUCATION */
-//            var education_data = google.visualization.arrayToDataTable([
-//                ['Education Level', 'Count'],
-//                {% for the_education in education %}
-//                    ['{{ the_education }}', {{ education|get_item:the_education }}],
-//                {% endfor %}
-//            ]);
-//            var options = {
-//                title: '',
-//                sliceVisibilityThreshold: 0,
-//                backgroundColor: "#FAFAFA",
-//            };
-//            var chart = new google.visualization.PieChart(document.getElementById('chart_div_education'));
-//                chart.draw(education_data, options);
-//
-//            /* ENROLMENT TYPES */
-//            var type_data = google.visualization.arrayToDataTable([
-//                ['Mode', 'Number of Enrolments'],
-//                {% for mode in modetypes %}
-//                    ['{{ mode }}', {{ modes|get_item:mode }}],
-//                {% endfor %}
-//            ]);
-//            var options = {
-//                title: '',
-//                sliceVisibilityThreshold: 0,
-//                backgroundColor: "#FAFAFA",
-//                colors: ['red','blue','green','orange','yellow']
-//            };
-//            var chart = new google.visualization.PieChart(document.getElementById('chart_div_types'));
-//                chart.draw(type_data, options);
-//        }
-//
-//        $(document).ready(function () {
-//            $(window).resize(function(){
-//                drawChart();
-//            });
-//        });
-    </script>

@@ -13,6 +13,5 @@ angular.module('dashboardJsApp')
         requestService.async('http://localhost/testdata.php').then(function(d) {
             $scope.data = d;
         });
-
     console.log("HELLO ENROLMENT METADATA");
   }]);
