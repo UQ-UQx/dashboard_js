@@ -48,7 +48,6 @@ app.directive('visPie', function ($window) {
     }
 
     function drawChart(scope) {
-
         var w = scope.width;
         var h = scope.width;
         var r = h / 2;
