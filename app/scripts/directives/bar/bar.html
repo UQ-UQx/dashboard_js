@@ -1,0 +1,48 @@
+<meta charset="utf-8">
+<style>
+
+.axis path,
+.axis line {
+	fill: none;
+	stroke: #000;
+	shape-rendering: crispEdges;
+}
+
+.line {
+	fill: none;
+	stroke: steelblue;
+	stroke-width: 1.5px;
+}
+
+.point {
+	fill: steelblue;
+}
+
+.tip {
+  display: none;
+  color: steelblue;
+  border-radius: 4px;
+  padding: 5px 10px 5px 10px;
+  position: absolute;
+  font: 12px sans-serif;
+  line-height: 30px;
+  text-align: center;
+  background: rgba(0, 0, 255, 0.1);
+}
+
+.tip dl dt {
+	display: inline;
+	float: left;
+	clear: left;
+	font-weight: bold;
+}
+
+.tip dl dd {
+	display: inline;
+	float: left;
+	margin-left: 10px;
+}
+
+</style>
+<div class="tip"></div>
+<svg class="line-chart"></svg>
