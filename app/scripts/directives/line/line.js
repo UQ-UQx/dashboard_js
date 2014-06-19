@@ -90,8 +90,6 @@ app.directive('visLine', function() {
 				width = scope.width - margin.left - margin.right,
 				height = scope.height - margin.top - margin.bottom;
 
-				console.log(dataExtentDate(scope.chartData));
-
 			var x = d3.time.scale()
 				.domain(dataExtentDate(scope.chartData))
 				.range([0, width]);
@@ -204,19 +202,14 @@ app.directive('visLine', function() {
 
     		legend.append('rect')
         		.attr('x', width + margin.left + 40)
-        		.attr('y', function(d, i) {
-        			console.log(i);
-        			return i * 30 + margin.top
-        		})
+        		.attr('y', function(d, i) { return i * 30 + margin.top })
         		.attr('width', 20)
         		.attr('height', 20)
         		.style('fill', function(d) { return color(d.name) });
 
     		legend.append('text')
         		.attr('x', width + margin.left + 70)
-        		.attr('y', function(d, i) {
-        			return (i *  30) + 15 + margin.top
-        		})
+        		.attr('y', function(d, i) { return (i *  30) + 15 + margin.top })
         		.text(function(d) { return d.name });
 		}
 	};
