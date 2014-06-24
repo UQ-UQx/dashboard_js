@@ -18,7 +18,67 @@ app.directive('visBar', function() {
 		},
 		templateUrl: 'scripts/directives/bar/bar.html',
 		link: function(scope, element) {
-            console.log(scope.data);
+            var data = scope.data.data;
+
+            var countries = []
+            var maxPercentage = 0;
+            for(var i = 0; i < data.length; i++)  {
+                countries.push(data[i][0]);
+                if(data[i][1] > maxPercentage) {
+                    maxPercentage = data[i][1];
+                }
+            }
+
+            /* 5% is the default ceil unit */
+            var ceilUnit = (scope.data.ceilUnit == null) ? 5 : scope.data.ceilUnit;
+            maxPercentage = Math.ceil(maxPercentage/ceilUnit) * ceilUnit;
+
+            var margin = (scope.data.margin == null) ? {top: 40, right: 40, bottom: 60, left: 200} : scope.data.margin;
+            var width = scope.width - margin.right - margin.left,
+                height = scope.height - margin.top - margin.bottom;
+
+            var svg = d3.select(element.find('.bar-chart')[0])
+                        .attr("width", scope.width)
+                        .attr("height", scope.height)
+                        .append("g")
+                        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+            var x = d3.scale.linear()
+                .domain([0, maxPercentage])
+                .range([0, width]);
+            var xAxis = d3.svg.axis().scale(x).orient('top');
+
+            var y = d3.scale.ordinal()
+                .domain(countries)
+                .rangeBands([0, height],.5);
+            var yAxis = d3.svg.axis().scale(y).orient('left');
+
+
+            var barHeight = y.rangeBand();
+            svg.selectAll("g")
+                .data(data)
+                .enter().append("g")
+                .attr("transform", function(d, i) {
+                    var offset = barHeight + i * barHeight / 0.5;
+                    return "translate(0," + offset + ")";})
+                .append("rect")
+                .attr("width", function (d) { return x(d[1]);})
+                .attr("height", barHeight)
+                .style("fill", "blue");
+
+
+
+
+            var xAxisGroup = svg.append('g').attr('class', 'x axis').call(xAxis);
+            var yAxisGroup = svg.append('g').attr('class', 'y axis').call(yAxis);
+
+
+
+
+
+
+/*
 			scope.chartData = [];
 			scope.chartDataTwo = [];
 
@@ -56,7 +116,7 @@ app.directive('visBar', function() {
 				.x(function(d) { return x(d.date) })
 				.y(function(d) { return y(d.close) });
 
-			var svg = d3.select(element.find('.line-chart')[0])
+			var svg = d3.select(element.find('.bar-chart')[0])
 				.attr('width', width + margin.left + margin.right)
 				.attr('height', height + margin.top + margin.bottom)
 				.append('g')
@@ -127,6 +187,7 @@ app.directive('visBar', function() {
 						.duration(200)
 						.attr('r', 3);
 				});
+				*/
 		}
 	};
 });
