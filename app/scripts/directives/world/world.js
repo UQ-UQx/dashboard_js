@@ -65,8 +65,8 @@ app.directive('visWorld', function() {
 			}
 
 			fills['defaultFill'] = 'rgba(200, 200, 200, 0.2)';
-
-			var map = new Datamap({
+/*
+			scope.map = new Datamap({
 				element: element.find('.vis-world-container')[0],
 				fills: fills,
 				data: finalData,
@@ -84,7 +84,33 @@ app.directive('visWorld', function() {
 						return popupString;
 					}
 				}
-			});
+			}); */
+
+			//angular.element('vis-world-container').scope().height = 400;
+			//	console.log(angular.element('vis-world-container').scope());
+			//angular.element('vis-world-container').scope().$apply();
+
+			scope.$watch(scope.width, function() {
+				scope.map = new Datamap({
+					element: element.find('.vis-world-container')[0],
+					fills: fills,
+					data: finalData,
+					geographyConfig: {
+						popupTemplate: function(geo, data) {
+							var popupString = '<div class="hoverinfo"><strong>' + geo.properties.name + ': 0 ' + ' posts (0%)</strong></div>';
+
+							if (data != null) {
+								popupString = ['<div class="hoverinfo"><strong>',
+								geo.properties.name,
+								': ' + data.value + ' posts (' + data.percentage + '%)',
+								'</strong></div>'].join('');
+							}
+
+							return popupString;
+						}
+					}
+				});
+			}, true);
 
 		/*
 		
