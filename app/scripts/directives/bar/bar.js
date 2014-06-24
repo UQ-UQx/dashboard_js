@@ -33,7 +33,7 @@ app.directive('visBar', function() {
             var ceilUnit = (scope.data.ceilUnit == null) ? 5 : scope.data.ceilUnit;
             maxPercentage = Math.ceil(maxPercentage/ceilUnit) * ceilUnit;
 
-            var margin = (scope.data.margin == null) ? {top: 40, right: 40, bottom: 60, left: 200} : scope.data.margin;
+            var margin = (scope.data.margin == null) ? {top: 40, right: 40, bottom: 60, left: 150} : scope.data.margin;
             var width = scope.width - margin.right - margin.left,
                 height = scope.height - margin.top - margin.bottom;
 
@@ -56,21 +56,39 @@ app.directive('visBar', function() {
 
 
             var barHeight = y.rangeBand();
-            svg.selectAll("g")
+            var bars = svg.selectAll('.bar')
                 .data(data)
                 .enter().append("g")
                 .attr("transform", function(d, i) {
                     var offset = barHeight + i * barHeight / 0.5;
-                    return "translate(0," + offset + ")";})
-                .append("rect")
+                    return "translate(0," + offset + ")";});
+
+            bars.append("rect")
                 .attr("width", function (d) { return x(d[1]);})
                 .attr("height", barHeight)
-                .style("fill", "blue");
+                .attr('class', 'bar');
+
+
+            bars.append("text")
+                .attr("x", function(d) {return x(d[1]) + 2;})
+                .attr("y", barHeight /2)
+                .attr("dy", ".35em")
+                .text(function(d) {return d[2]});
 
 
 
 
-            var xAxisGroup = svg.append('g').attr('class', 'x axis').call(xAxis);
+
+
+            var xAxisGroup = svg.append('g').
+                attr('class', 'x axis')
+                .call(xAxis)
+                .append("text")
+                .attr("text-anchor", "end")
+                .attr("x", width )
+                .attr("y", "-2em")
+                .text("Percentage");
+
             var yAxisGroup = svg.append('g').attr('class', 'y axis').call(yAxis);
 
 
