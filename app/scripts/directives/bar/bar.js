@@ -15,10 +15,15 @@ app.directive('visBar', function() {
 			data: '=data',
 			width: '=width',
 			height: '=height',
+            option: '=?',
 		},
 		templateUrl: 'scripts/directives/bar/bar.html',
+        controller: function($scope) {
+            $scope.option = $scope.option || false;
+        },
 		link: function(scope, element) {
-            var data = scope.data.data;
+            //console.log(scope.option);
+            var data = scope.data;
 
             var countries = []
             var maxPercentage = 0;
@@ -29,19 +34,51 @@ app.directive('visBar', function() {
                 }
             }
 
-            /* 5% is the default ceil unit */
-            var ceilUnit = (scope.data.ceilUnit == null) ? 5 : scope.data.ceilUnit;
-            maxPercentage = Math.ceil(maxPercentage/ceilUnit) * ceilUnit;
+            /* default chart options */
+            var barFill = 'steelblue',
+                highlightFill = 'brown',
+                tipOn = true,
+                ceilUnit = 5,
+                margin = {top: 40, right: 40, bottom: 20, left: 150},
+                minBarHeight = 7;
+            /* custom default options */
+            if(scope.option !== false)  {
+                barFill = (scope.option.barFill == null) ? barFill : scope.option.barFill;
+                highlightFill = (scope.option.highlightFill == null) ? highlightFill : scope.option.highlightFill;
+                tipOn = (scope.option.tipOn == null) ? tipOn : scope.option.tipOn;
+                ceilUnit = (scope.option.ceilUnit == null) ? ceilUnit : scope.option.ceilUnit;
+                margin = (scope.option.margin == null) ? margin : scope.option.margin;
+                minBarHeight = (scope.option.minBarHeight == null) ? minBarHeight : scope.option.minBarHeight;
+            }
 
-            var margin = (scope.data.margin == null) ? {top: 40, right: 40, bottom: 60, left: 150} : scope.data.margin;
+            maxPercentage = Math.ceil(maxPercentage/ceilUnit) * ceilUnit;
             var width = scope.width - margin.right - margin.left,
                 height = scope.height - margin.top - margin.bottom;
 
+            var barHeight = height/(countries.length * 2 + 1);
+            var svgHeight = scope.height;
+            /* adjust the height of svg if the bar is too narrow */
+            if (barHeight < minBarHeight) {
+                barHeight = minBarHeight;
+                svgHeight = minBarHeight * (countries.length *2 +1) + margin.top + margin.bottom;
+                height = svgHeight - margin.top - margin.bottom;
+            }
+
+            var tip = d3.tip()
+                  .attr('class', 'd3-tip')
+                  .offset([-10, 0])
+                  .html(function(d) {
+                    return "<strong>" + d[0] + "</strong></br>Percentage: " + d[1];
+                    //return "<strong>Frequency:</strong> <span style='color:red'>" + d.frequency + "</span>";
+             });
+
             var svg = d3.select(element.find('.bar-chart')[0])
                         .attr("width", scope.width)
-                        .attr("height", scope.height)
+                        .attr("height", svgHeight)
                         .append("g")
                         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+            svg.call(tip);
 
 
             var x = d3.scale.linear()
@@ -55,7 +92,6 @@ app.directive('visBar', function() {
             var yAxis = d3.svg.axis().scale(y).orient('left');
 
 
-            var barHeight = y.rangeBand();
             var bars = svg.selectAll('.bar')
                 .data(data)
                 .enter().append("g")
@@ -63,11 +99,22 @@ app.directive('visBar', function() {
                     var offset = barHeight + i * barHeight / 0.5;
                     return "translate(0," + offset + ")";});
 
-            bars.append("rect")
+            var rects = bars.append("rect")
                 .attr("width", function (d) { return x(d[1]);})
                 .attr("height", barHeight)
-                .attr('class', 'bar');
-
+                .style('fill', barFill)
+                .on("mouseover", function(d, i) {
+                    d3.select(rects[0][i]).style('fill', highlightFill);
+                    if(tipOn) {
+                        tip.show(d);
+                    }
+                })
+                .on("mouseout", function(d, i) {
+                    d3.select(rects[0][i]).style('fill', barFill);
+                    if(tipOn) {
+                        tip.hide(d);
+                    }
+                });
 
             bars.append("text")
                 .attr("x", function(d) {return x(d[1]) + 2;})
@@ -75,13 +122,8 @@ app.directive('visBar', function() {
                 .attr("dy", ".35em")
                 .text(function(d) {return d[2]});
 
-
-
-
-
-
-            var xAxisGroup = svg.append('g').
-                attr('class', 'x axis')
+            var xAxisGroup = svg.append('g')
+                .attr('class', 'x axis')
                 .call(xAxis)
                 .append("text")
                 .attr("text-anchor", "end")
@@ -91,121 +133,6 @@ app.directive('visBar', function() {
 
             var yAxisGroup = svg.append('g').attr('class', 'y axis').call(yAxis);
 
-
-
-
-
-
-/*
-			scope.chartData = [];
-			scope.chartDataTwo = [];
-
-			var parseDate = d3.time.format('%Y-%m-%d').parse;
-
-			for (var i in scope.data) {
-				scope.chartData.push({ date: parseDate(scope.data[i].x), close: scope.data[i].y });
-			}
-			for (var i in scope.data) {
-				scope.chartDataTwo.push({ date: parseDate(scope.data[i].x), close: (scope.data[i].y + 10) });
-			}
-
-			var margin = { top: 40, right: 40, bottom: 60, left: 100 },
-				width = 960 - margin.left - margin.right,
-				height = 500 - margin.top - margin.bottom;
-
-			var x = d3.time.scale()
-				.range([0, width]);
-
-			var y = d3.scale.linear()
-				.domain([0, d3.max(scope.chartData, function(d) { return d.close })])
-				.range([height, 0]);
-
-			var xAxis = d3.svg.axis()
-				.scale(x)
-				.ticks(d3.time.day, 1)
-				.tickFormat(d3.time.format('%d-%m-%Y'))
-				.orient('bottom');
-
-			var yAxis = d3.svg.axis()
-				.scale(y)
-				.orient('left');
-
-			var line = d3.svg.line()
-				.x(function(d) { return x(d.date) })
-				.y(function(d) { return y(d.close) });
-
-			var svg = d3.select(element.find('.bar-chart')[0])
-				.attr('width', width + margin.left + margin.right)
-				.attr('height', height + margin.top + margin.bottom)
-				.append('g')
-				.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-
-			x.domain(d3.extent(scope.chartData, function(d) { return d.date }));
-
-			svg.append('g')
-				.attr('class', 'x axis')
-				.attr('transform', 'translate(0,' + height + ')')
-				.call(xAxis);
-
-			svg.append('g')
-				.attr('class', 'y axis')
-				.call(yAxis)
-				.append('text')
-				.attr('transform', 'rotate(-90)')
-				.attr('y', -50)
-				.attr('x', -150)
-				.attr('dy', '.71em')
-				.style('text-anchor', 'end')
-				.text('Num. Registration');
-
-			svg.append('path')
-				.datum(scope.chartData)
-				.attr('class', 'line')
-				.attr('d', line);
-
-			svg.append('path')
-				.datum(scope.chartDataTwo)
-				.attr('class', 'line')
-				.attr('d', line);
-
-			svg.selectAll('circle')
-				.data(scope.chartData)
-				.enter().append('circle')
-				.attr('class', 'point')
-				.attr('cx', function(d) { return x(d.date) })
-				.attr('cy', function(d) { return y(d.close) })
-				.attr('r', 3)
-				.on('mouseover', function(d) {
-					var chartTip = $($(this).closest('vis-line').find('.tip')[0]);
-					var dateFormat = d3.time.format('%Y-%m-%d').parse;
-
-					chartTip.css('left', (event.clientX + 15) + 'px' );
-					chartTip.css('top', (event.clientY - 45) + 'px');
-
-					chartTip.html(
-						'<dl>' +
-							'<dt>Date:</dt><dd>' + ('0' + d.date.getDate()).slice(-2) + '-' + ('0' + (d.date.getMonth()+1)).slice(-2) + '-' + d.date.getFullYear() + '</dd>' +
-							'<dt>Registrations:</dt><dd>' + d.close + '</dd>' +
-						'</dl>'
-					);
-					chartTip.fadeIn(100);
-
-					d3.select(this)
-						.transition()
-						.duration(200)
-						.attr('r', 5);
-				})
-				.on('mouseout', function() {
-					var chartTip = $($(this).closest('vis-line').find('.tip')[0]);
-
-					chartTip.fadeOut(50);
-
-					d3.select(this)
-						.transition()
-						.duration(200)
-						.attr('r', 3);
-				});
-				*/
 		}
 	};
 });
