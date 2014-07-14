@@ -25,10 +25,10 @@ app.directive('visBar', function() {
             //console.log(scope.option);
             var data = scope.data;
 
-            var countries = []
+            var yticks = [];
             var maxPercentage = 0;
             for(var i = 0; i < data.length; i++)  {
-                countries.push(data[i][0]);
+                yticks.push(data[i][0]);
                 if(data[i][1] > maxPercentage) {
                     maxPercentage = data[i][1];
                 }
@@ -55,12 +55,12 @@ app.directive('visBar', function() {
             var width = scope.width - margin.right - margin.left,
                 height = scope.height - margin.top - margin.bottom;
 
-            var barHeight = height/(countries.length * 2 + 1);
+            var barHeight = height/(yticks.length * 2 + 1);
             var svgHeight = scope.height;
             /* adjust the height of svg if the bar is too narrow */
             if (barHeight < minBarHeight) {
                 barHeight = minBarHeight;
-                svgHeight = minBarHeight * (countries.length *2 +1) + margin.top + margin.bottom;
+                svgHeight = minBarHeight * (yticks.length *2 +1) + margin.top + margin.bottom;
                 height = svgHeight - margin.top - margin.bottom;
             }
 
@@ -87,7 +87,7 @@ app.directive('visBar', function() {
             var xAxis = d3.svg.axis().scale(x).orient('top');
 
             var y = d3.scale.ordinal()
-                .domain(countries)
+                .domain(yticks)
                 .rangeBands([0, height],.5);
             var yAxis = d3.svg.axis().scale(y).orient('left');
 

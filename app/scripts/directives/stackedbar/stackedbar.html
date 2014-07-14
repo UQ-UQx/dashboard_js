@@ -1,10 +1,23 @@
 <meta charset="utf-8">
 <style>
 .axis path,
-.axis line {
+.axis line,
+.rule line {
 	fill: none;
 	stroke: #000;
 	shape-rendering: crispEdges;
+}
+
+.rule line {
+	fill: none;
+	stroke: #999;
+	shape-rendering: crispEdges;
+}
+
+.axisname {
+    font-size: 18px;
+    fill: #333;
+    text-anchor: middle;
 }
 
 .d3-tip {
@@ -38,4 +51,4 @@
 
 </style>
 <div class="tip"></div>
-<svg class="bar-chart"></svg>
+<svg class="stackedbar-chart"></svg>
