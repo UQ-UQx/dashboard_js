@@ -1,1 +1,135 @@
-<p>This is the status view.</p>
+
+<style>
+    h1 {
+        font-weight:200;
+        color:#4A105A;
+        margin-left:20px;
+    }
+    h2, h3 {
+        font-size:140%;
+    }
+    div#services {
+        overflow: auto;
+        padding-top: 20px;
+        padding:20px;
+    }
+
+    div.service {
+        border: 1px solid #333;
+        border-radius: 5px;
+        margin-bottom:20px;
+        background:#fff;
+    }
+
+    div.service dl {
+        margin: 10px 20px;
+    }
+
+    h2 {
+        margin-left: 17px;
+        margin-bottom:1px;
+    }
+
+    h4 {
+        text-align: center;
+        font-weight:200;
+    }
+
+    h4 span {
+        font-size:80%;
+    }
+
+    div.service dd {
+        text-transform: capitalize;
+    }
+
+    div.service_running h4, div.service_running dd {
+        color: green;
+    }
+
+    div.service_stopped h4, div.service_stopped dd {
+        color: red;
+    }
+    div.service div.progress {
+        margin:20px;
+    }
+    div.service dt {
+        width:120px;
+    }
+    div.service dd {
+        margin-left:130px;
+    }
+    div.service dd.action {
+        height:50px;
+        overflow-y:scroll;
+    }
+    div.progress {
+        background:#666666;
+    }
+    div#actions {
+        padding:20px;
+        margin-left:10px;
+    }
+    div#status {
+        background:#fafafa;
+        border-top:1px solid #eee;
+        margin-top:20px;
+        padding:10px;
+    }
+</style>
+<div id="status">
+<h2>Service Status</h2>
+<div id="status">
+    <h2>Service Status</h2>
+        <div id="services"></div>
+    <h2>Data Collections Status</h2>
+        <div id="services"></div>
+</div>
+    <p><h2>Actions</h2></p>
+    <div id="actions">
+        <a href="/dashboard/dashboard/copysql" class="btn btn-primary pushleft">Copy Latest SQL from QCloud for Injection</a>
+        <a href="/dashboard/dashboard/copyclickstream" class="btn btn-primary pushleft">Copy Latest Clickstream from QCloud for Injection</a>
+        <a href="/dashboard/dashboard/copyforumdata" class="btn btn-primary pushleft">Copy Latest Forum Data from QCloud for Injection</a>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        window.setInterval(function () {
+            reloadData()
+        }, 5000);
+        reloadData();
+    });
+    function reloadData() {
+        $.ajax({
+            url: 'http://uqxdev.com:8850/status',
+            success: function (data) {
+                $('#services').html('');
+                for (var app in data.response) {
+                    var list = '<dl class="dl-horizontal">';
+                    var status = data.response[app];
+                    list += '<dt>Status: </dt><dd>' + status['status'] + '</dd>';
+                    list += '<dt>Last Action Run: </dt><dd>' + status['actiontime'] + '</dd>';
+                    if (status['status'] == 'sleeping') {
+                        list += '<dt>Last Time Awake: </dt><dd>' + status['lastawake'] + '</dd>';
+                    }
+                    list += '<dt>Action: </dt><dd class="action">' + status['action'] + '</dd>';
+                    list += '</dl>';
+                    var progress = ' (' + status['progress']['current'] + '/' + status['progress']['total'] + ')';
+                    if (status['progress']['total'] == 0) {
+                        status['progress']['current'] = 1;
+                        status['progress']['total'] = 1;
+                        progress = '';
+                    }
+                    var percentage = Math.round(status['progress']['current'] / status['progress']['total'] * 100);
+                    list +=
+                            '<div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="' + status['progress']['current'] + '" aria-valuemin="0" aria-valuemax="' + status['progress']['total'] + '" style="width: ' + percentage + '%;">' + progress + ' ' + percentage + '%</div></div>';
+                    var service = $('<div class="col-md-4"><div class="service service_' + status['status'] + '"><h4><span class="glyphicon glyphicon-tasks"></span> ' + status['name'] + '</h4>' + list + '</div></div>');
+                    $('#services').append(service);
+                }
+            },
+            error: function (data) {
+                $('#services').html('<div class="alert alert-danger">Error: Could not connect to services</div>');
+            }
+        });
+    }
+</script>
