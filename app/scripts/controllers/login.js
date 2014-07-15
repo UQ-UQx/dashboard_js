@@ -14,11 +14,12 @@ angular.module('dashboardJsApp')
     	password: '',
     };
 
+    console.log($scope);
+
     $scope.login = function(credentials) {
-        console.log(credentials);
     	AuthService.login(credentials).then(function(user) {
     		$rootScope.$broadcast(AUTHEVENTS.loginSuccess);
-    		$rootScope.setCurrentUser(user);
+            $scope.$modalCancel();
     	}, function() {
     		$rootScope.$broadcast(AUTHEVENTS.loginFailed);
     	});

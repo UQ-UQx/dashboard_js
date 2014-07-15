@@ -9,13 +9,16 @@
  */
 angular.module('dashboardJsApp')
 	.service('Session', function Session() {
-		this.create = function(sessionId, userId) {
-			this.id = sessionId;
+		this.create = function(authHeader, userId, userPass) {
+			this.authHeader = authHeader;
 			this.userId = userId;
+			this.userPass = userPass;
 		};
+
 		this.destroy = function() {
-			this.id = null;
+			this.authHeader = null;
 			this.userId = null;
+			this.userPass = null;
 		};
 
 		return this;

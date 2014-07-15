@@ -8,7 +8,7 @@
  * Controller of the dashboardJsApp
  */
 
-angular.module('dashboardJsApp').factory('requestService', function($http) {
+angular.module('dashboardJsApp').factory('requestService', ['$http', 'Session', function($http, Session) {
   var myService = {
     async: function(url) {
       // $http returns a promise, which has a then function, which also returns a promise
@@ -21,4 +21,4 @@ angular.module('dashboardJsApp').factory('requestService', function($http) {
     }
   };
   return myService;
-});
+}]);
