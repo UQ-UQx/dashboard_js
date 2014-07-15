@@ -34,10 +34,22 @@ Install NPM (Ubuntu)
 ```bash
 sudo apt-get install npm
 ```
-Configure javascript libraries
+Fix NPM (Ubuntu 12.04 or older)
 ```bash
-npm install -g yeo grunt-cli bower
+sudo apt-get install python-software-properties
+sudo add-apt-repository ppa:chris-lea/node.js
+sudo apt-get update
+sudo apt-get install nodejs
+```
+Configure javascript npm libraries
+```bash
+npm install -g yo grunt-cli bower
 npm install -g generator-angular
+```
+Install javascript packages
+```bash
+cd [BASE_PATH]
+bower install
 ```
 Configure the web server to use the [BASE_PATH] as the web root
 
