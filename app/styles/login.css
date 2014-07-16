@@ -1,8 +1,11 @@
 .login-form button {
-	margin-top: 15px;
 	float: right;
 }
 
 .login-form {
-	height: 150px;
+	height: 170px;
+}
+
+.login-form input {
+	margin-bottom: 15px;
 }

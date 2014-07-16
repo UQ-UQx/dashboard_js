@@ -8,7 +8,9 @@
  * Controller of the dashboardJsApp
  */
 angular.module('dashboardJsApp')
-	.controller('Visualisation_enrolment_Ctrl', function ($scope) {
+	.controller('Visualisation_enrolment_Ctrl', ['$scope', 'requestService', function ($scope, requestService) {
+        
+
 		$scope.newRegData = [{
     		name: 'Total' ,
     		data: [{ date: '1987-01-04', value: 5 }, { date: '1987-01-05', value: 20 }, { date: '1987-01-06', value: 10 }, { date: '1987-01-07', value: 40 }, { date: '1987-01-08', value: 5 }, { date: '1987-01-09', value: 60 }]
@@ -36,4 +38,4 @@ angular.module('dashboardJsApp')
     		name: 'Yet Another',
     		data: [{ date: '1987-01-02', value: 10 }, { date: '1987-01-05', value: 20 }, { date: '1987-01-06', value: 5 }, { date: '1987-01-07', value: 16 }, { date: '1987-01-08', value: 15 }, { date: '1987-01-09', value: 45 }]
     	}];
-  	});
+  	}]);

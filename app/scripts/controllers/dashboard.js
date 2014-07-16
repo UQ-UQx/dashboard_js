@@ -8,25 +8,25 @@
  * Controller of the dashboardJsApp
  */
 angular.module('dashboardJsApp')
-    .controller('DashboardCtrl', ['$scope','$http','requestService', function ($scope, $http, requestService) {
-        $scope.awesomeThings = [
-            'HTML5 Boilerplate',
-            'AngularJS',
-            'Karma'
-        ];
-
+    .controller('DashboardCtrl', ['$scope','$http','requestService', 'AuthService', function ($scope, $http, requestService, AuthService) {
         $scope.currentCourse = 'UQx_BIOIMG101x_1T2014';
         $scope.currentVisualisation = '';
+        $scope.auth = AuthService;
 
         $scope.visualisationsList = [];
         $http.get('visualisations.json').then(function(res){
-            console.log(res.data);
             $scope.visualisationsList = res.data;
         });
 
-
         $scope.coursesList = [];
-        requestService.async('http://localhost/courses.php').then(function(d) {
-            $scope.coursesList = d.response;
+
+        $scope.$watch('auth.isAuthenticated()', function() {
+            console.log($scope.auth.isAuthenticated());
+            if ($scope.auth.isAuthenticated()) {
+                requestService.async('http://api.uqxdev.com/api/meta/courses/').then(function(d) {
+                    $scope.coursesList = d;
+                    console.log(d);
+                });
+            }
         });
     }]);

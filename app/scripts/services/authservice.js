@@ -59,5 +59,9 @@ angular.module('dashboardJsApp')
 			return 1;
 		};
 
+        authService.currentUser = function() {
+            
+        };
+
 		return authService;
 	}]);
