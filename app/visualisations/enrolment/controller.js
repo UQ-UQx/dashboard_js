@@ -8,7 +8,7 @@
  * Controller of the dashboardJsApp
  */
 angular.module('dashboardJsApp')
-	.controller('Visualisation_enrolment_Ctrl', ['$scope', 'requestService', function ($scope, requestService) {
+	.controller('Visualisation_enrolment_Ctrl', ['$scope', 'RequestService', function ($scope, RequestService) {
         
 
 		$scope.newRegData = [{

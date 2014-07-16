@@ -9,7 +9,7 @@
  */
 
 angular.module('dashboardJsApp')
-	.factory('requestService', ['$http', 'Session', function($http, Session) {
+	.factory('RequestService', ['$http', 'AuthService', function($http, AuthService) {
 		return {
 			async: function(url) {
     			// $http returns a promise, which has a then function, which also returns a promise
@@ -17,7 +17,7 @@ angular.module('dashboardJsApp')
     				url: url,
     				type: 'GET',
     				headers: {
-    					'Authorization': Session.authHeader
+    					'Authorization': AuthService.getAuthHeader()
     				}
       			}).then(function (response) {
         			// The return value gets picked up by the then in the controller.

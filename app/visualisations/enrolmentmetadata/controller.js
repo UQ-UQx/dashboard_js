@@ -8,7 +8,7 @@
  * Controller of the dashboardJsApp
  */
 angular.module('dashboardJsApp')
-    .controller('Visualisation_enrolmentmetadata_Ctrl', ['$scope', 'requestService', function ($scope, requestService) {
+    .controller('Visualisation_enrolmentmetadata_Ctrl', ['$scope', 'RequestService', function ($scope, RequestService) {
 
 //        requestService.async('http://localhost/testdata.php').then(function(d) {
 //            $scope.data = d;
