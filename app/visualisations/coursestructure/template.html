@@ -1,0 +1,57 @@
+<style type="text/css">
+	div#inner li {
+		list-style-type: none;
+	}
+
+	div#inner li strong {
+		display: block;
+		padding: 4px;
+		padding-left: 10px;
+		border: 1px solid #bbb;
+		background: #fafafa;
+		margin-bottom: 3px;
+	}
+
+	div#inner li strong em {
+		float: right;
+		font-style: normal;
+		font-weight: normal;
+		margin-right: 5px;
+	}
+
+	div#inner li a:hover {
+		text-decoration: none;
+		cursor: pointer;
+		cursor: hand;
+	}
+	div#inner #raw {
+		margin-top:70px;
+	}
+</style>
+
+<div id="innercontent">
+	<form class="navbar-form navbar-left" role="search">
+		<div class="input-group">
+			<span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+			<input type="text" id='searchbox' class="form-control" placeholder="Search">
+		</div>
+	</form>
+	<div id="raw"></div>
+</div>
+
+<div class="modal fade" id="data_modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Mozdal title</h4>
+			</div>
+			<div class="modal-body">
+				<p>One fine body&hellip;</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>

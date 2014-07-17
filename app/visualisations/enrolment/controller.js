@@ -9,8 +9,8 @@
  */
 angular.module('dashboardJsApp')
 	.controller('Visualisation_enrolment_Ctrl', ['$scope', 'RequestService', 'Course', function ($scope, RequestService, Course) {
-        $scope.normalData = null;
-        $scope.aggregateData = null;
+        $scope.normalData = [];
+        $scope.aggregateData = [];
         $scope.course = Course;
 
         $scope.formatData = function() {
