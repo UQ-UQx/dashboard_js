@@ -21,6 +21,7 @@
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
+    <link rel="stylesheet" href="styles/login.css">
   </head>
   <body ng-app="dashboardJsApp">
     <!--[if lt IE 7]>
@@ -29,6 +30,9 @@
 
     <!-- Add your site or application content here -->
     <div ng-controller="AppCtrl">
+
+    <div ng-controller="TestCtrl">
+    </div>
     {{testing}}
     {{state}}
     <header>
@@ -36,7 +40,7 @@
         <img src="https://online.ceit.uq.edu.au/sites/all/themes/uqx_ceit_bartik/images/uq-logo.png" alt="Home">
         <img src="https://online.ceit.uq.edu.au/sites/all/themes/uqx_ceit_bartik/uqx-logo.png" alt="Home">
         <p id="title">DASHBOARD</p>
-        <p id="user_welcome">Welcome uqadekke</p>
+        <p id="user_welcome">Welcome, {{currentUser}}</p>
       </a>
     </header>
     <nav id="nav" class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
@@ -133,7 +137,7 @@
         <script src="scripts/controllers/dashboard.js"></script>
         <script src="scripts/controllers/explorer.js"></script>
         <script src="scripts/controllers/status.js"></script>
-        <script src="scripts/services/authservice.js"></script>
+        <script src="scripts/services/auth.js"></script>
         <script src="scripts/controllers/login.js"></script>
         <script src="scripts/services/authevents.js"></script>
         <script src="scripts/services/session.js"></script>

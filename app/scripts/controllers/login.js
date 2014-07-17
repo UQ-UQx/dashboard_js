@@ -15,12 +15,13 @@ angular.module('dashboardJsApp')
     };
 
     $scope.login = function(credentials) {
-        console.log(credentials);
     	AuthService.login(credentials).then(function(user) {
-    		$rootScope.$broadcast(AUTHEVENTS.loginSuccess);
-    		$rootScope.setCurrentUser(user);
+            // Login Success
+    		//$rootScope.$broadcast(AUTHEVENTS.loginSuccess);
+            $scope.$modalCancel();
     	}, function() {
-    		$rootScope.$broadcast(AUTHEVENTS.loginFailed);
+            // Login Fail
+    		//$rootScope.$broadcast(AUTHEVENTS.loginFailed);
     	});
     };
   }]);

@@ -19,7 +19,8 @@ var app = angular
 		'ngTouch',
 		'ui.router',
 		'fundoo.services',
-		'base64'
+		'base64',
+		'ngCookies',
 	])
 	.config(function ($stateProvider, $urlRouterProvider) {
 		$stateProvider
@@ -48,26 +49,38 @@ var app = angular
 
 		$urlRouterProvider.otherwise('dashboard');
   	})
-	.controller('AppCtrl', ['$scope', '$state', 'createDialog', 'AuthService', function($scope, $state, createDialogService, AuthService) {
+	.controller('AppCtrl', ['$scope', '$state', 'createDialog', 'AuthService', 'Session', function($scope, $state, createDialogService, AuthService, Session) {
 		$scope.$state = $state;
 		$scope.currentUser = null;
 		$scope.isAuthorised = AuthService.isAuthorised;
+		$scope.currentSession = Session;
 
-		$scope.setCurrentUser = function(user) {
-			$scope.currentUser = user;
-		};
+		//$scope.$watch(Sessio
+		$scope.$watch('currentSession.authHeader', function() {
+			$scope.currentUser = $scope.currentSession.userId;
+		});
 
 		$scope.launchLoginModal = function() {
 			createDialogService({
 				id: 'loginDialog',
 				templateUrl: 'views/login.html',
 				title: 'Login',
-				success: {},
-				cancel: {},
-				footerTemplate: false,
+				footerTemplate: '<div></div>',
 				backdrop: true,
+				controller: 'LoginCtrl',
+				css: {
+        			top: '100px',
+        			margin: '0 auto'
+      			}
 			});
 		};
 
+		console.log(Session);
+
 		$scope.launchLoginModal();
+		console.log($scope);
+	}])
+	.controller('TestCtrl', ['$scope', '$rootScope', function($scope, $rootScope) {
+		console.log($scope);
+		console.log($rootScope);
 	}]);

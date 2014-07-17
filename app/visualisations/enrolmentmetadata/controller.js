@@ -46,5 +46,4 @@ angular.module('dashboardJsApp')
             {label: "honor", value: 4142},
             {label: "verified", value: 33},
         ];
-
   }]);
