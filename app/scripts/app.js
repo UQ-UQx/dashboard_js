@@ -41,23 +41,23 @@ var app = angular
 			})
 			.state('dashboard.visualisation', {
 				url: '/:visualisation/:course',
-				//templateUrl: 'visualisations/enrolmentmetadata/template.html',
-				templateUrl: function(stateParams) { return 'visualisations/'+stateParams.visualisation+'/template.html'; },
+				templateUrl: function(stateParams) { return 'visualisations/' + stateParams.visualisation+'/template.html'; },
 				controllerProvider: function($stateParams) { return 'Visualisation_' + $stateParams.visualisation + '_Ctrl'; },
-				//controller: 'VisualisationEnrolmentmetadataCtrl'
 			});
 
 		$urlRouterProvider.otherwise('dashboard');
   	})
-	.controller('AppCtrl', ['$scope', '$state', 'createDialog', 'AuthService', 'Session', function($scope, $state, createDialogService, AuthService, Session) {
+	.controller('AppCtrl', ['$scope', '$state', 'createDialog', 'AuthService', function($scope, $state, createDialogService, AuthService) {
 		$scope.$state = $state;
+		$scope.$watch('state', function() {
+			console.log($scope.state);
+		});
 		$scope.currentUser = null;
-		$scope.isAuthorised = AuthService.isAuthorised;
-		$scope.currentSession = Session;
+		$scope.auth = AuthService;
+		$scope.isAuthorised = $scope.auth.isAuthenticated();
 
-		//$scope.$watch(Sessio
-		$scope.$watch('currentSession.authHeader', function() {
-			$scope.currentUser = $scope.currentSession.userId;
+		$scope.$watch('auth.isAuthenticated()', function() {
+			$scope.currentUser = $scope.auth.getUserId();
 		});
 
 		$scope.launchLoginModal = function() {
@@ -75,12 +75,5 @@ var app = angular
 			});
 		};
 
-		console.log(Session);
-
 		$scope.launchLoginModal();
-		console.log($scope);
-	}])
-	.controller('TestCtrl', ['$scope', '$rootScope', function($scope, $rootScope) {
-		console.log($scope);
-		console.log($rootScope);
 	}]);

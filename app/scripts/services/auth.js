@@ -18,7 +18,7 @@ angular.module('dashboardJsApp')
 
     	authService.login = function(credentials) {
             return $http({
-                url: 'http://api.uqxdev.com/',
+                url: 'http://api.uqxdev.com/api/',
                 method: 'GET',
                 headers: {
                     'Authorization': 'Basic ' + $base64.encode(credentials.username + ':' + credentials.password),
@@ -42,6 +42,10 @@ angular.module('dashboardJsApp')
 
         authService.getAuthHeader = function() {
             return (Session.authHeader ? Session.authHeader : '');
+        };
+
+        authService.getUserId = function() {
+            return (Session.userId ? Session.userId : '');
         };
 
 		return authService;

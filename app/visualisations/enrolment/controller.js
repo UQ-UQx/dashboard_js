@@ -8,34 +8,30 @@
  * Controller of the dashboardJsApp
  */
 angular.module('dashboardJsApp')
-	.controller('Visualisation_enrolment_Ctrl', ['$scope', 'RequestService', function ($scope, RequestService) {
-        
+	.controller('Visualisation_enrolment_Ctrl', ['$scope', 'RequestService', 'Course', function ($scope, RequestService, Course) {
+        $scope.normalData = null;
+        $scope.aggregateData = null;
+        $scope.course = Course;
 
-		$scope.newRegData = [{
-    		name: 'Total' ,
-    		data: [{ date: '1987-01-04', value: 5 }, { date: '1987-01-05', value: 20 }, { date: '1987-01-06', value: 10 }, { date: '1987-01-07', value: 40 }, { date: '1987-01-08', value: 5 }, { date: '1987-01-09', value: 60 }]
-    	}, {
-    		name: 'Still Enrolled',
-    		data: [{ date: '1987-01-04', value: 15 }, { date: '1987-01-05', value: 10 }, { date: '1987-01-06', value: 40 }, { date: '1987-01-07', value: 30 }, { date: '1987-01-08', value: 5 }, { date: '1987-01-09', value: 15 }]
-    	}, {
-    		name: 'Another Line',
-    		data: [{ date: '1987-01-04', value: 20 }, { date: '1987-01-05', value: 30 }, { date: '1987-01-06', value: 20 }, { date: '1987-01-07', value: 22 }, { date: '1987-01-08', value: 13 }, { date: '1987-01-09', value: 14 }]
-    	}, {
-    		name: 'Yet Another',
-    		data: [{ date: '1987-01-02', value: 10 }, { date: '1987-01-05', value: 20 }, { date: '1987-01-06', value: 5 }, { date: '1987-01-07', value: 16 }, { date: '1987-01-08', value: 15 }, { date: '1987-01-09', value: 45 }]
-    	}];
+        $scope.formatData = function() {
+            if ($scope.auth.isAuthenticated()) {
+                RequestService.async('http://api.uqxdev.com/api/students/dates/' + Course.currentCourse + '/').then(function(data) {
+                    var formattedNormalData = [{ name: 'Active', data: [] }, { name: 'Enrolled', data: [] }];
+                    var formattedAggregateData = [{ name: 'Aggregate Active', data: [] }, { name: 'Aggregate Enrolled', data: [] }];
 
-        $scope.blah = [{
-    		name: 'Total' ,
-    		data: [{ date: '1987-01-04', value: 5 }, { date: '1987-01-05', value: 20 }, { date: '1987-01-06', value: 10 }, { date: '1987-01-07', value: 40 }, { date: '1987-01-08', value: 5 }, { date: '1987-01-09', value: 60 }]
-    	}, {
-    		name: 'Still Enrolled',
-    		data: [{ date: '1987-01-04', value: 15 }, { date: '1987-01-05', value: 10 }, { date: '1987-01-06', value: 40 }, { date: '1987-01-07', value: 30 }, { date: '1987-01-08', value: 5 }, { date: '1987-01-09', value: 15 }]
-    	}, {
-    		name: 'Another Line',
-    		data: [{ date: '1987-01-04', value: 20 }, { date: '1987-01-05', value: 30 }, { date: '1987-01-06', value: 20 }, { date: '1987-01-07', value: 22 }, { date: '1987-01-08', value: 13 }, { date: '1987-01-09', value: 14 }]
-    	}, {
-    		name: 'Yet Another',
-    		data: [{ date: '1987-01-02', value: 10 }, { date: '1987-01-05', value: 20 }, { date: '1987-01-06', value: 5 }, { date: '1987-01-07', value: 16 }, { date: '1987-01-08', value: 15 }, { date: '1987-01-09', value: 45 }]
-    	}];
+                    for (var key in data) {
+                        formattedNormalData[0].data.push({ date: key, value: data[key].active });
+                        formattedNormalData[1].data.push({ date: key, value: data[key].enrolled });
+                        formattedAggregateData[0].data.push({ date: key, value: data[key].aggregate_active });
+                        formattedAggregateData[1].data.push({ date: key, value: data[key].aggregate_enrolled });
+                    }
+
+                    $scope.normalData = formattedNormalData;
+                    $scope.aggregateData = formattedAggregateData;
+                });
+            }
+        };
+
+        $scope.$watch('auth.isAuthenticated()', $scope.formatData());
+        $scope.$watch('course.currentCourse', $scope.formatData());
   	}]);

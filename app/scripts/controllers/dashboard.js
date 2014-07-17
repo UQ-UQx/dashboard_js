@@ -8,8 +8,8 @@
  * Controller of the dashboardJsApp
  */
 angular.module('dashboardJsApp')
-    .controller('DashboardCtrl', ['$scope','$http','RequestService', 'AuthService', function ($scope, $http, RequestService, AuthService) {
-        $scope.currentCourse = 'UQx_BIOIMG101x_1T2014';
+    .controller('DashboardCtrl', ['$scope','$http','RequestService', 'AuthService', 'Course', function ($scope, $http, RequestService, AuthService, Course) {
+        //$scope.currentCourse = 'bioimg_101x';
         $scope.currentVisualisation = '';
         $scope.auth = AuthService;
 
@@ -25,8 +25,18 @@ angular.module('dashboardJsApp')
             if ($scope.auth.isAuthenticated()) {
                 RequestService.async('http://api.uqxdev.com/api/meta/courses/').then(function(d) {
                     $scope.coursesList = d;
-                    console.log(d);
+                    Course.courseList = d;
+                    if (d.length) {
+                        $scope.currentCourse = d[0].id;
+                        Course.currentCourse = d[0].id;
+                    }
+
+                    console.log(Course.currentCourse);
                 });
             }
+        });
+
+        $scope.$watch('currentCourse', function() {
+            Course.currentCourse = $scope.currentCourse;
         });
     }]);
