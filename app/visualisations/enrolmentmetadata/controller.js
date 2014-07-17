@@ -8,7 +8,7 @@
  * Controller of the dashboardJsApp
  */
 angular.module('dashboardJsApp')
-    .controller('Visualisation_enrolmentmetadata_Ctrl', ['$scope', 'requestService', function ($scope, requestService) {
+    .controller('Visualisation_enrolmentmetadata_Ctrl', ['$scope', 'RequestService', function ($scope, RequestService) {
         $scope.age = [
             {label: "Less than 12", value: 22, comment: "Comment here"},
             {label: "12-15", value: 53},
