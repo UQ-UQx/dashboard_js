@@ -8,7 +8,42 @@
  * Controller of the dashboardJsApp
  */
 angular.module('dashboardJsApp')
-    .controller('Visualisation_enrolmentmetadata_Ctrl', ['$scope', 'RequestService', function ($scope, RequestService) {
-          $scope.data = {"total": 6117, "modes": {"audit": 1942, "verified": 33, "honor": 4142}, "modetypes": ["audit", "honor", "verified"], "gender": {"Male": 4753, "Other": 20, "Female": 495, "Unspecified": 849}, "age": {"12-15": 53, "19-22": 1632, "Less than 12": 22, "Unknown": 940, "23-25": 1097, "41-50": 281, "Over 50": 214, "26-30": 931, "16-18": 242, "31-40": 705}, "courses": {"Bioimg_101x": "UQx_BIOIMG101x_1T2014", "Sense_101x": "UQx_Sense101x_3T2014", "Tropic_101x": "UQx_TROPIC101x_1T2014", "default": "UQx_Think101x_1T2014", "Hypers_301x": "UQx_HYPERS301x_1T2014", "Write_101x": "UQx_Write101x_3T2014", "Crime_101x": "UQx_Crime101x_3T2014", "Think_101x": "UQx_Think101x_1T2014", "World_101x": "UQx_World101x_3T2014"}, "protected": false, "coursecode": "UQx/HYPERS301x/1T2014", "selectedcoursename": "Hypers_301x", "education": {"Masters": 991, "Middle school": 164, "Secondary school": 1738, "Associate": 153, "Unspecified": 902, "Bachelor": 1799, "Other": 144, "Primary school": 17, "Doctorate": 209}}
-    console.log("HELLO ENROLMENT METADATA");
+    .controller('Visualisation_enrolmentmetadata_Ctrl', ['$scope', 'requestService', function ($scope, requestService) {
+        $scope.age = [
+            {label: "Less than 12", value: 22, comment: "Comment here"},
+            {label: "12-15", value: 53},
+            {label: "16-18", value: 242},
+            {label: "19-22", value: 1632},
+            {label: "23-25", value: 1097},
+            {label: "26-30", value: 931},
+            {label: "31-40", value: 705},
+            {label: "41-50", value: 281},
+            {label: "Over 50", value: 214},
+            {label: "Unknown", value: 940},
+        ];
+
+        $scope.gender = [
+            {label: "Male", value: 4753},
+            {label: "Female", value: 495},
+            {label: "Other", value: 20},
+            {label: "Unspecified", value: 849},
+        ];
+
+
+        $scope.education = [
+            {label: "Primary school", value: 17},
+            {label: "Middle school", value: 164},
+            {label: "Secondary school", value: 1738},
+            {label: "Associate", value: 153},
+            {label: "Bachelor", value: 1799},
+            {label: "Master", value: 991},
+            {label: "Doctorate", value: 209},
+            {label: "Unspecified", value: 902},
+        ];
+
+        $scope.modes = [
+            {label: "audit", value: 1942},
+            {label: "honor", value: 4142},
+            {label: "verified", value: 33},
+        ];
   }]);

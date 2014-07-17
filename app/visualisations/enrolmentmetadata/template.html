@@ -11,23 +11,22 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6">
-            <h3>{{data.selectedcoursename }} Age Distribution</h3>
-            <vis-gpie data="data.age" style="margin:30px auto;"></vis-gpie>
+            <h3>{{data.selectedcoursename }} Age</h3>
+            <vis-pie data="age" width="550" height="550"></vis-pie>
         </div>
         <div class="col-md-6">
-            <h3>{{data.selectedcoursename }} Gender Distribution</h3>
-            <vis-gpie data="data.gender" style="margin:30px auto;" colors="['blue','orange','pink','#666666']"></vis-gpie>
+            <h3>{{data.selectedcoursename }} Gender</h3>
+            <vis-pie data="gender"  width="550" height="550"></vis-pie>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6">
-            <h3>{{data.selectedcoursename }} Education Distribution</h3>
-            <vis-pie data="data.education" style="margin:30px auto;"></vis-gpie>
+            <h3>{{data.selectedcoursename }} Education</h3>
+            <vis-pie data="education" width="550" height="550"></vis-pie>
         </div>
         <div class="col-md-6">
             <h3>User Enrolment Types</h3>
-            <vis-gpie data="data.modes" style="margin:30px auto;" colors="['red','blue','green','orange','yellow']"></vis-gpie>
-            <!--<vis-key-value data="data.modes"></vis-key-value>-->
+            <vis-pie data="modes" width="550" height="550"></vis-pie>
         </div>
     </div>
 </div>
