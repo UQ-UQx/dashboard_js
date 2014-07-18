@@ -1,0 +1,85 @@
+    div#status h1 {
+        font-weight:200;
+        color:#4A105A;
+        margin-left:20px;
+    }
+
+    div#status h2, h3 {
+        font-size:140%;
+    }
+
+    div#status div#services {
+        overflow: auto;
+        padding-top: 20px;
+        padding:20px;
+    }
+
+    div#status div.service {
+        border: 1px solid #333;
+        border-radius: 5px;
+        margin-bottom:20px;
+        background:#fff;
+    }
+
+    div#status div.service dl {
+        margin: 10px 20px;
+    }
+
+    div#status h2 {
+        margin-left: 17px;
+        margin-bottom:1px;
+    }
+
+    div#status h4 {
+        text-align: center;
+        font-weight:200;
+    }
+
+    div#status h4 span {
+        font-size:80%;
+    }
+
+    div#status div.service dd {
+        text-transform: capitalize;
+    }
+
+    div#status div.service_running h4, div.service_running dd {
+        color: green;
+    }
+
+    div#status div.service_stopped h4, div.service_stopped dd {
+        color: red;
+    }
+
+    div#status div.service div.progress {
+        margin:20px;
+    }
+
+    div#status div.service dt {
+        width:120px;
+    }
+
+    div#status div.service dd {
+        margin-left:130px;
+    }
+
+    div#status div.service dd.action {
+        height:50px;
+        overflow-y:scroll;
+    }
+
+    div#status div.progress {
+        background:#666666;
+    }
+
+    div#status div#actions {
+        padding:20px;
+        margin-left:10px;
+    }
+
+    div#status {
+        background:#fafafa;
+        border-top:1px solid #eee;
+        margin-top:20px;
+        padding:10px;
+    }

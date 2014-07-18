@@ -24,6 +24,13 @@ angular.module('dashboardJsApp')
             if ($scope.auth.isAuthenticated()) {
                 RequestService.async('http://api.uqxdev.com/api/meta/courses/').then(function(data) {
                     $scope.course.courseList = data;
+                    for(var i in $scope.course.courseList) {
+                        var shortName = $scope.course.courseList[i].name.split(" ");
+                        shortName.pop();
+                        shortName = shortName.join(" ");
+                        shortName = shortName.charAt(0).toUpperCase() + shortName.slice(1);
+                        $scope.course.courseList[i].shortName = shortName;
+                    }
                     if (data.length) {
                         $scope.course.currentCourse = data[0].id;
                     }
