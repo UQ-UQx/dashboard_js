@@ -21,6 +21,7 @@ var app = angular
 		'fundoo.services',
 		'base64',
 		'ngCookies',
+		'ipCookie',
 	])
 	.config(function ($stateProvider, $urlRouterProvider) {
 		$stateProvider
@@ -69,11 +70,15 @@ var app = angular
 				backdrop: true,
 				controller: 'LoginCtrl',
 				css: {
-        			top: '100px',
-        			margin: '0 auto'
-      			}
+					top: '100px',
+					margin: '0 auto'
+				}
 			});
 		};
 
-		$scope.launchLoginModal();
+		var token = AuthService.loadTokenCookie();
+
+		if (!token) {
+			$scope.launchLoginModal();
+		}
 	}]);

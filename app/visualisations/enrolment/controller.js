@@ -8,14 +8,16 @@
  * Controller of the dashboardJsApp
  */
 angular.module('dashboardJsApp')
-	.controller('Visualisation_enrolment_Ctrl', ['$scope', 'RequestService', 'Course', function ($scope, RequestService, Course) {
+	.controller('Visualisation_enrolment_Ctrl', ['$scope', 'RequestService', 'Course', 'AuthService', function ($scope, RequestService, Course, AuthService) {
         $scope.normalData = [];
         $scope.aggregateData = [];
         $scope.course = Course;
+        $scope.auth = AuthService;
 
         $scope.formatData = function() {
             if ($scope.auth.isAuthenticated()) {
-                RequestService.async('http://api.uqxdev.com/api/students/dates/' + Course.currentCourse + '/').then(function(data) {
+                RequestService.async('http://api.uqxdev.com/api/students/dates/' + Course.currentCourse + '/').then(function(response) {
+                    data = response.data
                     var formattedNormalData = [{ name: 'Active', data: [] }, { name: 'Enrolled', data: [] }];
                     var formattedAggregateData = [{ name: 'Aggregate Active', data: [] }, { name: 'Aggregate Enrolled', data: [] }];
 
@@ -32,6 +34,6 @@ angular.module('dashboardJsApp')
             }
         };
 
-        $scope.$watch('auth.isAuthenticated()', $scope.formatData());
+        //$scope.$watch('auth.isAuthenticated()', $scope.formatData());
         $scope.$watch('course.currentCourse', $scope.formatData());
   	}]);

@@ -20,7 +20,7 @@ angular.module('dashboardJsApp')
 			}
 
 			return courseIds;
-		}
+		};
 
 		this.getCourseNameFromId = function(courseId) {
 			for (var key in this.courseList) {

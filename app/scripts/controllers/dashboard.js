@@ -30,8 +30,8 @@ angular.module('dashboardJsApp')
         $scope.$watch('auth.isAuthenticated()', function() {
             if ($scope.auth.isAuthenticated()) {
                 RequestService.async('http://api.uqxdev.com/api/meta/courses/').then(function(data) {
-                    $scope.course.courseList = data;
-                    for(var i in $scope.course.courseList) {
+                    $scope.course.courseList = data.data;
+                    for (var i in $scope.course.courseList) {
                         var shortName = $scope.course.courseList[i].name.split(" ");
                         shortName.pop();
                         shortName = shortName.join(" ");
