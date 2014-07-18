@@ -31,15 +31,20 @@
 
     <!-- Add your site or application content here -->
     <div ng-controller="AppCtrl">
-    {{testing}}
-    {{state}}
     <header>
       <a ng-href="#" title="Home" rel="home" id="logo">
         <img src="https://online.ceit.uq.edu.au/sites/all/themes/uqx_ceit_bartik/images/uq-logo.png" alt="Home">
         <img src="https://online.ceit.uq.edu.au/sites/all/themes/uqx_ceit_bartik/uqx-logo.png" alt="Home">
         <p id="title">DASHBOARD</p>
       </a>
-      <p id="user_welcome" ng-if="'expanded':currentUser">Welcome, {{currentUser}} (<a href="#">Logout</a>)</p>
+      <div ng-switch on="!!currentUser">
+          <div ng-switch-when="true">
+              <p id="user_welcome">Welcome, {{currentUser}} (<a href="#">Logout</a>)</p>
+          </div>
+          <div ng-switch-default>
+              <p id="user_welcome"><a href="#">Login</a></p>
+          </div>
+      </div>
     </header>
     <nav id="nav" class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
         <ul class="nav navbar-nav">
