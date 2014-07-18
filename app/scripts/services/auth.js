@@ -18,20 +18,30 @@ angular.module('dashboardJsApp')
 
     	authService.login = function(credentials) {
             return $http({
-                url: 'http://api.uqxdev.com/api/',
-                method: 'GET',
-                headers: {
-                    'Authorization': 'Basic ' + $base64.encode(credentials.username + ':' + credentials.password),
-                },
+                url: 'http://api.uqxdev.com/api-token-auth/',
+                method: 'POST',
+                data: {
+                    'username': credentials.username,
+                    'password': credentials.password,
+                }
             }).then(function(res) {
+                console.log(res);
+
+                /*
                 var authHeaderSplit = res.config.headers.Authorization.split(' ');
                 var encodedCred = authHeaderSplit[1];
                 var decodedCred = $base64.decode(encodedCred);
                 var username = decodedCred.split(':')[0];
                 var password = decodedCred.split(':')[1];
 
-                Session.create(res.config.headers.Authorization, username, password);
+                Session.create(res.config.headers.Authorization, username, password); */
 
+
+
+
+                Session.create('', credentials.username, credentials.password, res.data.token);
+
+                //return username;
                 return username;
             });
     	};
@@ -41,7 +51,8 @@ angular.module('dashboardJsApp')
     	};
 
         authService.getAuthHeader = function() {
-            return (Session.authHeader ? Session.authHeader : '');
+            return (Session.token ? Session.token : '');
+            //return (Session.authHeader ? Session.authHeader : '');
         };
 
         authService.getUserId = function() {

@@ -11,11 +11,6 @@ angular.module('dashboardJsApp')
 	.controller('Visualisation_coursestructure_Ctrl', ['$scope', 'RequestService', 'Course', function ($scope, RequestService, Course) {
 		$scope.course = Course;
 
-		$scope.renderObj = function(obj) {
-			var coursedata = [];
-			var coursecontent = data;
-		};
-
 		$scope.formatData = function() {
 			if ($scope.auth.isAuthenticated()) {
 				RequestService.async('http://api.uqxdev.com/api/meta/structure/' + $scope.course.currentCourse + '/').then(function(data) {
@@ -34,10 +29,10 @@ angular.module('dashboardJsApp')
 						}
 
 						if (obj['url_name']) {
-							output += '<span class="hidden">'+obj['url_name']+'</span>';
+							output += '<span class="hidden">' + obj['url_name'] + '</span>';
 						}
 
-						output += ' <span class="data" data-index="' + dataindex + '"></span>'
+						output += '<span class="data" data-index="' + dataindex + '"></span>'
 						output += '</strong>';
 
 						if (obj['children'] && obj['children'].length > 0) {
