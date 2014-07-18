@@ -14,6 +14,12 @@ header p#title {
     color:#fff;
     left:314px;
 }
+header a {
+    color:#ccf;
+}
+header a {
+    color:#aaf;
+}
 header p#user_welcome {
     position:absolute;
     top:44px;
