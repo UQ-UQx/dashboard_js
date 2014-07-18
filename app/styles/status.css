@@ -83,3 +83,56 @@
         margin-top:20px;
         padding:10px;
     }
+
+
+
+    div#innercontent {
+        width:500px;
+    }
+
+    div#innercontent ul {
+        margin:0;
+        padding:0;
+        list-style-type:none;
+        font-size:8px;
+        text-align:center;
+    }
+    div#innercontent li {
+        list-style-type:none;
+        padding-top:8px;
+    }
+    div#innercontent li.type_course {
+        margin:10px;
+        border:1px solid #333;
+        background:#eeeeee;
+        font-size:10px;
+    }
+    div#innercontent li.type_chapter {
+        border:1px solid yellow;
+        background:#ffffdd;
+        font-size:10px;
+    }
+    div#innercontent li.type_sequential {
+        margin:10px;
+        border:1px solid #cccccc;
+        background:#eeeeee;
+        font-size:10px;
+    }
+    div#innercontent li.type_vertical {
+        margin:10px;
+        border:1px solid #aaaaaa;
+        background:#dddddd;
+        font-size:10px;
+    }
+    div#innercontent li.type_html {
+        background:#ddffdd;
+    }
+    div#innercontent li.type_video {
+        background:#ddddff;
+    }
+    div#innercontent li.type_problem {
+        background:#ffdddd;
+    }
+    div#innercontent li.type_problem ul {
+        display:none;
+    }

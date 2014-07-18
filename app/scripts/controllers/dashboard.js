@@ -9,10 +9,15 @@
  */
 angular.module('dashboardJsApp')
     .controller('DashboardCtrl', ['$scope','$http','RequestService', 'AuthService', 'Course', function ($scope, $http, RequestService, AuthService, Course) {
+
+        //Fix later
+
         $scope.currentVisualisation = '';
         $scope.currentVisualisationName = "No Visualisation Selected";
         $scope.auth = AuthService;
         $scope.course = Course;
+
+        $scope.course.currentCourse = 'hypers_301x_1T2014';
 
         $scope.visualisationsList = [];
         $http.get('visualisations.json').then(function(res){

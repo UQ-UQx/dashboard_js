@@ -15,10 +15,10 @@ angular.module('dashboardJsApp')
 			if ($scope.auth.isAuthenticated()) {
 				RequestService.async('http://api.uqxdev.com/api/meta/structure/' + $scope.course.currentCourse + '/').then(function(data) {
 					var coursedata = [];
-					var coursecontent = data;
+					var coursecontent = data.data;
 
 					function render_obj(obj) {
-						var output = '<li><a class="popup"><strong>';
+						var output = '<li class="type_'+obj['tag']+'"><a class="popup"><strong>';
 						coursedata.push(obj);
 						var dataindex = coursedata.length - 1;
 
@@ -48,7 +48,7 @@ angular.module('dashboardJsApp')
 						return output;
 					}
 
-					var output = render_obj(coursecontent);
+					var output = '<ul>'+render_obj(coursecontent)+'</ul>';
 
 					console.log(coursedata);
 					console.log(coursedata.length);
