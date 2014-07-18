@@ -20,54 +20,12 @@ angular.module('dashboardJsApp')
 						'Authorization': 'JWT ' + AuthService.getToken(),
 					}
 				})
-			/*	.success(function(data, status, header, config)) {
-					promise.then(function(response)) {
-						return(response);
-					});
-
-					return promise;
-				}) */
-				.success(function(data, status, headers, config) {
-
-				})
-				/*.then(function(response) {
+				.then(function(response) {
 					return response.data;
-				}); */
-
-
-/*
-				.success = function(fn) {
-   					promise.then(function(response) {
-      					fn(response.data, response.status, response.headers, config);
-    				});
-    				return promise;
-				};  */
-
-				.error(function(data, status, headers, config) {
-					//console.log(status);
-
-					if (status === 401) {
-					/*	var launchLoginModal = function() {
-							createDialogService({
-								id: 'loginDialog',
-								templateUrl: 'views/login.html',
-								title: 'Login',
-								footerTemplate: '<div></div>',
-								backdrop: true,
-								controller: 'LoginCtrl',
-								css: {
-									top: '100px',
-									margin: '0 auto'
-								}
-							});
-						};
-
-						launchLoginModal(); */
-
+				}, function(response) {
+					if (response.status === 401) {
 						AuthService.deleteToken();
-					}
-
-					return data;
+					}					
 				});
 
 				// Return the promise to the controller
