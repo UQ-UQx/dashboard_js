@@ -3,22 +3,29 @@
 /**
  * @ngdoc function
  * @name dashboardJsApp.controller:MainCtrl
- * @description
+ * @description'
  * # MainCtrl
  * Controller of the dashboardJsApp
  */
 angular.module('dashboardJsApp')
     .controller('DashboardCtrl', ['$scope','$http','RequestService', 'AuthService', 'Course', function ($scope, $http, RequestService, AuthService, Course) {
         $scope.currentVisualisation = '';
+        $scope.currentVisualisationName = "No Visualisation Selected";
         $scope.auth = AuthService;
         $scope.course = Course;
 
         $scope.visualisationsList = [];
         $http.get('visualisations.json').then(function(res){
             $scope.visualisationsList = res.data;
+            console.log(res.data);
         });
 
         $scope.courseList = [];
+
+        $scope.changeVisualisation = function(newVisualisation) {
+            $scope.currentVisualisation = newVisualisation.id;
+            $scope.currentVisualisationName = newVisualisation.name;
+        }
 
         $scope.$watch('auth.isAuthenticated()', function() {
             if ($scope.auth.isAuthenticated()) {
