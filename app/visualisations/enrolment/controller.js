@@ -16,6 +16,7 @@ angular.module('dashboardJsApp')
 
         $scope.formatData = function() {
             if ($scope.auth.isAuthenticated()) {
+                console.log("HELLO WORLD");
                 RequestService.async('http://api.uqxdev.com/api/students/dates/' + Course.currentCourse + '/').then(function(data) {
                     var formattedNormalData = [{ name: 'Active', data: [] }, { name: 'Enrolled', data: [] }];
                     var formattedAggregateData = [{ name: 'Aggregate Active', data: [] }, { name: 'Aggregate Enrolled', data: [] }];

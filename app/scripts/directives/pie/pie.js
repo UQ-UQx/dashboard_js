@@ -141,7 +141,7 @@ app.directive('visPie', function ($window) {
                         return d.value;
                     }
                     else {
-                        return '.';
+                        return ' ';
                     }
                 })
                 .attr("fill", function(d, i) {
