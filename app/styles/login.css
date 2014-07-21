@@ -9,3 +9,15 @@
 .login-form input {
 	margin-bottom: 15px;
 }
+
+.login-form .login-message {
+	float: left;
+}
+
+.login-form .login-message.login-success {
+	color: green;
+}
+
+.login-form .login-message.login-failed {
+	color: red;
+}

@@ -3,5 +3,5 @@
 	<input type="text" id="username" ng-model="credentials.username" class="form-control"/>
 	<label for="password">Password:</label>
 	<input type="password" id="password" ng-model="credentials.password" class="form-control"/>
-	<button class="btn btn-primary"type="submit">Login</button>
+	<div class="login-message" ng-class="messageClass">{{message}}</div><button class="btn btn-primary"type="submit">Login</button>
 </form>

@@ -9,19 +9,22 @@
  */
 angular.module('dashboardJsApp')
   .controller('LoginCtrl', ['$scope', '$rootScope', 'AUTHEVENTS', 'AuthService', function ($scope, $rootScope, AUTHEVENTS, AuthService) {
-    $scope.credentials = {
-    	username: '',
-    	password: '',
-    };
+	$scope.credentials = {
+		username: '',
+		password: '',
+	};
 
-    $scope.login = function(credentials) {
-    	AuthService.login(credentials).then(function(user) {
-            // Login Success
-    		//$rootScope.$broadcast(AUTHEVENTS.loginSuccess);
-            $scope.$modalCancel();
-    	}, function() {
-            // Login Fail
-    		//$rootScope.$broadcast(AUTHEVENTS.loginFailed);
-    	});
-    };
+	$scope.message = '';
+	$scope.messageClass = '';
+
+	$scope.login = function(credentials) {
+		AuthService.login(credentials).then(function(user) {
+			$scope.message = 'Successfully logged in!';
+			$scope.messageClass = 'login-success';
+			$scope.$modalCancel();
+		}, function() {
+			$scope.message = 'Username and/or password is incorrect!';
+			$scope.messageClass = 'login-failed';
+		});
+	};
   }]);
