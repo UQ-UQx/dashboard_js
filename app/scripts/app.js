@@ -12,7 +12,6 @@
 var app = angular
 	.module('dashboardJsApp', [
 		'ngAnimate',
-		'ngCookies',
 		'ngResource',
 		'ngRoute',
 		'ngSanitize',
@@ -20,7 +19,6 @@ var app = angular
 		'ui.router',
 		'fundoo.services',
 		'base64',
-		'ngCookies',
 		'ipCookie',
 	])
 	.config(function ($stateProvider, $urlRouterProvider) {
