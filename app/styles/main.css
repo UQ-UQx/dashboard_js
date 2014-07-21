@@ -209,6 +209,10 @@ ul#coursestructure, ul#coursestructure ul {
     margin-top:10px;
 }
 
+ul#coursestructure, ul#coursestructure ul li {
+    margin-top:10px;
+}
+
 ul#coursestructure {
     border:1px solid red;
     margin:10px;
@@ -220,6 +224,7 @@ ul#coursestructure div.node {
     text-align:center;
     padding-bottom:30px;
     cursor: pointer;
+    overflow:hidden;
 }
 div#searchbox {
     margin-top:5px;

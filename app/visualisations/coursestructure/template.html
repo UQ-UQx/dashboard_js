@@ -1,12 +1,11 @@
 <div id="searchbox">
-	<form class="navbar-form navbar-left" role="search">
-		<div class="input-group">
-			<span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-			<input type="text" id='searchbox' class="form-control" placeholder="Search" ng-model="searchText">
-		</div>
-	</form>
+    <form class="navbar-form navbar-left" role="search">
+        <div class="input-group">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+            <input type="text" id='searchbox' class="form-control" placeholder="Search" ng-model="searchText">
+        </div>
+    </form>
 </div>
-
 <script type="text/ng-template"  id="tree_item_renderer.html">
     <div class="node node_{{data.tag}}">
     <div ng-click="launchStructureModal(data)">

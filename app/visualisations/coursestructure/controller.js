@@ -21,7 +21,9 @@ angular.module('dashboardJsApp')
                     $scope.launchStructureModal = function(data) {
                         var attrs = '';
                         for(var attr in data) {
-                            attrs += '<dt>'+attr+'</dt><dd>'+data[attr]+'</dd>';
+                            if(attr != 'children') {
+                                attrs += '<dt>' + attr + '</dt><dd>' + data[attr] + '</dd>';
+                            }
                         }
 			            createDialog({
 				            id: 'loginDialog',
