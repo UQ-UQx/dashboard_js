@@ -1,27 +1,22 @@
-<div id="course_visual">fdsafds</div>
-<div id="innercontent">
+<div id="searchbox">
 	<form class="navbar-form navbar-left" role="search">
 		<div class="input-group">
 			<span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-			<input type="text" id='searchbox' class="form-control" placeholder="Search">
+			<input type="text" id='searchbox' class="form-control" placeholder="Search" ng-model="searchText">
 		</div>
 	</form>
-	<div id="raw"></div>
 </div>
 
-<div class="modal fade" id="data_modal">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title">Mozdal title</h4>
-			</div>
-			<div class="modal-body">
-				<p>One fine body&hellip;</p>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
-</div>
+<script type="text/ng-template"  id="tree_item_renderer.html">
+    <div class="node node_{{data.tag}}">
+    <div ng-click="launchStructureModal(data)">
+        &lt;{{data.tag}}&gt; <strong>{{data.display_name}}</strong> <em>{{ data.url_name }}</em>
+    </div>
+    <ul ng-if="data.tag != 'problem' && data.children.length > 0">
+        <li ng-repeat="data in data.children | filter:searchText" ng-include="'tree_item_renderer.html'"></li>
+    </ul>
+    </div>
+</script>
+<ul id="coursestructure">
+    <li ng-repeat="data in [coursecontent] | filter:searchText" ng-include="'tree_item_renderer.html'"></li>
+</ul>

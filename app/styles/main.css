@@ -201,3 +201,60 @@ div#dashboard_content {
 iframe {
     border:0;
 }
+
+ul#coursestructure, ul#coursestructure ul {
+    margin:0;
+    padding:0;
+    list-style-type:none;
+    margin-top:10px;
+}
+
+ul#coursestructure {
+    border:1px solid red;
+    margin:10px;
+    margin-top:60px;
+}
+ul#coursestructure div.node {
+    border:1px solid #ccc;
+    padding:10px 30px;
+    text-align:center;
+    padding-bottom:30px;
+    cursor: pointer;
+}
+div#searchbox {
+    margin-top:5px;
+    border:1px solid #fff;
+}
+
+
+ul#coursestructure div.node_course {
+    background:#fafafa;
+}
+ul#coursestructure div.node_chapter {
+    background:#ddffdd;
+    border:1px solid green;
+}
+ul#coursestructure div.node_sequential {
+    background:#ddddff;
+    border:1px solid blue;
+}
+ul#coursestructure div.node_vertical {
+    background:#ffdddd;
+    border:1px solid red;
+}
+ul#coursestructure div.node_html {
+    background:#ffffdd;
+    border:1px solid orange;
+    padding-bottom:10px;
+}
+ul#coursestructure div.node_video {
+    background:#33ff33;
+    border:1px solid white;
+    padding-bottom:10px;
+}
+ul#coursestructure div.node_problem {
+    background:#ff3333;
+    border:1px solid white;
+    color:#fff;
+    padding-bottom:10px;
+}
