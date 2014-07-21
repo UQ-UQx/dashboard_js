@@ -40,8 +40,13 @@ var app = angular
 			})
 			.state('dashboard.visualisation', {
 				url: '/:visualisation/:course',
-				templateUrl: function(stateParams) { return 'visualisations/' + stateParams.visualisation+'/template.html'; },
-				controllerProvider: function($stateParams) { return 'Visualisation_' + $stateParams.visualisation + '_Ctrl'; },
+				templateUrl: function(stateParams) {
+					return 'visualisations/' + stateParams.visualisation + '/template.html';
+				},
+				controllerProvider: function($stateParams, Course) {
+					Course.currentCourse = $stateParams.course;
+					return 'Visualisation_' + $stateParams.visualisation + '_Ctrl';
+				},
 			});
 
 		$urlRouterProvider.otherwise('dashboard');

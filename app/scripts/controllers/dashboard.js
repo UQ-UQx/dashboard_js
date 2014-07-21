@@ -8,21 +8,31 @@
  * Controller of the dashboardJsApp
  */
 angular.module('dashboardJsApp')
-    .controller('DashboardCtrl', ['$scope','$http','RequestService', 'AuthService', 'Course', function ($scope, $http, RequestService, AuthService, Course) {
+    .controller('DashboardCtrl', ['$scope','$http','RequestService', 'AuthService', 'Course', '$state', function ($scope, $http, RequestService, AuthService, Course, $state) {
 
         //Fix later
 
         $scope.currentVisualisation = '';
-        $scope.currentVisualisationName = "No Visualisation Selected";
+        $scope.currentVisualisationName = '';
         $scope.auth = AuthService;
         $scope.course = Course;
 
-        $scope.course.currentCourse = 'hypers_301x_1T2014';
+
 
         $scope.visualisationsList = [];
-        $http.get('visualisations.json').then(function(res){
+        $http.get('visualisations.json').then(function(res) {
             $scope.visualisationsList = res.data;
+            if ($scope.currentVisualisation !== '') {
+                for (var vis in $scope.visualisationsList) {
+                    if($scope.currentVisualisation == $scope.visualisationsList[vis].id) {
+                        $scope.currentVisualisationName = $scope.visualisationsList[vis].name;
+                    }
+                }
+            }
         });
+
+        $scope.course.currentCourse = $state.params.course;
+        $scope.currentVisualisation = $state.params.visualisation;
 
         $scope.courseList = [];
 
@@ -30,6 +40,9 @@ angular.module('dashboardJsApp')
             $scope.currentVisualisation = newVisualisation.id;
             $scope.currentVisualisationName = newVisualisation.name;
         }
+        $scope.$watch('course.currentCourse', function() {
+            console.log($scope.course.currentCourse);
+        }, true);
 
         $scope.$watch('auth.isAuthenticated()', function() {
             if ($scope.auth.isAuthenticated()) {
@@ -43,7 +56,7 @@ angular.module('dashboardJsApp')
                         $scope.course.courseList[i].shortName = shortName;
                     }
                     if (data.length) {
-                        $scope.course.currentCourse = data[0].id;
+                    //    $scope.course.currentCourse = data[0].id;
                     }
                     else {
                         $scope.course.currentCourse = '';
