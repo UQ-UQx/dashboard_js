@@ -24,7 +24,7 @@ app.directive('visPie', function ($window) {
         },
         link: function (scope, element) {
             var data = scope.data;
-//            console.log(data);
+            console.log(data);
 
             var pie = d3.layout.pie()
                 .sort(null)
@@ -57,17 +57,19 @@ app.directive('visPie', function ($window) {
             var tip = d3.tip()
                 .attr("class", 'd3-tip')
                 .html(function (d) {
-                    var tipStr = "";
+                    var tipStr = "abc";
+                    /*
                     if (d.data.comment) {
                         tipStr = d.data.comment;
                     }
                     else {
                         tipStr = "<strong>" + d.data.label + ": </strong>" + d.value + " (" + (d.value / sum * 100).toFixed(1) + "%)";
                     }
+                    */
                     return tipStr;
                 })
                 .offset(function(d) {
-                    return [-10, 0];
+                    return [0, 0];
 
                     //var x1 = Math.sin(d.startAngle) * radius;
                     //var y1 = Math.cos(d.startAngle) * radius;
@@ -84,7 +86,7 @@ app.directive('visPie', function ($window) {
                     return [y1, -x1];
                     */
                 });
-//            console.log(svg);
+            console.log(svg);
 //            svg.call(tip);
 
             var arcs = svg.selectAll('g.arc')
@@ -98,21 +100,47 @@ app.directive('visPie', function ($window) {
                 return d.value;
             });
 
-            arcs.call(tip);
-
-
             arcs.append('path')
                 .attr('fill', function(d, i) {
                     return colors(i);
                 })
-                .attr('d', arc)
-                .on("mouseover", function(d, i) {
+                .attr('d', arc);
+
+            //arcs.call(tip);
+            console.log(arcs);
+
+            arcs.append("text")
+                .attr("transform", function(d) {
+                    return "translate(" + arc.centroid(d) + ")";
+                })
+                .attr("text-anchor", "middle")
+                .text(function(d) {
+                    // Only show text when the arc is large enough
+                    if((d.endAngle - d.startAngle) > 0.22) {
+                        //console.log(d);
+                        return d.value;
+                    }
+                });
+
+            svg.selectAll('text').call(tip).on("mouseover", function(d, i) {
+
                     d3.select(this).style("stroke-width", 3);
                     d3.select(this).style("stroke", d3.rgb(colors(i)).brighter(0.7));
-//                    var x = d3.selectAll('g.arc');
-//                    console.log(x);
-                    d3.select(this.parentNode).select('.arctext').each(texton);
+                console.log('sdfasdfsadf');
 
+                    if (tipOn) {
+                        tip.show(d);
+
+                        var tipStr = "";
+                        if (d.data.comment) {
+                            tipStr = d.data.comment;
+                        }
+                        else {
+                            tipStr = "<strong>" + d.data.label + ": </strong>" + d.value + " (" + (d.value / sum * 100).toFixed(1) + "%)";
+                        }
+                        tip.show(tipStr);
+
+                  }
                 })
                 .on("mouseout", function(d) {
                     d3.select(this).style("stroke-width", 0);
@@ -121,55 +149,18 @@ app.directive('visPie', function ($window) {
                     }
                 });
 
-            console.log(arcs);
+            arcs.on("mouseover", function(d, i) {
+                console.log($(this).find('text'));
+               var blah = $(this).find('text')[0];
+                   $(blah).mouseover();//('mouseover');
+            })
+            .on("mouseout", function(d) {
+                var blah = $(this).find('text')[0];
+                    $(blah).mouseout(); //trigger('mouseout');
+            });
 
 
-
-            arcs.append("text")
-                .attr("transform", function(d, i) {
-                    var centroid = arc.centroid(d);
-                    var xc = centroid[0] * 1.5;
-                    var yc = centroid[1] * 1.5+5;
-                    return "translate(" + xc + "," + yc + ")";
-                })
-                .attr('class', 'arctext')
-                .attr("text-anchor", "middle")
-                .text(function(d) {
-                    // Only show text when the arc is large enough
-                    if((d.endAngle - d.startAngle) > 0.2) {
-                        //console.log(d);
-                        return d.value;
-                    }
-                    else {
-                        return '.';
-                    }
-                })
-                .attr("fill", function(d, i) {
-                    var gColor = d3.rgb(colors(i));
-                    console.log(gColor);
-                    return contrastingColor(gColor);
-                })
-                .on('mouseover', texton)
-                .on('mouseout', textoff);
-
-            d3.selectAll('.arctext').call(tip);
-
-            function texton(d) {
-//                console.log("AA");
-                var textElemnt = d3.select(this).node();
-                tip.show(d, textElemnt);
-//                console.log("BB");
-            }
-
-            function textoff(d) {
-                tip.hide();
-            }
-
-            function contrastingColor(d3Color){
-                var yiq = ((d3Color.r * 299) + (d3Color.g * 587) + (d3Color.b * 114)) / 1000;
-                return (yiq >= 128) ? '#111111' : '#fafafa';
-            }
-
+            console.log(svg.selectAll('text'));
 
             // Add legend.
             var legend = svg.selectAll("g.legend")
