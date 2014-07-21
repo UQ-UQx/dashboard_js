@@ -20,11 +20,6 @@
         "icon": "fa-globe"
     },
     {
-        "id": "apachelogs",
-        "name": "Video Downloads",
-        "icon": "fa-cloud-download"
-    },
-    {
         "id": "discussion_forum_data",
         "name": "Discussion Forums",
         "icon": "fa-comments"
