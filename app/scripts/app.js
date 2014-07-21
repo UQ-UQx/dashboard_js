@@ -59,6 +59,11 @@ var app = angular
 			$scope.currentUser = $scope.auth.getUserId();
 		});
 
+		$scope.userLogout = function() {
+			console.log('adsfasdf');
+			AuthService.logout();
+		};
+
 		$scope.launchLoginModal = function() {
 			createDialogService({
 				id: 'loginDialog',

@@ -39,7 +39,7 @@
       </a>
       <div ng-switch on="!!currentUser">
           <div ng-switch-when="true">
-              <p id="user_welcome">Welcome, {{currentUser}} (<a href="#">Logout</a>)</p>
+              <p id="user_welcome">Welcome, {{currentUser}} (<a href="#" ng-click="userLogout()">Logout</a>)</p>
           </div>
           <div ng-switch-default>
               <p id="user_welcome"><a href="#">Login</a></p>

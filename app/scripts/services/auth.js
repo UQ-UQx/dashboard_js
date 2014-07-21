@@ -35,6 +35,11 @@ angular.module('dashboardJsApp')
             });
     	};
 
+        authService.logout = function() {
+            this.deleteToken();
+            document.location.reload();
+        };
+
     	authService.isAuthenticated = function() {
     		return !!Token.token;
     	};
