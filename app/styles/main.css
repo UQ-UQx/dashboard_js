@@ -214,7 +214,6 @@ ul#coursestructure, ul#coursestructure ul li {
 }
 
 ul#coursestructure {
-    border:1px solid red;
     margin:10px;
     margin-top:60px;
 }
@@ -236,30 +235,36 @@ ul#coursestructure div.node_course {
     background:#fafafa;
 }
 ul#coursestructure div.node_chapter {
-    background:#ddffdd;
-    border:1px solid green;
+    background:#eeeeee;
+    border:1px solid #cccccc;
 }
 ul#coursestructure div.node_sequential {
-    background:#ddddff;
-    border:1px solid blue;
+    background:#dddddd;
+    border:1px solid #bbbbbb;
 }
 ul#coursestructure div.node_vertical {
-    background:#ffdddd;
-    border:1px solid red;
-}
-ul#coursestructure div.node_html {
-    background:#ffffdd;
-    border:1px solid orange;
-    padding-bottom:10px;
-}
-ul#coursestructure div.node_video {
-    background:#33ff33;
-    border:1px solid white;
-    padding-bottom:10px;
+    background:#cccccc;
+    border:1px solid purple;
+    color:purple;
 }
 ul#coursestructure div.node_problem {
-    background:#ff3333;
-    border:1px solid white;
-    color:#fff;
+    background:#ffdddd;
+    border:1px solid red;
     padding-bottom:10px;
+    color:#222;
+}
+ul#coursestructure div.node_video {
+    background:#ddffdd;
+    border:1px solid green;
+    padding-bottom:10px;
+    color:#222;
+}
+ul#coursestructure div.node_html {
+    background:#ddddff;
+    border:1px solid blue;
+    padding-bottom:10px;
+    color:#222;
+}
+ul#coursestructure em {
+    display:none;
 }
