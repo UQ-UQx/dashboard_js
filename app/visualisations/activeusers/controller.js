@@ -8,32 +8,33 @@
  * Controller of the dashboardJsApp
  */
 angular.module('dashboardJsApp')
-	.controller('Visualisation_enrolment_Ctrl', ['$scope', 'RequestService', 'Course', 'AuthService', function ($scope, RequestService, Course, AuthService) {
-        $scope.normalData = [];
-        $scope.aggregateData = [];
-        $scope.course = Course;
-        $scope.auth = AuthService;
+	.controller('Visualisation_activeusers_Ctrl', ['$scope', 'RequestService', 'Course', 'AuthService', function ($scope, RequestService, Course, AuthService) {
+		$scope.normalData = [];
+		$scope.aggregateData = [];
+		$scope.course = Course;
+		$scope.auth = AuthService;
 
-        $scope.formatData = function() {
-            if ($scope.auth.isAuthenticated()) {
-                RequestService.async('http://api.uqxdev.com/api/students/dates/' + Course.currentCourse + '/').then(function(response) {
-                    data = response.data
-                    var formattedNormalData = [{ name: 'Active', data: [] }, { name: 'Enrolled', data: [] }];
-                    var formattedAggregateData = [{ name: 'Aggregate Active', data: [] }, { name: 'Aggregate Enrolled', data: [] }];
+		$scope.formatData = function() {
+			if ($scope.auth.isAuthenticated()) {
+				RequestService.async('http://api.uqxdev.com/api/students/active/' + Course.currentCourse + '/').then(function(data) {
+					console.log(data);
+					var formattedDailyData = [{ name: 'Daily', data: [] }];
+					var formattedWeeklyData = [{ name: 'Weekly', data: [] }];
 
-                    for (var key in data) {
-                        formattedNormalData[0].data.push({ date: key, value: data[key].active });
-                        formattedNormalData[1].data.push({ date: key, value: data[key].enrolled });
-                        formattedAggregateData[0].data.push({ date: key, value: data[key].aggregate_active });
-                        formattedAggregateData[1].data.push({ date: key, value: data[key].aggregate_enrolled });
-                    }
+					for (var day in data['days']) {
+						formattedDailyData[0].data.push({ date: day, value: data['days'][day] });
+					}
 
-                    $scope.normalData = formattedNormalData;
-                    $scope.aggregateData = formattedAggregateData;
-                });
-            }
-        };
+					for (var week in data['weeks']) {
+						formattedWeeklyData[0].data.push({ date: week, value: data['weeks'][week] });
+					}
 
-        //$scope.$watch('auth.isAuthenticated()', $scope.formatData());
-        $scope.$watch('course.currentCourse', $scope.formatData());
-  	}]);
+					$scope.dailyData = formattedDailyData;
+					$scope.weeklyData = formattedWeeklyData;
+				});
+			}
+		};
+
+		//$scope.$watch('auth.isAuthenticated()', $scope.formatData());
+		$scope.$watch('course.currentCourse', $scope.formatData());
+	}]);

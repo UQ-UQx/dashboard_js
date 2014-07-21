@@ -39,6 +39,5 @@ angular.module('dashboardJsApp')
 			}
 		};
 
-		//$scope.$watch('auth.isAuthenticated()', $scope.formatData());
 		$scope.$watch('course.currentCourse', $scope.formatData());
 	}]);

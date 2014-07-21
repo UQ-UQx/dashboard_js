@@ -22,7 +22,6 @@ angular.module('dashboardJsApp')
         $scope.visualisationsList = [];
         $http.get('visualisations.json').then(function(res){
             $scope.visualisationsList = res.data;
-            console.log(res.data);
         });
 
         $scope.courseList = [];
