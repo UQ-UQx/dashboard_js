@@ -15,29 +15,25 @@ angular.module('dashboardJsApp')
 
         $scope.formatData = function() {
             if ($scope.auth.isAuthenticated()) {
-                RequestService.async('http://api.uqxdev.com/api/students/dates/' + Course.currentCourse + '/').then(function(data) {
-                    $scope.populationData = [{ 'country' : 'AU', 'value': '10', 'percentage': '10'}, { 'country': 'US', 'value': '50', 'percentage': '40'}];
-                    $scope.enrolmentData = [
-                    ['United States', 23.8, ' 3299'],
-                    ['India', 10.6, ' 1472'],
-                    ['Australia', 5.2, ' 715'],
-                    ['United Kingdom', 3.9, ' 540'],
-                    ['Canada', 3.7, ' 519'],
-                    ['Spain', 3.3, ' 451'],
-                    ['Brazil', 2.8, ' 390'],
-                    ['Germany', 2.7, ' 378'],
-                    ['Poland', 2.1, ' 286'],
-                    ['Mexico', 2.0, ' 272'],
-                    ['Egypt', 1.9, ' 257'],
-                    ['Colombia', 1.6, ' 222'],
-                    ['France', 1.4, ' 192'],
-                    ['Pakistan', 1.3, ' 186'],
-                    ['Russian Federation', 1.3, ' 185'],
-                    ['Greece', 1.3, ' 179'],
-                    ['Italy', 1.2, ' 170'],
-                    ['Netherlands', 1.1, ' 151'],
-                    ['Portugal', 1.1, ' 146'],
-                    ['China', 1.0, ' 145']];
+                RequestService.async('http://api.uqxdev.com/api/students/countries/' + Course.currentCourse + '/').then(function(data) {
+                    $scope.populationData = [];
+                    $scope.enrolment_data = [];
+                    for(var country in data) {
+                        var popObject = {'country':country, 'value':data[country]['count'], 'percentage': data[country]['percentage']};
+                        $scope.populationData.push(popObject);
+                        var enrolObject = [country, data[country]['percentage'], data[country]['count']];
+                        $scope.enrolment_data.push(enrolObject);
+
+                    }
+                    function percentage_compare(a,b) {
+                      if (a[1] > b[1])
+                         return -1;
+                      if (a[1] < b[1])
+                        return 1;
+                      return 0;
+                    }
+                    $scope.enrolment_data.sort(percentage_compare);
+                    console.log($scope.enrolment_data);
                 });
             }
         };
