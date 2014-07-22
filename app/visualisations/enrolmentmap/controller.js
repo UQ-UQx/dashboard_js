@@ -11,14 +11,13 @@ angular.module('dashboardJsApp')
 	.controller('Visualisation_enrolmentmap_Ctrl', ['$scope', 'RequestService', 'Course', 'AuthService', function ($scope, RequestService, Course, AuthService) {
         $scope.enrolment_data = [];
         $scope.populationData = [];
-        $scope.course = Course;
         $scope.auth = AuthService;
 
         $scope.formatData = function() {
             if ($scope.auth.isAuthenticated()) {
                 RequestService.async('http://api.uqxdev.com/api/students/dates/' + Course.currentCourse + '/').then(function(data) {
                     $scope.populationData = [{ 'country' : 'AU', 'value': '10', 'percentage': '10'}, { 'country': 'US', 'value': '50', 'percentage': '40'}];
-                    $scope.enrolment_data = [
+                    $scope.enrolmentData = [
                     ['United States', 23.8, ' 3299'],
                     ['India', 10.6, ' 1472'],
                     ['Australia', 5.2, ' 715'],
@@ -43,6 +42,5 @@ angular.module('dashboardJsApp')
             }
         };
 
-        //$scope.$watch('auth.isAuthenticated()', $scope.formatData());
         $scope.$watch('course.currentCourse', $scope.formatData());
   	}]);

@@ -1,5 +1,9 @@
-<a ng-href="http://api.uqxdev.com/api/students/dates/{{course.currentCourse}}?format=csv" data-name="csv" class="csv-download btn btn-success">
-	<i class="fa fa-file-excel-o"></i> Data Download
+<a ng-href="http://api.uqxdev.com/api/students/dates/{{course.currentCourse}}?refreshcache=true" data-name="reload" class="refresh-cache btn btn-warning">
+	<i class="fa fa-refresh"></i> Recache
 </a>
+<a ng-href="http://api.uqxdev.com/api/students/dates/{{course.currentCourse}}?format=csv" data-name="csv" class="csv-download btn btn-success">
+	<i class="fa fa-file-excel-o"></i> CSV
+</a>
+
 <vis-line data="normalData" width="2000" height="500"></vis-line>
 <vis-line data="aggregateData" width="2000" height="500"></vis-line>

@@ -1,4 +1,9 @@
 a.csv-download {
 	float: right;
+	margin-right: 10px;
+}
+
+a.refresh-cache {
+	float: right;
 	margin-right: 30px;
 }

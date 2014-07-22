@@ -22,7 +22,8 @@ angular.module('dashboardJsApp')
 			$scope.message = 'Successfully logged in!';
 			$scope.messageClass = 'login-success';
 			$scope.$modalCancel();
-		}, function() {
+		}, function(res) {
+			console.log(res);
 			$scope.message = 'Username and/or password is incorrect!';
 			$scope.messageClass = 'login-failed';
 		});

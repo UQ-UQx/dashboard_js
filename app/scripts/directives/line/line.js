@@ -79,7 +79,7 @@ app.directive('visLine', function() {
 		templateUrl: 'scripts/directives/line/line.html',
 		link: function(scope, element) {
 			scope.$watch('chartData', function() {
-				if ((scope.chartData !== undefined) && (scope.chartData !== null) && (scope.chartData.length !== 0)) {
+				if ((scope.chartData !== undefined) && (scope.chartData !== null) && (scope.chartData !== [])) {
 					var parseDate = d3.time.format('%Y-%m-%d').parse;
 
 					for (var i in scope.chartData) {
@@ -156,7 +156,7 @@ app.directive('visLine', function() {
 						.attr('x', -150)
 						.attr('dy', '.71em')
 						.style('text-anchor', 'end')
-						.text('Num. Registration');
+						.text('Y Axis Label');
 
 					var series = svg.selectAll('.series')
 						.data(scope.chartData)

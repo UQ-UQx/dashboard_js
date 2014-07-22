@@ -8,7 +8,7 @@
  * Service in the dashboardJsApp.
  */
 angular.module('dashboardJsApp')
-	.factory('AuthService', ['$http', 'Session', 'Token', '$base64', function($http, Session, Token, $base64) {
+	.factory('AuthService', ['$http', 'Token', '$base64', function($http, Token, $base64) {
     	var authService = {};
 
     	authService.login = function(credentials) {

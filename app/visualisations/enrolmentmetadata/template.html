@@ -1,25 +1,49 @@
 <div style="float:left; width:100%;">
 <div class="container">
-    <div class="row">
-        <div class="col-md-6">
-            <h3> Age</h3>
-            <vis-pie data="age" width="550" height="550"></vis-pie>
-        </div>
-        <div class="col-md-6">
-            <h3>Gender</h3>
-            <vis-pie data="gender"  width="550" height="550"></vis-pie>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <h3> Education</h3>
-            <vis-pie data="education" width="550" height="550"></vis-pie>
-        </div>
-        <div class="col-md-6">
-            <h3>User Enrolment Types</h3>
-            <vis-pie data="modes" width="550" height="550"></vis-pie>
-        </div>
-    </div>
+	<div class="row">
+		<div class="col-md-6">
+			<h3 style="float: left; width: 220px; margin-top: 5px">Age</h3>
+			<a ng-href="http://api.uqxdev.com/api/students/ages/{{course.currentCourse}}?refreshcache=true" data-name="reload" class="refresh-cache btn btn-warning">
+				<i class="fa fa-refresh"></i> Recache
+			</a>
+			<a ng-href="http://api.uqxdev.com/api/students/ages/{{course.currentCourse}}?format=csv" data-name="csv" class="csv-download btn btn-success">
+				<i class="fa fa-file-excel-o"></i> CSV
+			</a>
+			<vis-pie data="ageData" width="600" height="600"></vis-pie>
+		</div>
+		<div class="col-md-6">
+			<h3 style="float: left; width: 220px; margin-top: 5px">Gender</h3>
+			<a ng-href="http://api.uqxdev.com/api/students/genders/{{course.currentCourse}}?refreshcache=true" data-name="reload" class="refresh-cache btn btn-warning">
+				<i class="fa fa-refresh"></i> Recache
+			</a>
+			<a ng-href="http://api.uqxdev.com/api/students/genders/{{course.currentCourse}}?format=csv" data-name="csv" class="csv-download btn btn-success">
+				<i class="fa fa-file-excel-o"></i> CSV
+			</a>
+			<vis-pie data="genderData"  width="600" height="600"></vis-pie>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<h3 style="float: left; width: 220px; margin-top: 5px">Education</h3>
+			<a ng-href="http://api.uqxdev.com/api/students/educations/{{course.currentCourse}}?refreshcache=true" data-name="reload" class="refresh-cache btn btn-warning">
+				<i class="fa fa-refresh"></i> Recache
+			</a>
+			<a ng-href="http://api.uqxdev.com/api/students/educations/{{course.currentCourse}}?format=csv" data-name="csv" class="csv-download btn btn-success">
+				<i class="fa fa-file-excel-o"></i> CSV
+			</a>
+			<vis-pie data="educationData" width="600" height="600"></vis-pie>
+		</div>
+		<div class="col-md-6">
+			<h3 style="float: left; width: 220px; margin-top: 5px">User Enrolment Types</h3>
+			<a ng-href="http://api.uqxdev.com/api/students/modes/{{course.currentCourse}}?refreshcache=true" data-name="reload" class="refresh-cache btn btn-warning">
+				<i class="fa fa-refresh"></i> Recache
+			</a>
+			<a ng-href="http://api.uqxdev.com/api/students/modes/{{course.currentCourse}}?format=csv" data-name="csv" class="csv-download btn btn-success">
+				<i class="fa fa-file-excel-o"></i> CSV
+			</a>
+			<vis-pie data="enrolTypeData" width="600" height="600"></vis-pie>
+		</div>
+	</div>
 </div>
 </div>
 <div style="clear:left"></div>

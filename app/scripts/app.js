@@ -53,9 +53,6 @@ var app = angular
   	})
 	.controller('AppCtrl', ['$scope', '$state', 'createDialog', 'AuthService', function($scope, $state, createDialogService, AuthService) {
 		$scope.$state = $state;
-		$scope.$watch('state', function() {
-			console.log($scope.state);
-		});
 		$scope.currentUser = null;
 		$scope.auth = AuthService;
 		$scope.isAuthorised = $scope.auth.isAuthenticated();
@@ -65,7 +62,6 @@ var app = angular
 		});
 
 		$scope.userLogout = function() {
-			console.log('adsfasdf');
 			AuthService.logout();
 		};
 
