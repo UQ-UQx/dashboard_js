@@ -9,15 +9,10 @@
  */
 angular.module('dashboardJsApp')
     .controller('DashboardCtrl', ['$scope','$http','RequestService', 'AuthService', 'Course', '$state', function ($scope, $http, RequestService, AuthService, Course, $state) {
-
-        //Fix later
-
         $scope.currentVisualisation = '';
         $scope.currentVisualisationName = '';
         $scope.auth = AuthService;
         $scope.course = Course;
-
-
 
         $scope.visualisationsList = [];
         $http.get('visualisations.json').then(function(res) {
@@ -40,21 +35,12 @@ angular.module('dashboardJsApp')
             $scope.currentVisualisation = newVisualisation.id;
             $scope.currentVisualisationName = newVisualisation.name;
         }
-        $scope.$watch('course.currentCourse', function() {
-            console.log($scope.course.currentCourse);
-        }, true);
 
         $scope.$watch('auth.isAuthenticated()', function() {
             if ($scope.auth.isAuthenticated()) {
                 RequestService.async('http://api.uqxdev.com/api/meta/courses/').then(function(data) {
-                    $scope.course.courseList = data;
-                    for (var i in $scope.course.courseList) {
-                        var shortName = $scope.course.courseList[i].name.split(" ");
-                        shortName.pop();
-                        shortName = shortName.join(" ");
-                        shortName = shortName.charAt(0).toUpperCase() + shortName.slice(1);
-                        $scope.course.courseList[i].shortName = shortName;
-                    }
+                    $scope.course.setCourseList(data);
+                    
                     if (data.length) {
                     //    $scope.course.currentCourse = data[0].id;
                     }

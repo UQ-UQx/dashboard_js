@@ -11,7 +11,6 @@ angular.module('dashboardJsApp')
 	.controller('Visualisation_enrolmentmap_Ctrl', ['$scope', 'RequestService', 'Course', 'AuthService', function ($scope, RequestService, Course, AuthService) {
         $scope.enrolment_data = [];
         $scope.populationData = [];
-        $scope.course = Course;
         $scope.auth = AuthService;
 		$scope.colourString = '23, 60, 68';
 
@@ -40,6 +39,5 @@ angular.module('dashboardJsApp')
             }
         };
 
-        //$scope.$watch('auth.isAuthenticated()', $scope.formatData());
         $scope.$watch('course.currentCourse', $scope.formatData());
   	}]);

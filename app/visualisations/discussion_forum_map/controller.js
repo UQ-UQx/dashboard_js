@@ -8,11 +8,27 @@
  * Controller of the dashboardJsApp
  */
 angular.module('dashboardJsApp')
-	.controller('Visualisation_discussion_forum_map_Ctrl', ['$scope', 'RequestService', function ($scope, RequestService) {
+	.controller('Visualisation_discussion_forum_map_Ctrl', ['$scope', 'RequestService', 'Course', 'AuthService', function ($scope, RequestService, Course, AuthService) {
 		$scope.populationData = [{ 'country' : 'AU', 'value': '10', 'percentage': '10'}, { 'country': 'US', 'value': '50', 'percentage': '40'}];
-		$scope.colourRange = ['#e62e65', '#e62e9c', '#e62ed3', '#c12ee6', '#8a2ee6', '#532ee6', '#2e40e6', '#2e77e6', '#2eaee6', '#2ee6e6', '#2ee6ae', '#2ee677', '#2ee640', '#53e62e', '#8ae62e', '#c1e62e', '#e6d32e', '#e69c2e', '#e6652e', '#e62e2e'];
-		$scope.colourString1 = '23, 60, 68';
-		$scope.colourString2 = '10, 150, 150';
-		$scope.colourString3 = '30, 60, 50';
-		
+		$scope.colourString1 = '23, 148, 68';
+		$scope.colourString2 = '255, 127, 127';
+
+		$scope.$watch('auth.isAuthenticated()', function() {
+			if ($scope.auth.isAuthenticated()) {
+				RequestService.async('http://api.uqxdev.com/api/students/dates/' + Course.currentCourse + '/').then(function(data) {
+					var formattedNormalData = [{ name: 'Active', data: [] }, { name: 'Enrolled', data: [] }];
+					var formattedAggregateData = [{ name: 'Aggregate Active', data: [] }, { name: 'Aggregate Enrolled', data: [] }];
+
+					for (var key in data) {
+						formattedNormalData[0].data.push({ date: key, value: data[key].active });
+						formattedNormalData[1].data.push({ date: key, value: data[key].enrolled });
+						formattedAggregateData[0].data.push({ date: key, value: data[key].aggregate_active });
+						formattedAggregateData[1].data.push({ date: key, value: data[key].aggregate_enrolled });
+					}
+
+					$scope.normalData = formattedNormalData;
+					$scope.aggregateData = formattedAggregateData;
+				});
+			}
+		});
 	}]);

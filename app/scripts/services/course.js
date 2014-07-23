@@ -12,6 +12,28 @@ angular.module('dashboardJsApp')
 		this.currentCourse = '';
 		this.courseList = [];
 
+		this.setCourseList = function(courseList) {
+			for (var i in courseList) {
+				var shortName = courseList[i].name.split(" ");
+				shortName.pop();
+				shortName = shortName.join(" ");
+				shortName = shortName.charAt(0).toUpperCase() + shortName.slice(1);
+				courseList[i].shortName = shortName;
+			}
+
+			this.courseList = courseList;
+		};
+
+		this.getCurrentCourseShortName = function() {
+			for (var key in this.courseList) {
+				if (this.courseList[key].id === this.currentCourse) {
+					return this.courseList[key].shortName;
+				}
+			}
+
+			return '';
+		};
+
 		this.getCourseIds = function() {
 			var courseIds = [];
 

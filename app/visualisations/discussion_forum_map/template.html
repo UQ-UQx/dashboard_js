@@ -1,2 +1,11 @@
-<vis-world data="populationData" colour-range="colourRange" colour-string="colourString1" width='400' height='200'></vis-world>
-<vis-world data="populationData" colour-range="colourRange" colour-string="colourString2" width='400' height='200'></vis-world>
+<a ng-href="http://api.uqxdev.com/api/students/dates/{{course.currentCourse}}?refreshcache=true" data-name="reload" class="refresh-cache btn btn-warning">
+	<i class="fa fa-refresh"></i> Recache
+</a>
+<a ng-href="http://api.uqxdev.com/api/students/dates/{{course.currentCourse}}?format=csv" data-name="csv" class="csv-download btn btn-success">
+	<i class="fa fa-file-excel-o"></i> CSV
+</a>
+
+<h3>Posts by country</h3>
+<vis-world data="populationData" colour-string="colourString1" width='1000' height='550'></vis-world>
+<h3>Posts per enrolment by country</h3>
+<vis-world data="populationData" colour-string="colourString2" width='1000' height='550'></vis-world>

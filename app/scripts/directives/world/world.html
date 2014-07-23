@@ -1,28 +1,37 @@
 <meta charset="utf-8">
 <style>
-.axis path,
-.axis line {
-	fill: none;
-	stroke: #000;
-	shape-rendering: crispEdges;
-}
+	.axis path,
+	.axis line {
+		fill: none;
+		stroke: #000;
+		shape-rendering: crispEdges;
+	}
 
-.line {
-	fill: none;
-	/*stroke: steelblue; */
-	stroke-width: 1.5px;
-}
+	.line {
+		fill: none;
+		/*stroke: steelblue; */
+		stroke-width: 1.5px;
+	}
 
-.tip {
-  display: none;
-  color: steelblue;
-  border-radius: 4px;
-  padding: 5px 10px 5px 10px;
-  position: absolute;
-  font: 12px sans-serif;
-  line-height: 30px;
-  text-align: center;
-  background: rgba(0, 0, 255, 0.1);
-}
+	.tip {
+		display: none;
+		color: steelblue;
+		border-radius: 4px;
+	 	padding: 5px 10px 5px 10px;
+		position: absolute;
+	 	font: 12px sans-serif;
+		line-height: 30px;
+		text-align: center;
+		background: rgba(0, 0, 255, 0.1);
+	}
+
+	.vis-world-inner {
+		margin-left: auto;
+   		margin-right: auto;
+	}
 </style>
-<div class="vis-world-container" ng-style="{'position': 'relative', 'height': height, 'width': width }"></div>
+<div class="vis-world-outer" ng-style="{'position': 'relative', 'height': height, 'width': chartWidth }">
+	<div class="vis-world-inner" ng-style="{'position': 'relative', 'height': height, 'maxWidth': chartWidthMax }">
+
+	</div>
+</div>

@@ -8,42 +8,36 @@
  * Controller of the dashboardJsApp
  */
 angular.module('dashboardJsApp')
-    .controller('Visualisation_enrolmentmetadata_Ctrl', ['$scope', 'RequestService', function ($scope, RequestService) {
-        $scope.age = [
-            {label: "Less than 12", value: 22, comment: "Comment here"},
-            {label: "12-15", value: 53},
-            {label: "16-18", value: 242},
-            {label: "19-22", value: 1632},
-            {label: "23-25", value: 1097},
-            {label: "26-30", value: 931},
-            {label: "31-40", value: 705},
-            {label: "41-50", value: 281},
-            {label: "Over 50", value: 214},
-            {label: "Unknown", value: 940},
-        ];
+    .controller('Visualisation_enrolmentmetadata_Ctrl', ['$scope', 'RequestService', 'Course', 'AuthService', function ($scope, RequestService, Course, AuthService) {
+        $scope.auth = AuthService;
 
-        $scope.gender = [
-            {label: "Male", value: 4753},
-            {label: "Female", value: 495},
-            {label: "Other", value: 20},
-            {label: "Unspecified", value: 849},
-        ];
+        $scope.$watch('auth.isAuthenticated()', function() {
+            if ($scope.auth.isAuthenticated()) {
+                RequestService.async('http://api.uqxdev.com/api/students/ages/' + Course.currentCourse + '/').then(function(data) {
+                    $scope.ageData = $scope.formatPieData(data);
+                });
 
+                RequestService.async('http://api.uqxdev.com/api/students/genders/' + Course.currentCourse + '/').then(function(data) {
+                    $scope.genderData = $scope.formatPieData(data);
+                });
 
-        $scope.education = [
-            {label: "Primary school", value: 17},
-            {label: "Middle school", value: 164},
-            {label: "Secondary school", value: 1738},
-            {label: "Associate", value: 153},
-            {label: "Bachelor", value: 1799},
-            {label: "Master", value: 991},
-            {label: "Doctorate", value: 209},
-            {label: "Unspecified", value: 902},
-        ];
+                RequestService.async('http://api.uqxdev.com/api/students/educations/' + Course.currentCourse + '/').then(function(data) {
+                    $scope.educationData = $scope.formatPieData(data);
+                });
 
-        $scope.modes = [
-            {label: "audit", value: 1942},
-            {label: "honor", value: 4142},
-            {label: "verified", value: 33},
-        ];
+                RequestService.async('http://api.uqxdev.com/api/students/modes/' + Course.currentCourse + '/').then(function(data) {
+                    $scope.enrolTypeData = $scope.formatPieData(data);
+                });
+            }
+        }, true);
+
+        $scope.formatPieData = function(unformattedData) {
+            var formattedData = [];
+
+            for (var key in unformattedData) {
+                formattedData.push({ label: key, value: unformattedData[key] });
+            }
+
+            return formattedData;
+        };
   }]);

@@ -9,15 +9,11 @@
  */
 angular.module('dashboardJsApp')
 	.controller('Visualisation_activeusers_Ctrl', ['$scope', 'RequestService', 'Course', 'AuthService', function ($scope, RequestService, Course, AuthService) {
-		$scope.normalData = [];
-		$scope.aggregateData = [];
-		$scope.course = Course;
 		$scope.auth = AuthService;
 
-		$scope.formatData = function() {
+		$scope.$watch('auth.isAuthenticated()', function() {
 			if ($scope.auth.isAuthenticated()) {
 				RequestService.async('http://api.uqxdev.com/api/students/active/' + Course.currentCourse + '/').then(function(data) {
-					console.log(data);
 					var formattedDailyData = [{ name: 'Daily', data: [] }];
 					var formattedWeeklyData = [{ name: 'Weekly', data: [] }];
 
@@ -33,8 +29,5 @@ angular.module('dashboardJsApp')
 					$scope.weeklyData = formattedWeeklyData;
 				});
 			}
-		};
-
-		//$scope.$watch('auth.isAuthenticated()', $scope.formatData());
-		$scope.$watch('course.currentCourse', $scope.formatData());
+		}, true);
 	}]);

@@ -73,13 +73,13 @@ app.directive('visLine', function() {
 		restrict: 'EA',
 		scope: {
 			chartData: '=data',
-			width: '=width',
+//			width: '=width',
 			height: '=height',
 		},
 		templateUrl: 'scripts/directives/line/line.html',
 		link: function(scope, element) {
 			scope.$watch('chartData', function() {
-				if ((scope.chartData !== undefined) && (scope.chartData !== null) && (scope.chartData.length !== 0)) {
+				if ((scope.chartData !== undefined) && (scope.chartData !== null) && (scope.chartData !== [])) {
 					var parseDate = d3.time.format('%Y-%m-%d').parse;
 
 					for (var i in scope.chartData) {
@@ -88,133 +88,142 @@ app.directive('visLine', function() {
 						}
 					}
 
-					var margin = { top: 40, right: 200, bottom: 60, left: 100 },
-						width = scope.width - margin.left - margin.right,
-						height = scope.height - margin.top - margin.bottom;
-
-					var x = d3.time.scale()
-						.domain(dataExtentDate(scope.chartData))
-						.range([0, width]);
-
-					var y = d3.scale.linear()
-						.domain([0, dataMaxVal(scope.chartData)])
-						.range([height, 0]);
-
-					var xAxis = d3.svg.axis()
-						.scale(x)
-						//.ticks(d3.time.day, 20)
-						.tickFormat(d3.time.format('%d-%m-%Y'))
-						.orient('bottom');
-
-					var yAxis = d3.svg.axis()
-						.scale(y)
-						.orient('left');
-
-					var line = d3.svg.line()
-						.x(function(d) { return x(d.date) })
-						.y(function(d) { return y(d.value) });
-
-					var svg = d3.select(element.find('.line-chart')[0])
-						.attr('width', width + margin.left + margin.right)
-						.attr('height', height + margin.top + margin.bottom)
-						.append('g')
-						.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-
-					var color = d3.scale.category10();
-
-					var tip = d3.tip()
-		  				.attr('class', 'd3-tip')
-						.offset([-10, 0])
-						.html(function(d, name) {
-							return '<strong>Date:</strong>' +
-							'<span style="color: ' + color(name) +'">' + ('0' + d.date.getDate()).slice(-2) + '-' + ('0' + (d.date.getMonth()+1)).slice(-2) + '-' + d.date.getFullYear() + '</span>' +
-							'<strong>Value:</strong>' +
-							'<span style="color: ' + color(name) +'">' + d.value + '</span>';
-						})
-
-					svg.call(tip);
-
 					var nameList = [];
 
 					scope.chartData.forEach(function(d) {
 						nameList.push(d.name);
 					});
 
+					var color = d3.scale.category10();
+
 					color.domain(nameList);
 
-					svg.append('g')
-						.attr('class', 'x axis')
-						.attr('transform', 'translate(0,' + height + ')')
-						.call(xAxis);
+					var drawChart = function() {
+						var margin = { top: 40, right: 200, bottom: 60, left: 100 },
+							width = window.innerWidth - 240 - margin.left - margin.right,
+							height = scope.height - margin.top - margin.bottom;
 
-					svg.append('g')
-						.attr('class', 'y axis')
-						.call(yAxis)
-						.append('text')
-						.attr('transform', 'rotate(-90)')
-						.attr('y', -50)
-						.attr('x', -150)
-						.attr('dy', '.71em')
-						.style('text-anchor', 'end')
-						.text('Num. Registration');
+						var x = d3.time.scale()
+							.domain(dataExtentDate(scope.chartData))
+							.range([0, width]);
 
-					var series = svg.selectAll('.series')
-						.data(scope.chartData)
-						.enter().append('g')
-						.attr('class', 'series');
+						var y = d3.scale.linear()
+							.domain([0, dataMaxVal(scope.chartData)])
+							.range([height, 0]);
 
-					series.append('path')
-						.attr('class', 'line')
-						.attr('d', function(d) { return line(d.data) })
-						.style('stroke', function(d) { return color(d.name) });
+						var xAxis = d3.svg.axis()
+							.scale(x)
+							//.ticks(d3.time.day, 20)
+							.tickFormat(d3.time.format('%d-%m-%Y'))
+							.orient('bottom');
 
-					series.selectAll('.point')
-						.data(function(d) { return d.data })
-						.enter().append('circle')
-						.attr('class', 'point')
-						.attr('cx', function(d) { return x(d.date) })
-						.attr('cy', function(d) { return y(d.value) })
-						.attr('r', 3)
-						.attr('fill', function(d) {
-							return color(d3.select(this.parentNode).datum().name);
-						})
-						.on('mouseover', function(d) {
-							d3.select(this)
-						 		.transition()
-						 		.duration(200)
-								.attr('r', 5);
+						var yAxis = d3.svg.axis()
+							.scale(y)
+							.orient('left');
 
-							tip.show(d, d3.select(this.parentNode).datum().name);
-						})
-						.on('mouseout', function(d) {
-							d3.select(this)
-						 		.transition()
-						 		.duration(200)
-								.attr('r', 3);
+						var line = d3.svg.line()
+							.x(function(d) { return x(d.date) })
+							.y(function(d) { return y(d.value) });
 
-							tip.hide(d, d3.select(this.parentNode).datum().name);
-						});
+						var svg = d3.select(element.find('.line-chart')[0])
+							.attr('width', width + margin.left + margin.right)
+							.attr('height', height + margin.top + margin.bottom)
+							.append('g')
+							.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-					var legend = d3.select(element.find('.line-chart')[0]).append('g')
-						.attr('class', 'legend')
-						.selectAll('.series-legend')
-		        		.data(scope.chartData)
-		        		.enter().append('g')
-		        		.attr('class', 'series-legend');
+						var tip = d3.tip()
+							.attr('class', 'd3-tip')
+							.offset([-10, 0])
+							.html(function(d, name) {
+								return '<strong>Date:</strong>' +
+								'<span style="color: ' + color(name) +'">' + ('0' + d.date.getDate()).slice(-2) + '-' + ('0' + (d.date.getMonth()+1)).slice(-2) + '-' + d.date.getFullYear() + '</span>' +
+								'<strong>Value:</strong>' +
+								'<span style="color: ' + color(name) +'">' + d.value + '</span>';
+							})
 
-		    		legend.append('rect')
-		        		.attr('x', width + margin.left + 40)
-		        		.attr('y', function(d, i) { return i * 30 + margin.top })
-		        		.attr('width', 20)
-		        		.attr('height', 20)
-		        		.style('fill', function(d) { return color(d.name) });
+						svg.call(tip);
 
-		    		legend.append('text')
-		        		.attr('x', width + margin.left + 70)
-		        		.attr('y', function(d, i) { return (i *  30) + 15 + margin.top })
-		        		.text(function(d) { return d.name });
-	        	}
-	        });
+						svg.append('g')
+							.attr('class', 'x axis')
+							.attr('transform', 'translate(0,' + height + ')')
+							.call(xAxis);
+
+						svg.append('g')
+							.attr('class', 'y axis')
+							.call(yAxis)
+							.append('text')
+							.attr('transform', 'rotate(-90)')
+							.attr('y', -50)
+							.attr('x', -150)
+							.attr('dy', '.71em')
+							.style('text-anchor', 'end')
+							.text('Y Axis Label');
+
+						var series = svg.selectAll('.series')
+							.data(scope.chartData)
+							.enter().append('g')
+							.attr('class', 'series');
+
+						series.append('path')
+							.attr('class', 'line')
+							.attr('d', function(d) { return line(d.data) })
+							.style('stroke', function(d) { return color(d.name) });
+
+						series.selectAll('.point')
+							.data(function(d) { return d.data })
+							.enter().append('circle')
+							.attr('class', 'point')
+							.attr('cx', function(d) { return x(d.date) })
+							.attr('cy', function(d) { return y(d.value) })
+							.attr('r', 3)
+							.attr('fill', function(d) {
+								return color(d3.select(this.parentNode).datum().name);
+							})
+							.on('mouseover', function(d) {
+								d3.select(this)
+									.transition()
+									.duration(200)
+									.attr('r', 5);
+
+								tip.show(d, d3.select(this.parentNode).datum().name);
+							})
+							.on('mouseout', function(d) {
+								d3.select(this)
+									.transition()
+									.duration(200)
+									.attr('r', 3);
+
+								tip.hide(d, d3.select(this.parentNode).datum().name);
+							});
+
+						var legend = d3.select(element.find('.line-chart')[0]).append('g')
+							.attr('class', 'legend')
+							.selectAll('.series-legend')
+							.data(scope.chartData)
+							.enter().append('g')
+							.attr('class', 'series-legend');
+
+						legend.append('rect')
+							.attr('x', width + margin.left + 40)
+							.attr('y', function(d, i) { return i * 30 + margin.top })
+							.attr('width', 20)
+							.attr('height', 20)
+							.style('fill', function(d) { return color(d.name) });
+
+						legend.append('text')
+							.attr('x', width + margin.left + 70)
+							.attr('y', function(d, i) { return (i *  30) + 15 + margin.top })
+							.text(function(d) { return d.name });
+					}
+
+					drawChart();
+
+					window.addEventListener('resize', function(event){
+						d3.select(element.find('.line-chart')[0]).selectAll('g').remove();
+						drawChart();
+					});
+				}
+			});
 		}
 	};
 });
