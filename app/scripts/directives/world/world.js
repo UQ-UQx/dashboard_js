@@ -340,9 +340,9 @@ app.directive('visWorld', function() {
 				 }
 				 }
 				 }); */
-
+                var maxVal = dataMaxVal(scope.chartData);
                 for (var country in finalData) {
-                    var fill = '_' + Math.floor(finalData[country]['percentage'] * 100 / dataMaxVal(scope.chartData));
+                    var fill = '_' + Math.floor(finalData[country]['value'] * 100 / maxVal);
                     finalData[country]['fillKey'] = fill;
                 }
 				//angular.element('vis-world-container').scope().height = 400;

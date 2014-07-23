@@ -19,12 +19,15 @@ angular.module('dashboardJsApp')
                 RequestService.async('http://api.uqxdev.com/api/students/countries/' + Course.currentCourse + '/').then(function(data) {
                     $scope.populationData = [];
                     $scope.enrolmentData = [];
+                    var tmpEnrolmentData = [];
                     for(var country in data) {
-                        var popObject = {'country':country, 'value':data[country]['count'], 'percentage': data[country]['percentage']};
-                        $scope.populationData.push(popObject);
-                        var enrolObject = [country, data[country]['percentage'], data[country]['count']];
-                        $scope.enrolmentData.push(enrolObject);
-
+                        if(country != 'null') {
+                            var roundedPercentage = Math.round(data[country]['percentage']*100)/100;
+                            var popObject = {'country': country, 'value': data[country]['count'], 'percentage': roundedPercentage};
+                            $scope.populationData.push(popObject);
+                            var enrolObject = [country, roundedPercentage, data[country]['count']];
+                            tmpEnrolmentData.push(enrolObject);
+                        }
                     }
                     function percentage_compare(a,b) {
                       if (a[1] > b[1])
@@ -33,7 +36,14 @@ angular.module('dashboardJsApp')
                         return 1;
                       return 0;
                     }
-                    $scope.enrolmentData.sort(percentage_compare);
+                    tmpEnrolmentData.sort(percentage_compare);
+                    for(country in tmpEnrolmentData) {
+                        console.log(tmpEnrolmentData[country][1]);
+                        if(tmpEnrolmentData[country][1] < 1) {
+                            break;
+                        }
+                        $scope.enrolmentData.push(tmpEnrolmentData[country]);
+                    }
                 });
             }
         };
