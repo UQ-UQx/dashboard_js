@@ -344,7 +344,6 @@ app.directive('visWorld', function() {
                 for (var country in finalData) {
                     var fill = '_' + Math.floor(finalData[country]['percentage'] * 100 / dataMaxVal(scope.chartData));
                     finalData[country]['fillKey'] = fill;
-                    console.log("###"+fill+country);
                 }
 				//angular.element('vis-world-container').scope().height = 400;
 				//	console.log(angular.element('vis-world-container').scope());
@@ -352,7 +351,7 @@ app.directive('visWorld', function() {
 
 				//scope.$watch(scope.width, function () {
 				//element.find('.vis-world-container').html('');
-
+                element.find('.vis-world-inner').html('');
 				var drawChart = function() {
 					scope.map = new Datamap({
 						element: element.find('.vis-world-inner')[0],
