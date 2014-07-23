@@ -8,7 +8,7 @@
  * d3 Line Chart Directive of the dashboardJsApp
  */
 
-app.directive('visBar', function() {
+app.directive('visBar', 'COUNTRY', function(COUNTRY) {
 	return {
 		restrict: 'EA',
 		scope: {
@@ -23,6 +23,7 @@ app.directive('visBar', function() {
         },
 		link: function(scope, element) {
             scope.$watch('data', function() {
+                var converter = COUNTRY;
                 var data = scope.data;
 
                 var yticks = [];

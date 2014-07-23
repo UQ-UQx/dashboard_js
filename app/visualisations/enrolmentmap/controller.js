@@ -8,7 +8,7 @@
  * Controller of the dashboardJsApp
  */
 angular.module('dashboardJsApp')
-	.controller('Visualisation_enrolmentmap_Ctrl', ['$scope', 'RequestService', 'Course', 'AuthService', function ($scope, RequestService, Course, AuthService) {
+	.controller('Visualisation_enrolmentmap_Ctrl', ['$scope', 'RequestService', 'Course', 'AuthService', 'COUNTRY', function ($scope, RequestService, Course, AuthService, COUNTRY) {
         $scope.enrolmentData = [];
         $scope.populationData = [];
         $scope.auth = AuthService;
