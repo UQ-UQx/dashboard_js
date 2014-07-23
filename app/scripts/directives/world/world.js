@@ -306,6 +306,7 @@ app.directive('visWorld', function() {
                 for (var country in finalData) {
                     var fill = '_' + Math.floor(finalData[country]['percentage'] * 100 / dataMaxVal(scope.chartData));
                     finalData[country]['fillKey'] = fill;
+                    console.log("###"+fill+country);
                 }
 
                 var fills = {};

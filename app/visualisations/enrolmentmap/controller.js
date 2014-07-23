@@ -13,6 +13,7 @@ angular.module('dashboardJsApp')
         $scope.populationData = [];
         $scope.course = Course;
         $scope.auth = AuthService;
+		$scope.colourString = '23, 60, 68';
 
         $scope.formatData = function() {
             if ($scope.auth.isAuthenticated()) {
