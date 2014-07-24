@@ -13,6 +13,7 @@ angular.module('dashboardJsApp')
         $scope.currentVisualisationName = '';
         $scope.auth = AuthService;
         $scope.course = Course;
+        $scope.state = "notselected";
 
         $scope.visualisationsList = [];
         $http.get('visualisations.json').then(function(res) {

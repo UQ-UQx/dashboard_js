@@ -14,6 +14,8 @@ angular.module('dashboardJsApp')
         $scope.auth = AuthService;
 		$scope.colourString = '23, 60, 68';
 
+        $scope.$parent.state = "loading";
+
         $scope.formatData = function() {
 
             var twodtoname = {};
@@ -50,6 +52,10 @@ angular.module('dashboardJsApp')
                         $scope.enrolmentData.push(tmpEnrolmentData[country]);
                     }
                 });
+                setTimeout(function() {
+                    $scope.$parent.state = "running";
+                    $scope.$apply();
+                },1000);
             }
         };
 

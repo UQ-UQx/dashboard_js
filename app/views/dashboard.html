@@ -13,7 +13,14 @@
         </ul>
         <div id="main_content">
             <h2>{{currentVisualisationName}} {{course.getCurrentCourseShortName()}}</h2>
+            <div ng-switch on="state">
+                <div ng-switch-when="notselected">No visualisation selected</div>
+                <div ng-switch-when="loading">This is the loading screen</div>
+                <div ng-switch-when="error">This is an error</div>
+            </div>
+            <div ng-class="{hideview:(state!='running')}">
             <ui-view></ui-view>
+            </div>
         </div>
     </div>
 </div>
