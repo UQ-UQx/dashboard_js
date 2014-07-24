@@ -271,3 +271,24 @@ ul#coursestructure em {
 .hideview {
     display:none;
 }
+div#notselected h1 {
+    text-align:center;
+    color:#666;
+    margin-top:50px;
+    font-size:300%;
+}
+div#notselected p {
+    text-align:center;
+    color:#333;
+    font-weight:100;
+    letter-spacing:0.1em;
+    font-size:120%;
+}
+div#notselected div#icon {
+    text-align:center;
+    font-size:1300%;
+    color:#4A105A;
+}
+div#loading_spinner {
+    height:500px; position:relative; margin-right:20px;
+}

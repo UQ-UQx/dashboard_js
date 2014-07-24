@@ -43,7 +43,7 @@ angular.module('dashboardJsApp')
                     $scope.course.setCourseList(data);
                     
                     if (data.length) {
-                    //    $scope.course.currentCourse = data[0].id;
+                        $scope.course.currentCourse = data[0].id;
                     }
                     else {
                         $scope.course.currentCourse = '';

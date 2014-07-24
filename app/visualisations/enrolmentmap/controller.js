@@ -52,10 +52,7 @@ angular.module('dashboardJsApp')
                         $scope.enrolmentData.push(tmpEnrolmentData[country]);
                     }
                 });
-                setTimeout(function() {
-                    $scope.$parent.state = "running";
-                    $scope.$apply();
-                },1000);
+                $scope.$parent.state = "running";
             }
         };
 

@@ -14,8 +14,29 @@
         <div id="main_content">
             <h2>{{currentVisualisationName}} {{course.getCurrentCourseShortName()}}</h2>
             <div ng-switch on="state">
-                <div ng-switch-when="notselected">No visualisation selected</div>
-                <div ng-switch-when="loading">This is the loading screen</div>
+                <div ng-switch-when="notselected" id="notselected">
+                        <h1>Choose a visualisation and course</h1>
+                        <div id="icon"><i class="fa fa-dashboard"></i></div>
+                        <p>Choose a visualisation from the top and a course from the left hand side</p>
+                </div>
+                <div ng-switch-when="loading">
+                    <div id='loading_spinner'></div>
+                    <script type="text/javascript">
+                        var opts = {
+                            lines: 10, // The number of lines to draw
+                            length: 10, // The length of each line
+                            width: 10, // The line thickness
+                            radius: 20, // The radius of the inner circle
+                            corners: 4, // Corner roundness (0..1)
+                            color: '#4A105A', // #rgb or #rrggbb or array of colors
+                            speed: 0.8, // Rounds per second
+                            top: '50%',
+                            left: '50%'
+                        };
+                        var target = document.getElementById('loading_spinner');
+                        var spinner = new Spinner(opts).spin(target);
+                    </script>
+                </div>
                 <div ng-switch-when="error">This is an error</div>
             </div>
             <div ng-class="{hideview:(state!='running')}">

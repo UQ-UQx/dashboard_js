@@ -10,6 +10,7 @@
 angular.module('dashboardJsApp')
 	.controller('Visualisation_activeusers_Ctrl', ['$scope', 'RequestService', 'Course', 'AuthService', function ($scope, RequestService, Course, AuthService) {
 		$scope.auth = AuthService;
+        $scope.$parent.state = "loading";
 
 		$scope.$watch('auth.isAuthenticated()', function() {
 			if ($scope.auth.isAuthenticated()) {
@@ -27,6 +28,7 @@ angular.module('dashboardJsApp')
 
 					$scope.dailyData = formattedDailyData;
 					$scope.weeklyData = formattedWeeklyData;
+                    $scope.$parent.state = "running";
 				});
 			}
 		}, true);

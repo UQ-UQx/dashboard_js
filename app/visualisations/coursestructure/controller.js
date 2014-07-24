@@ -10,7 +10,7 @@
 angular.module('dashboardJsApp')
 	.controller('Visualisation_coursestructure_Ctrl', ['$scope', 'RequestService', 'Course', 'AuthService', 'createDialog', function ($scope, RequestService, Course, AuthService, createDialog) {
 		$scope.auth = AuthService;
-
+        $scope.$parent.state = "loading";
 
 		$scope.$watch('auth.isAuthenticated()', function() {
 			if ($scope.auth.isAuthenticated()) {
@@ -39,6 +39,9 @@ angular.module('dashboardJsApp')
 							}
 						});
 					};
+
+                    $scope.$parent.state = "running";
+
 				});
 			}
 		});

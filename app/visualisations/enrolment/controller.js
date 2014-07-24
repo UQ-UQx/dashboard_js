@@ -11,6 +11,8 @@ angular.module('dashboardJsApp')
 	.controller('Visualisation_enrolment_Ctrl', ['$scope', 'RequestService', 'Course', 'AuthService', function ($scope, RequestService, Course, AuthService) {
 		$scope.auth = AuthService;
 
+        $scope.$parent.state = "loading";
+
 		$scope.$watch('auth.isAuthenticated()', function() {
 			if ($scope.auth.isAuthenticated()) {
 				RequestService.async('http://api.uqxdev.com/api/students/dates/' + Course.currentCourse + '/').then(function(data) {
@@ -26,6 +28,7 @@ angular.module('dashboardJsApp')
 
 					$scope.normalData = formattedNormalData;
 					$scope.aggregateData = formattedAggregateData;
+                    $scope.$parent.state = "running";
 				});
 			}
 		});
