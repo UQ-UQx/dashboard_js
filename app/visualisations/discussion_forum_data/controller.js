@@ -103,13 +103,4 @@ angular.module('dashboardJsApp')
     }
 
 	$scope.$watch('auth.isAuthenticated()', $scope.loadData());
-
-
-	/*
-	$scope.chartOption = {
-	//    barFill: "blue",
-	//    highlightFill: "red",
-	//    tipOn: false,
-	};
-	*/
 	}]);

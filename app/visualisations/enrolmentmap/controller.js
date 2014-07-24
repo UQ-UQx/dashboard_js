@@ -59,10 +59,12 @@ angular.module('dashboardJsApp')
                       return 0;
                     }
                     tmpEnrolmentData.sort(percentage_compare);
+                    var i = 0;
                     for(country in tmpEnrolmentData) {
-                        if(tmpEnrolmentData[country][1] < 1) {
+                        if(tmpEnrolmentData[country][1] < 1 || i > 20) {
                             break;
                         }
+                        i++;
                         $scope.enrolmentData.push(tmpEnrolmentData[country]);
                     }
                 });
