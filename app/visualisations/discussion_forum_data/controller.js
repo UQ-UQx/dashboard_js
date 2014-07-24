@@ -54,37 +54,49 @@ angular.module('dashboardJsApp')
         }
 
         if ($scope.auth.isAuthenticated()) {
-			RequestService.async('http://api.uqxdev.com/api/discussions/dates/' + Course.currentCourse + '/').then(function(data) {
-				var formattedNormalData = [{ name: 'Posts', data: [] }, { name: 'Comments', data: [] }];
-				var formattedAggregateData = [{ name: 'Aggregate Posts', data: [] }, { name: 'Aggregate Comments', data: [] }];
 
-				if ('thread_datecounts' in data) {
-					for (var key in data['thread_datecounts']) {
-						formattedNormalData[0]['data'].push({ 'date': data['thread_datecounts'][key][0], 'value': data['thread_datecounts'][key][1] });
-					}
-				}
+            if(Course.currentCourse == 'allcourses') {
+                $scope.$parent.state = "notavailable";
+            } else {
 
-				if ('comment_datecounts' in data) {
-					for (var key in data['comment_datecounts']) {
-						formattedNormalData[1]['data'].push({ 'date': data['comment_datecounts'][key][0], 'value': data['comment_datecounts'][key][1] });
-					}
-				}
+                RequestService.async('http://api.uqxdev.com/api/discussions/dates/' + Course.currentCourse + '/').then(function (data) {
+                    var formattedNormalData = [
+                        { name: 'Posts', data: [] },
+                        { name: 'Comments', data: [] }
+                    ];
+                    var formattedAggregateData = [
+                        { name: 'Aggregate Posts', data: [] },
+                        { name: 'Aggregate Comments', data: [] }
+                    ];
 
-				if ('thread_datecountsaggregate' in data) {
-					for (var key in data['thread_datecountsaggregate']) {
-						formattedAggregateData[0]['data'].push({ 'date': data['thread_datecountsaggregate'][key][0], 'value': data['thread_datecountsaggregate'][key][1] });
-					}
-				}
+                    if ('thread_datecounts' in data) {
+                        for (var key in data['thread_datecounts']) {
+                            formattedNormalData[0]['data'].push({ 'date': data['thread_datecounts'][key][0], 'value': data['thread_datecounts'][key][1] });
+                        }
+                    }
 
-				if ('comment_datecountsaggregate' in data) {
-					for (var key in data['comment_datecountsaggregate']) {
-						formattedAggregateData[1]['data'].push({ 'date': data['comment_datecountsaggregate'][key][0], 'value': data['comment_datecountsaggregate'][key][1] });
-					}
-				}
+                    if ('comment_datecounts' in data) {
+                        for (var key in data['comment_datecounts']) {
+                            formattedNormalData[1]['data'].push({ 'date': data['comment_datecounts'][key][0], 'value': data['comment_datecounts'][key][1] });
+                        }
+                    }
 
-				$scope.normalData = formattedNormalData;
-				$scope.aggregateData = formattedAggregateData;
-			});
+                    if ('thread_datecountsaggregate' in data) {
+                        for (var key in data['thread_datecountsaggregate']) {
+                            formattedAggregateData[0]['data'].push({ 'date': data['thread_datecountsaggregate'][key][0], 'value': data['thread_datecountsaggregate'][key][1] });
+                        }
+                    }
+
+                    if ('comment_datecountsaggregate' in data) {
+                        for (var key in data['comment_datecountsaggregate']) {
+                            formattedAggregateData[1]['data'].push({ 'date': data['comment_datecountsaggregate'][key][0], 'value': data['comment_datecountsaggregate'][key][1] });
+                        }
+                    }
+
+                    $scope.normalData = formattedNormalData;
+                    $scope.aggregateData = formattedAggregateData;
+                });
+            }
 		}
 
 
