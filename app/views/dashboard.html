@@ -1,18 +1,19 @@
 <div id="dashboard_container">
     <ul id="vis-nav">
-        <li><a href="#" data-name="dashboard"><i class="fa fa-dashboard"></i></a></li>
+        <li><a href="#" data-name="dashboard" ng-click='goHome()'><i class="fa fa-dashboard"></i></a></li>
         <li ng-repeat="visualisation in visualisationsList" ui-sref-active="selected">
             <a ng-click='changeVisualisation(visualisation)' ui-sref="dashboard.visualisation({visualisation: visualisation.id})"><i class="fa {{visualisation.icon}}"></i> <span class="hidden-xs hidden-sm">{{visualisation.name}}</span></a>
         </li>
     </ul>
     <div id="content_wrapper">
         <ul id="coursenav">
-            <li ng-repeat="c in course.courseList" ng-class="{selected:(c.id == course.currentCourse)}">
+            <li ng-repeat="c in course.courseList" ng-class="{selected:(c.id === course.currentCourse)}">
                 <a ng-click='course.currentCourse = c.id' ui-sref="dashboard.visualisation({visualisation: currentVisualisation, course: c.id})" data-name="{{c.id}}"><i class="fa {{c.icon}}"></i>{{c.shortName}}</a>
             </li>
         </ul>
         <div id="main_content">
             <h2>{{currentVisualisationName}} {{course.getCurrentCourseShortName()}}</h2>
+            
             <div ng-switch on="state">
                 <div ng-switch-when="notselected" id="notselected">
                         <h1>Choose a visualisation and course</h1>

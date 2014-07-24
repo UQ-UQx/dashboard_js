@@ -15,7 +15,6 @@ angular.module('dashboardJsApp')
 		$scope.populationData = [{ 'country' : 'AU', 'value': '10', 'percentage': '10'}, { 'country': 'US', 'value': '50', 'percentage': '40'}];
 		$scope.colourString1 = '23, 148, 68';
 		$scope.colourString2 = '255, 127, 127';
-
 		$scope.$watch('auth.isAuthenticated()', function() {
 			if ($scope.auth.isAuthenticated()) {
 				RequestService.async('http://api.uqxdev.com/api/students/dates/' + Course.currentCourse + '/').then(function(data) {

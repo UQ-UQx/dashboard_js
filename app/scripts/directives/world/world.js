@@ -31,7 +31,6 @@ app.directive('visWorld', ['COUNTRY', function(COUNTRY) {
 		scope: {
 			chartData: '=data',
 			colourString: '=colourString',
-			//width: '=width',
 			height: '=height'
 		},
 

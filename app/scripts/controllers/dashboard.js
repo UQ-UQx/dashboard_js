@@ -37,17 +37,23 @@ angular.module('dashboardJsApp')
             $scope.currentVisualisationName = newVisualisation.name;
         }
 
+        $scope.goHome = function() {
+            $scope.currentVisualisation = '';
+            $scope.currentVisualisationName = '';
+            $scope.course.currentCourse = '';
+        }
+
         $scope.$watch('auth.isAuthenticated()', function() {
             if ($scope.auth.isAuthenticated()) {
                 RequestService.async('http://api.uqxdev.com/api/meta/courses/').then(function(data) {
                     $scope.course.setCourseList(data);
-                    
+                    /*
                     if (data.length) {
                         $scope.course.currentCourse = data[0].id;
                     }
                     else {
                         $scope.course.currentCourse = '';
-                    }
+                    } */
                 });
             }
         });
