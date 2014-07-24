@@ -32,6 +32,12 @@ angular.module('dashboardJsApp')
 
         $scope.courseList = [];
 
+        $scope.$watch('state',function() {
+            if($scope.course.currentCourse == '') {
+                $scope.state = 'notselected';
+            }
+        });
+
         $scope.changeVisualisation = function(newVisualisation) {
             $scope.currentVisualisation = newVisualisation.id;
             $scope.currentVisualisationName = newVisualisation.name;
@@ -41,6 +47,7 @@ angular.module('dashboardJsApp')
             $scope.currentVisualisation = '';
             $scope.currentVisualisationName = '';
             $scope.course.currentCourse = '';
+            $scope.state = 'notselected';
         }
 
         $scope.$watch('auth.isAuthenticated()', function() {

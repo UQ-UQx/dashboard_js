@@ -16,7 +16,21 @@ angular.module('dashboardJsApp')
 
 		$scope.$parent.state = "loading";
 
-		$scope.$watch('auth.isAuthenticated()', function() {
+		$scope.refresh = false;
+
+		$scope.refreshData = function() {
+			$scope.$parent.state = "loading";
+			$scope.refresh = true;
+			$scope.loadData();
+			$scope.refresh = false;
+		}
+
+		$scope.loadData = function() {
+			var refresh = '';
+
+			if($scope.refresh) {
+				refresh = '?refreshcache=true';
+			}
 
 			var twodtoname = {};
 			for(var country in COUNTRY) {
@@ -54,5 +68,8 @@ angular.module('dashboardJsApp')
 				});
 				$scope.$parent.state = "running";
 			}
-		});
+
+		}
+
+		$scope.$watch('auth.isAuthenticated()', $scope.loadData());
 	}]);

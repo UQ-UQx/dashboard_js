@@ -12,37 +12,60 @@ angular.module('dashboardJsApp')
 		$scope.auth = AuthService;
         $scope.$parent.state = "loading";
 
-		$scope.$watch('auth.isAuthenticated()', function() {
-			if ($scope.auth.isAuthenticated()) {
-				RequestService.async('http://api.uqxdev.com/api/meta/structure/' + Course.currentCourse + '/').then(function(data) {
-					var coursecontent = data;
+        $scope.refresh = false;
+        $scope.refreshData = function() {
+            $scope.$parent.state = "loading";
+            $scope.refresh = true;
+            $scope.loadData();
+            $scope.refresh = false;
+        }
 
-					$scope.coursecontent = coursecontent;
+        $scope.loadData = function() {
 
-					$scope.launchStructureModal = function(data) {
-						var attrs = '';
-						for(var attr in data) {
-							if(attr != 'children') {
-								attrs += '<dt>' + attr + '</dt><dd>' + data[attr] + '</dd>';
-							}
-						}
+            var refresh = '';
 
-						createDialog({
-							id: 'loginDialog',
-							template: '<dl>'+attrs+'</dl>',
-							title: data['display_name'],
-							footerTemplate: '<div></div>',
-							backdrop: true,
-							css: {
-								top: '100px',
-								margin: '0 auto'
-							}
-						});
-					};
+            if($scope.refresh) {
+                refresh = '?refreshcache=true';
+            }
 
-                    $scope.$parent.state = "running";
+            if ($scope.auth.isAuthenticated()) {
 
-				});
+                if(Course.currentCourse == 'allcourses') {
+                    $scope.$parent.state = "notavailable";
+                } else {
+                    RequestService.async('http://api.uqxdev.com/api/meta/structure/' + Course.currentCourse + '/').then(function (data) {
+                        var coursecontent = data;
+
+                        $scope.coursecontent = coursecontent;
+
+                        $scope.launchStructureModal = function (data) {
+                            var attrs = '';
+                            for (var attr in data) {
+                                if (attr != 'children') {
+                                    attrs += '<dt>' + attr + '</dt><dd>' + data[attr] + '</dd>';
+                                }
+                            }
+
+                            createDialog({
+                                id: 'loginDialog',
+                                template: '<dl>' + attrs + '</dl>',
+                                title: data['display_name'],
+                                footerTemplate: '<div></div>',
+                                backdrop: true,
+                                css: {
+                                    top: '100px',
+                                    margin: '0 auto'
+                                }
+                            });
+                        };
+
+                        $scope.$parent.state = "running";
+
+                    });
+                }
 			}
-		});
+
+        }
+
+		$scope.$watch('auth.isAuthenticated()',$scope.loadData());
 	}]);

@@ -13,8 +13,23 @@ angular.module('dashboardJsApp')
 
         $scope.$parent.state = 'loading';
 
-		$scope.$watch('auth.isAuthenticated()', function() {
-			if ($scope.auth.isAuthenticated()) {
+        $scope.refresh = false;
+
+        $scope.refreshData = function() {
+            $scope.$parent.state = "loading";
+            $scope.refresh = true;
+            $scope.loadData();
+            $scope.refresh = false;
+        }
+
+        $scope.loadData = function() {
+            var refresh = '';
+
+            if($scope.refresh) {
+                refresh = '?refreshcache=true';
+            }
+
+            if ($scope.auth.isAuthenticated()) {
 				RequestService.async('http://api.uqxdev.com/api/discussions/countries/' + Course.currentCourse + '/').then(function(data) {
 					$scope.populationData = [];
 					$scope.populationEnrolData = [];
@@ -34,5 +49,8 @@ angular.module('dashboardJsApp')
                     $scope.$parent.state = 'running';
 				});
 			}
-		});
+
+        }
+
+		$scope.$watch('auth.isAuthenticated()', $scope.loadData());
 	}]);
