@@ -69,12 +69,35 @@ app.directive('visLine', function() {
 		return dateExtent;
 	};
 
+	var dataEveryDate = function(data) {
+		var set;
+		var allDates = d3.time.scale().domain(dataExtentDate(data)).ticks(d3.time.days, 1);
+
+		for (set in data) {
+			var availableData = data[set]['data'];
+
+			data[set]['data'] = [];
+
+			for (var i in allDates) {
+				data[set]['data'].push({ date: allDates[i], value: 0 });
+
+				for (var j in availableData) {
+					if (+availableData[j].date === +allDates[i]) {
+						data[set]['data'][data[set]['data'].length - 1].value = availableData[j].value;
+					}
+				}
+			}	
+		}
+
+		return data;
+	};
+
 	return {
 		restrict: 'EA',
 		scope: {
 			chartData: '=data',
-//			width: '=width',
 			height: '=height',
+			allDates: '=allDates',
 		},
 		templateUrl: 'scripts/directives/line/line.html',
 		link: function(scope, element) {
@@ -86,6 +109,10 @@ app.directive('visLine', function() {
 						for (var j in scope.chartData[i].data) {
 							scope.chartData[i].data[j].date = parseDate(scope.chartData[i].data[j].date);
 						}
+					}
+
+					if ((scope.allDates !== undefined) && (scope.allDates)) {
+						scope.chartData = dataEveryDate(scope.chartData);
 					}
 
 					var nameList = [];
