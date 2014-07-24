@@ -38,7 +38,7 @@ angular.module('dashboardJsApp')
 
 					if ('country_post' in data) {
 						for (var key in data['country_post']) {
-							$scope.populationData.push({ country: data['country_post'][key][0], value: data['country_post'][key][1], percentage: data['country_post'][key][1] })
+							$scope.populationData.push({ country: data['country_post'][key][0], value: data['country_post'][key][1], percentage: data['country_post'][key][2] })
 						}
 
 						for (var key in data['country_post_enrol']) {
