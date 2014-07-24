@@ -9,33 +9,33 @@
  */
 angular.module('dashboardJsApp')
 	.controller('Visualisation_enrolmentmap_Ctrl', ['$scope', 'RequestService', 'Course', 'AuthService', 'COUNTRY', function ($scope, RequestService, Course, AuthService, COUNTRY) {
-        $scope.enrolmentData = [];
-        $scope.populationData = [];
-        $scope.auth = AuthService;
+		$scope.enrolmentData = [];
+		$scope.populationData = [];
+		$scope.auth = AuthService;
 		$scope.colourString = '23, 60, 68';
 
-        $scope.$parent.state = "loading";
+		$scope.$parent.state = "loading";
 
-        $scope.refresh = false;
-        $scope.refreshData = function() {
-            $scope.$parent.state = "loading";
-            $scope.refresh = true;
-            $scope.loadData();
-            $scope.refresh = false;
-        }
+		$scope.refresh = false;
 
-        $scope.loadData = function() {
+		$scope.refreshData = function() {
+			$scope.$parent.state = "loading";
+			$scope.refresh = true;
+			$scope.loadData();
+			$scope.refresh = false;
+		}
 
-            var refresh = '';
+		$scope.loadData = function() {
+			var refresh = '';
 
-            if($scope.refresh) {
-                refresh = '?refreshcache=true';
-            }
+			if($scope.refresh) {
+				refresh = '?refreshcache=true';
+			}
 
-            var twodtoname = {};
-            for(var country in COUNTRY) {
-                twodtoname[COUNTRY[country]['alpha-2']] = COUNTRY[country]['name'];
-            }
+			var twodtoname = {};
+			for(var country in COUNTRY) {
+				twodtoname[COUNTRY[country]['alpha-2']] = COUNTRY[country]['name'];
+			}
 
             if ($scope.auth.isAuthenticated()) {
                 RequestService.async('http://api.uqxdev.com/api/students/countries/' + Course.currentCourse + '/').then(function(data) {
@@ -71,12 +71,7 @@ angular.module('dashboardJsApp')
                 $scope.$parent.state = "running";
             }
 
-        }
+		}
 
-        $scope.formatData = function() {
-
-            $scope.loadData();
-        };
-
-        $scope.$watch('course.currentCourse', $scope.formatData());
-  	}]);
+		$scope.$watch('auth.isAuthenticated()', $scope.loadData());
+	}]);

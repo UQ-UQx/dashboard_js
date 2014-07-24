@@ -89,18 +89,19 @@ app.directive('visWorld', ['COUNTRY', function(COUNTRY) {
 				 }
 				 }
 				 }); */
-                var maxVal = dataMaxVal(scope.chartData);
-                for (var country in finalData) {
-                    var fill = '_' + Math.floor(finalData[country]['value'] * 100 / maxVal);
-                    finalData[country]['fillKey'] = fill;
-                }
+				var maxVal = dataMaxVal(scope.chartData);
+				for (var country in finalData) {
+					var fill = '_' + Math.floor(finalData[country]['value'] * 100 / maxVal);
+					finalData[country]['fillKey'] = fill;
+				}
 				//angular.element('vis-world-container').scope().height = 400;
 				//	console.log(angular.element('vis-world-container').scope());
 				//angular.element('vis-world-container').scope().$apply();
 
 				//scope.$watch(scope.width, function () {
-				//element.find('.vis-world-container').html('');
-                element.find('.vis-world-inner').html('');
+
+				element.find('.vis-world-inner').html('');
+
 				var drawChart = function() {
 					scope.map = new Datamap({
 						element: element.find('.vis-world-inner')[0],
@@ -110,7 +111,7 @@ app.directive('visWorld', ['COUNTRY', function(COUNTRY) {
 							popupTemplate: function (geo, data) {
 								var popupString = '<div class="hoverinfo"><strong>' + geo.properties.name + ': 0 ' + ' posts (0%)</strong></div>';
 
-								if (data != null) {
+								if (data !== null) {
 									popupString = [
 										'<div class="hoverinfo"><strong>',
 										geo.properties.name,
