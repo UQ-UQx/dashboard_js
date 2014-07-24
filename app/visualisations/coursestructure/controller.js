@@ -14,35 +14,40 @@ angular.module('dashboardJsApp')
 
 		$scope.$watch('auth.isAuthenticated()', function() {
 			if ($scope.auth.isAuthenticated()) {
-				RequestService.async('http://api.uqxdev.com/api/meta/structure/' + Course.currentCourse + '/').then(function(data) {
-					var coursecontent = data;
 
-					$scope.coursecontent = coursecontent;
+                if(Course.currentCourse == 'allcourses') {
+                    $scope.$parent.state = "notavailable";
+                } else {
+                    RequestService.async('http://api.uqxdev.com/api/meta/structure/' + Course.currentCourse + '/').then(function (data) {
+                        var coursecontent = data;
 
-					$scope.launchStructureModal = function(data) {
-						var attrs = '';
-						for(var attr in data) {
-							if(attr != 'children') {
-								attrs += '<dt>' + attr + '</dt><dd>' + data[attr] + '</dd>';
-							}
-						}
+                        $scope.coursecontent = coursecontent;
 
-						createDialog({
-							id: 'loginDialog',
-							template: '<dl>'+attrs+'</dl>',
-							title: data['display_name'],
-							footerTemplate: '<div></div>',
-							backdrop: true,
-							css: {
-								top: '100px',
-								margin: '0 auto'
-							}
-						});
-					};
+                        $scope.launchStructureModal = function (data) {
+                            var attrs = '';
+                            for (var attr in data) {
+                                if (attr != 'children') {
+                                    attrs += '<dt>' + attr + '</dt><dd>' + data[attr] + '</dd>';
+                                }
+                            }
 
-                    $scope.$parent.state = "running";
+                            createDialog({
+                                id: 'loginDialog',
+                                template: '<dl>' + attrs + '</dl>',
+                                title: data['display_name'],
+                                footerTemplate: '<div></div>',
+                                backdrop: true,
+                                css: {
+                                    top: '100px',
+                                    margin: '0 auto'
+                                }
+                            });
+                        };
 
-				});
+                        $scope.$parent.state = "running";
+
+                    });
+                }
 			}
 		});
 	}]);
