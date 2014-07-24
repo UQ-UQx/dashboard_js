@@ -37,8 +37,23 @@ angular.module('dashboardJsApp')
 	$scope.auth = AuthService;
 	$scope.$parent.state = "loading";
 
-	$scope.$watch('auth.isAuthenticated()', function() {
-		if ($scope.auth.isAuthenticated()) {
+    $scope.refresh = false;
+    $scope.refreshData = function() {
+        $scope.$parent.state = "loading";
+        $scope.refresh = true;
+        $scope.loadData();
+        $scope.refresh = false;
+    }
+
+    $scope.loadData = function() {
+
+        var refresh = '';
+
+        if($scope.refresh) {
+            refresh = '?refreshcache=true';
+        }
+
+        if ($scope.auth.isAuthenticated()) {
 			RequestService.async('http://api.uqxdev.com/api/discussions/dates/' + Course.currentCourse + '/').then(function(data) {
 				var formattedNormalData = [{ name: 'Posts', data: [] }, { name: 'Comments', data: [] }];
 				var formattedAggregateData = [{ name: 'Aggregate Posts', data: [] }, { name: 'Aggregate Comments', data: [] }];
@@ -71,7 +86,11 @@ angular.module('dashboardJsApp')
 				$scope.aggregateData = formattedAggregateData;
 			});
 		}
-	});
+
+
+    }
+
+	$scope.$watch('auth.isAuthenticated()', $scope.loadData());
 
 
 	/*

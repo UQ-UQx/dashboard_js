@@ -12,8 +12,23 @@ angular.module('dashboardJsApp')
 		$scope.auth = AuthService;
         $scope.$parent.state = "loading";
 
-		$scope.$watch('auth.isAuthenticated()', function() {
-			if ($scope.auth.isAuthenticated()) {
+        $scope.refresh = false;
+        $scope.refreshData = function() {
+            $scope.$parent.state = "loading";
+            $scope.refresh = true;
+            $scope.loadData();
+            $scope.refresh = false;
+        }
+
+        $scope.loadData = function() {
+
+            var refresh = '';
+
+            if($scope.refresh) {
+                refresh = '?refreshcache=true';
+            }
+
+            if ($scope.auth.isAuthenticated()) {
 
                 if(Course.currentCourse == 'allcourses') {
                     $scope.$parent.state = "notavailable";
@@ -49,5 +64,8 @@ angular.module('dashboardJsApp')
                     });
                 }
 			}
-		});
+
+        }
+
+		$scope.$watch('auth.isAuthenticated()',$scope.loadData());
 	}]);

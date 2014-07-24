@@ -12,9 +12,24 @@ angular.module('dashboardJsApp')
 		$scope.auth = AuthService;
         $scope.$parent.state = "loading";
 
-		$scope.$watch('auth.isAuthenticated()', function() {
+        $scope.refresh = false;
+        $scope.refreshData = function() {
+            $scope.$parent.state = "loading";
+            $scope.refresh = true;
+            $scope.loadData();
+            $scope.refresh = false;
+        }
+
+        $scope.loadData = function () {
+
+            var refresh = '';
+
+            if($scope.refresh) {
+                refresh = '?refreshcache=true';
+            }
+
 			if ($scope.auth.isAuthenticated()) {
-				RequestService.async('http://api.uqxdev.com/api/students/active/' + Course.currentCourse + '/').then(function(data) {
+				RequestService.async('http://api.uqxdev.com/api/students/active/' + Course.currentCourse + '/'+refresh).then(function(data) {
 					var formattedDailyData = [{ name: 'Daily', data: [] }];
 					var formattedWeeklyData = [{ name: 'Weekly', data: [] }];
 
@@ -31,5 +46,7 @@ angular.module('dashboardJsApp')
                     $scope.$parent.state = "running";
 				});
 			}
-		}, true);
+        }
+
+		$scope.$watch('auth.isAuthenticated()', $scope.loadData, true);
 	}]);

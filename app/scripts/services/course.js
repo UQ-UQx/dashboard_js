@@ -13,7 +13,6 @@ angular.module('dashboardJsApp')
 		this.courseList = [];
 
 		this.setCourseList = function(courseList) {
-            console.log("SETTIG COURSE LIST"+courseList);
             courseList.splice(0, 0, {'icon':'fa-dashboard', 'id':'allcourses', 'name':'All Courses List'});
             console.log(courseList);
 			for (var i in courseList) {
@@ -28,7 +27,6 @@ angular.module('dashboardJsApp')
 		};
 
 		this.getCurrentCourseShortName = function() {
-            console.log("GETTING SHORT NAME FOR");
 			for (var key in this.courseList) {
 				if (this.courseList[key].id === this.currentCourse) {
 					return this.courseList[key].shortName;

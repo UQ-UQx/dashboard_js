@@ -13,26 +13,45 @@ angular.module('dashboardJsApp')
 
         $scope.$parent.state = "loading";
 
-        $scope.$watch('auth.isAuthenticated()', function() {
+
+        $scope.refresh = false;
+        $scope.refreshData = function() {
+            $scope.$parent.state = "loading";
+            $scope.refresh = true;
+            $scope.loadData();
+            $scope.refresh = false;
+        }
+
+        $scope.loadData = function() {
+
+            var refresh = '';
+
+            if($scope.refresh) {
+                refresh = '?refreshcache=true';
+            }
+
             if ($scope.auth.isAuthenticated()) {
-                RequestService.async('http://api.uqxdev.com/api/students/ages/' + Course.currentCourse + '/').then(function(data) {
+                console.log(refresh);
+                RequestService.async('http://api.uqxdev.com/api/students/ages/' + Course.currentCourse + '/'+refresh).then(function(data) {
                     $scope.ageData = $scope.formatPieData(data);
                 });
 
-                RequestService.async('http://api.uqxdev.com/api/students/genders/' + Course.currentCourse + '/').then(function(data) {
+                RequestService.async('http://api.uqxdev.com/api/students/genders/' + Course.currentCourse + '/'+refresh).then(function(data) {
                     $scope.genderData = $scope.formatPieData(data);
                 });
 
-                RequestService.async('http://api.uqxdev.com/api/students/educations/' + Course.currentCourse + '/').then(function(data) {
+                RequestService.async('http://api.uqxdev.com/api/students/educations/' + Course.currentCourse + '/'+refresh).then(function(data) {
                     $scope.educationData = $scope.formatPieData(data);
                 });
 
-                RequestService.async('http://api.uqxdev.com/api/students/modes/' + Course.currentCourse + '/').then(function(data) {
+                RequestService.async('http://api.uqxdev.com/api/students/modes/' + Course.currentCourse + '/'+refresh).then(function(data) {
                     $scope.enrolTypeData = $scope.formatPieData(data);
                 });
                 $scope.$parent.state = "running";
             }
-        }, true);
+        }
+
+        $scope.$watch('auth.isAuthenticated()', $scope.loadData, true);
 
         $scope.formatPieData = function(unformattedData) {
             var formattedData = [];

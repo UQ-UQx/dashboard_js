@@ -1,11 +1,11 @@
+<a ng-click="refreshData()" data-name="reload" class="refresh-cache btn btn-warning">
+    <i class="fa fa-refresh"></i> Recache
+</a>
 <div style="float:left; width:100%;">
 <div class="container">
 	<div class="row">
 		<div class="col-md-6">
 			<h3 style="float: left; width: 220px; margin-top: 5px">Age</h3>
-			<a ng-href="http://api.uqxdev.com/api/students/ages/{{course.currentCourse}}?refreshcache=true" data-name="reload" class="refresh-cache btn btn-warning">
-				<i class="fa fa-refresh"></i> Recache
-			</a>
 			<a ng-href="http://api.uqxdev.com/api/students/ages/{{course.currentCourse}}?format=csv" data-name="csv" class="csv-download btn btn-success">
 				<i class="fa fa-file-excel-o"></i> CSV
 			</a>
@@ -13,9 +13,6 @@
 		</div>
 		<div class="col-md-6">
 			<h3 style="float: left; width: 220px; margin-top: 5px">Gender</h3>
-			<a ng-href="http://api.uqxdev.com/api/students/genders/{{course.currentCourse}}?refreshcache=true" data-name="reload" class="refresh-cache btn btn-warning">
-				<i class="fa fa-refresh"></i> Recache
-			</a>
 			<a ng-href="http://api.uqxdev.com/api/students/genders/{{course.currentCourse}}?format=csv" data-name="csv" class="csv-download btn btn-success">
 				<i class="fa fa-file-excel-o"></i> CSV
 			</a>
@@ -25,9 +22,6 @@
 	<div class="row">
 		<div class="col-md-6">
 			<h3 style="float: left; width: 220px; margin-top: 5px">Education</h3>
-			<a ng-href="http://api.uqxdev.com/api/students/educations/{{course.currentCourse}}?refreshcache=true" data-name="reload" class="refresh-cache btn btn-warning">
-				<i class="fa fa-refresh"></i> Recache
-			</a>
 			<a ng-href="http://api.uqxdev.com/api/students/educations/{{course.currentCourse}}?format=csv" data-name="csv" class="csv-download btn btn-success">
 				<i class="fa fa-file-excel-o"></i> CSV
 			</a>
@@ -35,9 +29,6 @@
 		</div>
 		<div class="col-md-6">
 			<h3 style="float: left; width: 220px; margin-top: 5px">User Enrolment Types</h3>
-			<a ng-href="http://api.uqxdev.com/api/students/modes/{{course.currentCourse}}?refreshcache=true" data-name="reload" class="refresh-cache btn btn-warning">
-				<i class="fa fa-refresh"></i> Recache
-			</a>
 			<a ng-href="http://api.uqxdev.com/api/students/modes/{{course.currentCourse}}?format=csv" data-name="csv" class="csv-download btn btn-success">
 				<i class="fa fa-file-excel-o"></i> CSV
 			</a>
