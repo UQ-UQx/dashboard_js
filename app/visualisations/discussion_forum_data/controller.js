@@ -35,6 +35,7 @@ angular.module('dashboardJsApp')
 	//$scope.aggregateData = [];
 	$scope.course = Course;
 	$scope.auth = AuthService;
+	$scope.$parent.state = "loading";
 
 	$scope.$watch('auth.isAuthenticated()', function() {
 		if ($scope.auth.isAuthenticated()) {

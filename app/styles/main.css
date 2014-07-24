@@ -268,3 +268,6 @@ ul#coursestructure div.node_html {
 ul#coursestructure em {
     display:none;
 }
+.hideview {
+    display:none;
+}

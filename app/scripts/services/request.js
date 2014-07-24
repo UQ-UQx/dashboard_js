@@ -12,6 +12,7 @@ angular.module('dashboardJsApp')
 	.factory('RequestService', ['$http', 'AuthService', 'createDialog', function($http, AuthService, createDialogService) {
 		return {
 			async: function(url) {
+                url = url.replace("allcourses/","");
 				// $http returns a promise, which has a then function, which also returns a promise
 				var promise = $http({
 					url: url,

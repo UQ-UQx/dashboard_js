@@ -14,7 +14,15 @@ angular.module('dashboardJsApp')
         $scope.auth = AuthService;
 		$scope.colourString = '23, 60, 68';
 
+        $scope.$parent.state = "loading";
+
         $scope.formatData = function() {
+
+            var twodtoname = {};
+            for(var country in COUNTRY) {
+                twodtoname[COUNTRY[country]['alpha-2']] = COUNTRY[country]['name'];
+            }
+
             if ($scope.auth.isAuthenticated()) {
                 RequestService.async('http://api.uqxdev.com/api/students/countries/' + Course.currentCourse + '/').then(function(data) {
                     $scope.populationData = [];
@@ -25,7 +33,7 @@ angular.module('dashboardJsApp')
                             var roundedPercentage = Math.round(data[country]['percentage']*100)/100;
                             var popObject = {'country': country, 'value': data[country]['count'], 'percentage': roundedPercentage};
                             $scope.populationData.push(popObject);
-                            var enrolObject = [country, roundedPercentage, data[country]['count']];
+                            var enrolObject = [twodtoname[country], roundedPercentage, data[country]['count']];
                             tmpEnrolmentData.push(enrolObject);
                         }
                     }
@@ -38,13 +46,16 @@ angular.module('dashboardJsApp')
                     }
                     tmpEnrolmentData.sort(percentage_compare);
                     for(country in tmpEnrolmentData) {
-                        console.log(tmpEnrolmentData[country][1]);
                         if(tmpEnrolmentData[country][1] < 1) {
                             break;
                         }
                         $scope.enrolmentData.push(tmpEnrolmentData[country]);
                     }
                 });
+                setTimeout(function() {
+                    $scope.$parent.state = "running";
+                    $scope.$apply();
+                },1000);
             }
         };
 
