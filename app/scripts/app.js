@@ -62,6 +62,7 @@ var app = angular
 		});
 
 		$scope.userLogout = function() {
+            $scope.$broadcast('broadcast_logout');
 			AuthService.logout();
 		};
 
@@ -84,5 +85,8 @@ var app = angular
 
 		if (!token) {
 			$scope.launchLoginModal();
+            setTimeout(function () {
+                $scope.$broadcast('broadcast_logout');
+            },100);
 		}
 	}]);

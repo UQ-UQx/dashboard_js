@@ -13,6 +13,11 @@
         </ul>
         <div id="main_content">
             <div ng-switch on="state">
+                <div ng-switch-when="notloggedin" class="notselected">
+                        <h1>Login to interact with the dashboard</h1>
+                        <div id="icon"><i class="fa fa-lock"></i></div>
+                        <p>You must login to use the dashboard</p>
+                </div>
                 <div ng-switch-when="notselected" class="notselected">
                         <h1>Choose a visualisation and course</h1>
                         <div id="icon"><i class="fa fa-dashboard"></i></div>

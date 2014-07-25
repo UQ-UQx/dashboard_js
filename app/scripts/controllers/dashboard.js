@@ -38,6 +38,10 @@ angular.module('dashboardJsApp')
             }
         });
 
+        $scope.$on('broadcast_logout', function() {
+            $scope.state = 'notloggedin';
+        });
+
         $scope.changeVisualisation = function(newVisualisation) {
             $scope.currentVisualisation = newVisualisation.id;
             $scope.currentVisualisationName = newVisualisation.name;
