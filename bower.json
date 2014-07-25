@@ -16,7 +16,7 @@
     "fontawesome": "~4.1.0",
     "d3-tip": "~0.6.4",
     "datamaps": "~0.3.3",
-    "topojson": "~1.6.14",
+    "topojson": "1.6.14",
     "angular-base64": "~2.0.2",
     "angularjs-modal-service": "*",
     "angular-cookie": "~4.0.2"
@@ -25,5 +25,9 @@
     "angular-mocks": "1.2.16",
     "angular-scenario": "1.2.16"
   },
-  "appPath": "app"
+  "appPath": "app",
+  "resolutions": {
+    "angular": "1.2.16",
+    "topojson": "1.6.14"
+  }
 }
