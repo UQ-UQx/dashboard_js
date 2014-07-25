@@ -29,6 +29,7 @@ app.directive('visPie', function ($window) {
 			
 
 			scope.$watch('data', function(data) {
+                console.log("REFRESHING DATA");
 				if ((data !== undefined) && (data !== null) && (data !== [])) {
 					var pie = d3.layout.pie()
 						.sort(null)
@@ -46,6 +47,8 @@ app.directive('visPie', function ($window) {
 					var arc = d3.svg.arc()
 						.outerRadius(radius)
 						.innerRadius(0);
+
+                    $(element.find('.pie-chart')[0]).html("");
 
 					var svg = d3.select(element.find('.pie-chart')[0])
 						.attr('width', scope.width)

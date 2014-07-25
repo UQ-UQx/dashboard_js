@@ -20,11 +20,6 @@
         "icon": "fa-globe"
     },
     {
-        "id": "discussion_forum_data",
-        "name": "Discussion Forums",
-        "icon": "fa-comments"
-    },
-    {
         "id": "enrolmentmetadata",
         "name": "Enrolment Meta-Data",
         "icon": "fa-tag"
