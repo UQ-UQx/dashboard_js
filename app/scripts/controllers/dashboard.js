@@ -10,6 +10,7 @@
 angular.module('dashboardJsApp')
     .controller('DashboardCtrl', ['$scope','$http','RequestService', 'AuthService', 'Course', '$state', function ($scope, $http, RequestService, AuthService, Course, $state) {
         $scope.currentVisualisation = '';
+        $scope.currentVis = '';
         $scope.currentVisualisationName = '';
         $scope.auth = AuthService;
         $scope.course = Course;
@@ -57,7 +58,17 @@ angular.module('dashboardJsApp')
         $scope.$watch('auth.isAuthenticated()', function() {
             if ($scope.auth.isAuthenticated()) {
                 RequestService.async('http://api.uqxdev.com/api/meta/courses/').then(function(data) {
+                    console.log("CHANGING XXX "+$scope.course.currentCourse);
+                    if(!$scope.course.currentCourse || $scope.course.currentCourse == '') {
+                        $scope.state = 'notselected';
+                    } else {
+                        $scope.state = "running";
+                    }
                     $scope.course.setCourseList(data);
+                    if($scope.state == 'running' && $scope.auth.justLoggedIn) {
+                        $state.go($state.current, {}, {reload: true});
+                    }
+                    $scope.auth.justLoggedIn = false;
                     /*
                     if (data.length) {
                         $scope.course.currentCourse = data[0].id;
@@ -65,6 +76,7 @@ angular.module('dashboardJsApp')
                     else {
                         $scope.course.currentCourse = '';
                     } */
+                    //$scope.changeVisualisation({'id':$scope.currentVisualisation,'name':$scope.currentVisualisationName});
                 });
             }
         });

@@ -11,6 +11,8 @@ angular.module('dashboardJsApp')
 	.factory('AuthService', ['$http', 'Token', '$base64', function($http, Token, $base64) {
     	var authService = {};
 
+        authService.justLoggedIn = false;
+
     	authService.login = function(credentials) {
             return $http({
                 url: 'http://api.uqxdev.com/api-token-auth/',
@@ -28,6 +30,7 @@ angular.module('dashboardJsApp')
                     return '';
                 }
 
+                authService.justLoggedIn = true;
                 Token.create(returnedToken, credentials.username);
                 Token.saveAsCookie();
 
