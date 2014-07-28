@@ -187,10 +187,10 @@ app.directive('visLine', function() {
 							.call(yAxis)
 							.append('text')
 							.attr('transform', 'rotate(-90)')
-							.attr('y', -100)
-							.attr('x', -170)
+							.attr('y', -80)
+							.attr('x', -0.5 * height)
 							.attr('dy', '.71em')
-							.style('text-anchor', 'end')
+							.style('text-anchor', 'middle')
 							.text(scope.yAxisLabel);
 
 						var series = svg.selectAll('.series')
