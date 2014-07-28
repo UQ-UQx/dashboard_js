@@ -98,9 +98,16 @@ app.directive('visLine', function() {
 			chartData: '=data',
 			height: '=height',
 			allDates: '=allDates',
+			yAxisLabel: '=yAxisLabel',
 		},
 		templateUrl: 'scripts/directives/line/line.html',
 		link: function(scope, element) {
+			if ((scope.yAxisLabel === undefined) || (scope.yAxisLabel === null)) {
+				scope.yAxisLabel = '';
+			}
+
+			//scope.yAxisLabel = 'asdfadsf';
+
 			scope.$watch('chartData', function() {
 				if ((scope.chartData !== undefined) && (scope.chartData !== null) && (scope.chartData !== [])) {
 					var parseDate = d3.time.format('%Y-%m-%d').parse;
@@ -126,7 +133,7 @@ app.directive('visLine', function() {
 					color.domain(nameList);
 
 					var drawChart = function() {
-						var margin = { top: 40, right: 200, bottom: 60, left: 100 },
+						var margin = { top: 40, right: 200, bottom: 60, left: 120 },
 							width = window.innerWidth - 240 - margin.left - margin.right,
 							height = scope.height - margin.top - margin.bottom;
 
@@ -180,11 +187,11 @@ app.directive('visLine', function() {
 							.call(yAxis)
 							.append('text')
 							.attr('transform', 'rotate(-90)')
-							.attr('y', -50)
-							.attr('x', -150)
+							.attr('y', -100)
+							.attr('x', -170)
 							.attr('dy', '.71em')
 							.style('text-anchor', 'end')
-							.text('Y Axis Label');
+							.text(scope.yAxisLabel);
 
 						var series = svg.selectAll('.series')
 							.data(scope.chartData)
