@@ -17,17 +17,39 @@ angular.module('dashboardJsApp')
 
         $scope.state = "loading";
 
+        $scope.course = Course;
+
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        if(dd<10) {
+            dd='0'+dd
+        }
+
+        if(mm<10) {
+            mm='0'+mm
+        }
+
+        today = mm+'/'+dd+'/'+yyyy;
+
+        $scope.current_date = today;
+
         $http.get('reports.json').then(function(res) {
             $scope.reportsList = res.data;
+            console.log("###");
             console.log($scope);
-//            if ($scope.currentReport !== '') {
-//                for (var vis in $scope.reportsList) {
-//                    if($scope.currentVisualisation == $scope.visualisationsList[vis].id) {
-//                        $scope.currentVisualisationName = $scope.visualisationsList[vis].name;
-//                    }
-//                }
-//            }
+            if ($scope.currentReport !== '') {
+                for (var rep in $scope.reportsList) {
+                    if($scope.currentReport == $scope.reportsList[rep].id) {
+                        $scope.currentReportName = $scope.reportsList[rep].name;
+                    }
+                }
+            }
         });
+
+        $scope.currentReport = $state.params.report;
 
         $scope.changeReport = function(newReport) {
             $scope.currentReport = newReport.id;
@@ -41,14 +63,5 @@ angular.module('dashboardJsApp')
 
             console.log("REPORT LOADING");
 
-            //Courses
-//            RequestService.async('http://api.uqxdev.com/api/meta/courses/').then(function(data) {
-//                console.log("CHANGING XXX "+$scope.course.currentCourse);
-//                $scope.course.setCourseList(data);
-//                if($scope.state == 'running' && $scope.auth.justLoggedIn) {
-//                    $state.go($state.current, {}, {reload: true});
-//                }
-//                $scope.auth.justLoggedIn = false;
-//            });
         }
   }]);
