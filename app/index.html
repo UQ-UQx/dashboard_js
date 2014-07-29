@@ -51,6 +51,7 @@
     <nav id="nav" class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
         <ul class="nav navbar-nav">
             <li ui-sref-active="active"><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li ui-sref-active="active"><a ui-sref="reports"><i class="fa fa-list-alt"></i> Reports</a></li>
             <li ui-sref-active="active"><a ui-sref="explorer"><i class="fa fa-database"></i> Data Explorer</a></li>
             <li ui-sref-active="active"><a ui-sref="status"><i class="fa fa-spinner"></i> Data Status</a></li>
         </ul>
@@ -140,6 +141,7 @@
 
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/dashboard.js"></script>
+        <script src="scripts/controllers/reports.js"></script>
         <script src="scripts/controllers/explorer.js"></script>
         <script src="scripts/controllers/status.js"></script>
         <script src="scripts/services/auth.js"></script>
@@ -165,8 +167,11 @@
         <script src="visualisations/discussion_forum_map/controller.js"></script>
         <script src="visualisations/coursestructure/controller.js"></script>
         <script src="visualisations/activeusers/controller.js"></script>
-        <script src="scripts/services/request.js"></script>
 
+        <script src="reports/enrolments/controller.js"></script>
+        <script src="reports/activity/controller.js"></script>
+
+        <script src="scripts/services/request.js"></script>
 
         <script src="scripts/directives/pie/pie.js"></script>
         <script src="scripts/directives/gpie/gpie.js"></script>

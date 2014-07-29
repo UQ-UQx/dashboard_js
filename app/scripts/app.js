@@ -28,6 +28,11 @@ var app = angular
 				templateUrl: 'views/dashboard.html',
 				controller: 'DashboardCtrl'
 			})
+            .state('reports', {
+				url: '/reports',
+				templateUrl: 'views/reports.html',
+				controller: 'ReportsCtrl'
+			})
 			.state('explorer', {
 				url: '/explorer',
 				templateUrl: 'views/explorer.html',
@@ -46,7 +51,16 @@ var app = angular
 				controllerProvider: function($stateParams, Course) {
 					Course.currentCourse = $stateParams.course;
 					return 'Visualisation_' + $stateParams.visualisation + '_Ctrl';
+				}
+			})
+            .state('reports.report', {
+				url: '/:report',
+				templateUrl: function(stateParams) {
+					return 'reports/' + stateParams.report + '/template.html';
 				},
+				controllerProvider: function($stateParams) {
+					return 'Report_' + $stateParams.report + '_Ctrl';
+				}
 			});
 
 		$urlRouterProvider.otherwise('dashboard');

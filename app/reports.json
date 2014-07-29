@@ -1,0 +1,12 @@
+[
+    {
+        "id": "enrolments",
+        "name": "Enrolment Report",
+        "icon": "fa-university"
+    },
+    {
+        "id": "activity",
+        "name": "Activity Report",
+        "icon": "fa-users"
+    }
+]
