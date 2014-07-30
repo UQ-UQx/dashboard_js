@@ -336,3 +336,21 @@ div#report-content {
     padding:20px;
     min-height:500px;
 }
+
+/* EMBEDDED */
+div.embedded>header {
+    display:none !important;
+}
+div.embedded #nav {
+    display:none !important;
+}
+div.embedded footer {
+    display:none !important;
+}
+div.embedded ul#report-nav, div.embedded ul#vis-nav, div.embedded ul#coursenav {
+    display:none !important;
+}
+div.embedded div#report-content, div.embedded div#main_content {
+    width:100% !important;
+    margin:0;
+}
