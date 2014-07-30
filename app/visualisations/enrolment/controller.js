@@ -43,7 +43,9 @@ angular.module('dashboardJsApp')
 
 					$scope.normalData = formattedNormalData;
 					$scope.aggregateData = formattedAggregateData;
-                    $scope.$parent.state = "running";
+                    if($scope.$parent) {
+                        $scope.$parent.state = "running";
+                    }
 				});
 			}
 

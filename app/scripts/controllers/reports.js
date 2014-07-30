@@ -15,7 +15,7 @@ angular.module('dashboardJsApp')
         $scope.reportsList = [];
         $scope.courseList = [];
 
-        $scope.state = "loading";
+        $scope.state = "notselected";
 
         $scope.course = Course;
 
@@ -47,6 +47,10 @@ angular.module('dashboardJsApp')
                     }
                 }
             }
+        });
+
+        $scope.$on('nav_clicked', function() {
+            $scope.state = 'notselected';
         });
 
         $scope.currentReport = $state.params.report;

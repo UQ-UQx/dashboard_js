@@ -14,15 +14,15 @@
     <div class="enrolment col-sm-6">
         <div class="enrolment-container">
             <div class="row">
-            <div class="enrolment-number col-sm-6"><strong><span></span><em>34</em></strong> total enrolments</div>
-            <div class="enrolment-number col-sm-6"><strong><span></span><em>34</em></strong> enrolments per day</div>
+            <div class="enrolment-number col-sm-6"><strong><span></span><em>{{ totalenrolments }}</em></strong> total enrolments</div>
+            <div class="enrolment-number col-sm-6"><strong><span></span><em>{{ totalenrolments_per_day }}</em></strong>average enrolments per day</div>
             </div>
             <div style="height:20px;"></div>
         </div>
     </div>
     <div class="enrolment col-sm-6">
         <div class="enrolment-container">
-            <div class="enrolment-unique"><strong>43234324</strong> unique students</div>
+            <div class="enrolment-unique"><strong>{{ uniques }}</strong> unique students</div>
         </div>
     </div>
 </div>
@@ -94,7 +94,7 @@
         font-weight:200;
     }
     div.enrolment div.enrolment-container div.enrolment-number strong {
-        font-size:200%;
+        font-size:180%;
         text-align:center;
         background:#ddd;
         color:#fff;
@@ -116,10 +116,10 @@
         position: absolute;
         display:block;
         /* OVERWRITE */
-        width:140px;
-        height:140px;
-        top:-1px;
-        left:-1px;
+        width:138px;
+        height:138px;
+        top:0px;
+        left:0px;
         border-radius:70px;
         /* END OVERWRITE */
     }
@@ -135,7 +135,7 @@
         /* END OVERWRITE */
         width:140px;
         text-align:center;
-        margin-top:44px;
+        margin-top:48px;
     }
     div.enrolment div.enrolment-container div.enrolment-state {
         font-size:120%;

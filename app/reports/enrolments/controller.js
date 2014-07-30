@@ -23,6 +23,10 @@ angular.module('dashboardJsApp')
         $scope.populationData = [];
         $scope.enrolmentData = [];
 
+        $scope.totalenrolments = 0;
+        $scope.totalenrolments_per_day = 0;
+        $scope.uniques = '...';
+
         $scope.refresh = false;
         $scope.refreshData = function() {
             $scope.$parent.state = "loading";
@@ -48,29 +52,57 @@ angular.module('dashboardJsApp')
 
                 //Enrolment for each course
 
-                RequestService.async('http://api.uqxdev.com/api/meta/courses/').then(function(data) {
+                RequestService.async('http://api.uqxdev.com/api/meta/courseinfo/').then(function(data) {
                     $scope.courseEnrolment = [];
+                    $scope.totalenrolments = 0;
                     Course.setCourseList(data);
                     for(var course_index in Course.courseList) {
                         if(Course.courseList[course_index].id != 'allcourses') {
                             var course = {}
+                            course['status'] = 'Pending';
+                            var startDate = '';
+                            var endDate = '';
+                            var currentDate = new Date().getTime();
+                            if(Course.courseList[course_index]['start']) {
+                                startDate = Date.parse(Course.courseList[course_index]['start']);
+                            }
+                            if(Course.courseList[course_index]['end']) {
+                                endDate = Date.parse(Course.courseList[course_index]['end']);
+                            }
+                            if(startDate != '' && endDate != '') {
+                                if(endDate < currentDate) {
+                                    course['status'] = 'Finished';
+                                }
+                                if(startDate < currentDate && currentDate < endDate) {
+                                    course['status'] = 'Running';
+                                }
+                            } else if(startDate != '') {
+                                if(startDate < currentDate) {
+                                    course['status'] = 'Running';
+                                }
+                            }
                             course['meta'] = Course.courseList[course_index];
-                            course['enrolments'] = Math.round(Math.random()*100000);
+                            course['enrolments'] = course['meta']['enrolments'];//Math.round(Math.random()*100000);
                             if($scope.largestCourse < course['enrolments']) {
                                 $scope.largestCourse = course['enrolments'];
                             }
-                            course['perday'] = Math.round(Math.random()*100)/10;
+                            $scope.totalenrolments += course['enrolments'];
+                            course['perday'] = course['meta']['enrolments_per_day'];//Math.round(Math.random()*100)/10;
                             if($scope.largestPerDay < course['perday']) {
                                 $scope.largestPerDay = course['perday'];
                             }
-                            course['status'] = 'Running';
                             $scope.courseEnrolment.push(course);
                         }
+                        $scope.totalenrolments_per_day = 0;
+                        for(var course in $scope.courseEnrolment) {
+                            $scope.totalenrolments_per_day += $scope.courseEnrolment[course]['perday'];
+                        }
+                        $scope.totalenrolments_per_day = Math.round($scope.totalenrolments_per_day / $scope.courseEnrolment.length * 100)/100;
                     }
                     for(var course in $scope.courseEnrolment) {
 
                         var enrolments = $scope.courseEnrolment[course]['enrolments'];
-                        var percentage = enrolments / $scope.largestCourse;
+                        var percentage = Math.log(enrolments) / Math.log($scope.largestCourse);
                         var s_width = Math.round($scope.style_biggest_width*percentage);
                         var s_top = Math.round(($scope.style_biggest_width-s_width)/2);
                         var s_radius = Math.round(s_width/2);
@@ -78,16 +110,21 @@ angular.module('dashboardJsApp')
                         $scope.courseEnrolment[course]['style'] = "width:"+s_width+"px; height:"+s_width+"px; left:"+s_top+"px; top:"+s_top+"px; border-radius:"+s_radius+"px;";
 
                         enrolments = $scope.courseEnrolment[course]['perday'];
-                        percentage = enrolments / $scope.largestPerDay;
+                        percentage = Math.log(enrolments) / Math.log($scope.largestPerDay);
                         s_width = Math.round($scope.style_biggest_width*percentage);
                         s_top = Math.round(($scope.style_biggest_width-s_width)/2);
                         s_radius = Math.round(s_width/2);
 
                         $scope.courseEnrolment[course]['styleperday'] = "width:"+s_width+"px; height:"+s_width+"px; left:"+s_top+"px; top:"+s_top+"px; border-radius:"+s_radius+"px;";
 
-                        console.log($scope.courseEnrolment[course]);
                     }
                 });
+
+                //Uniques
+                RequestService.async('http://api.uqxdev.com/api/meta/uniques/').then(function(data) {
+                    $scope.uniques = data['uniques'];
+                });
+
 
                 //Countries
                 RequestService.async('http://api.uqxdev.com/api/students/countries/').then(function(data) {
@@ -119,7 +156,6 @@ angular.module('dashboardJsApp')
                         i++;
                         $scope.enrolmentData.push(tmpEnrolmentData[country]);
                     }
-                    console.log("ALL DONE");
                     $scope.$parent.state = "running";
                 });
 

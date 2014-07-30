@@ -26,7 +26,12 @@ app.directive('visPie', function ($window) {
 		},
 
 		link: function (scope, element) {
-			
+
+            d3.selection.prototype.moveToFront = function() {
+                return this.each(function(){
+                    this.parentNode.appendChild(this);
+                });
+            };
 
 			scope.$watch('data', function(data) {
 
@@ -125,6 +130,7 @@ app.directive('visPie', function ($window) {
                                 d3.select(this).style('stroke-width', 6);
                                 d3.select(this).style('stroke', d3.rgb(colors(i)).brighter(0.7));
                                 d3.select(this.parentNode).select('.arctext').each(texton);
+                                d3.select(this.parentNode).moveToFront();
 
                             })
                             .on('mouseout', function (d) {

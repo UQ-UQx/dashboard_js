@@ -75,6 +75,10 @@ var app = angular
 			$scope.currentUser = $scope.auth.getUserId();
 		});
 
+        $scope.mainNavChanged = function() {
+            $scope.$broadcast('nav_clicked');
+        }
+
 		$scope.userLogout = function() {
             $scope.$broadcast('broadcast_logout');
 			AuthService.logout();
