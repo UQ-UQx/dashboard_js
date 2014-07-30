@@ -45,6 +45,7 @@ angular.module('dashboardJsApp')
                 });
 
                 RequestService.async('http://api.uqxdev.com/api/students/modes/' + Course.currentCourse + '/'+refresh).then(function(data) {
+                    delete data['total'];
                     $scope.enrolTypeData = $scope.formatPieData(data);
                 });
                 $scope.$parent.state = "running";

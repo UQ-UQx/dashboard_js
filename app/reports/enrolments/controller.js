@@ -173,6 +173,7 @@ angular.module('dashboardJsApp')
                 });
 
                 RequestService.async('http://api.uqxdev.com/api/students/modes/'+refresh).then(function(data) {
+                    delete data['total'];
                     $scope.enrolTypeData = $scope.formatPieData(data);
                 });
 
