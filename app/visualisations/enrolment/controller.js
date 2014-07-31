@@ -14,6 +14,8 @@ angular.module('dashboardJsApp')
         $scope.$parent.state = "loading";
 
         $scope.refresh = false;
+        $scope.importantDates = [];
+
         $scope.refreshData = function() {
             $scope.$parent.state = "loading";
             $scope.refresh = true;
@@ -31,19 +33,33 @@ angular.module('dashboardJsApp')
 
             if ($scope.auth.isAuthenticated()) {
 				RequestService.async('http://api.uqxdev.com/api/students/dates/' + Course.currentCourse + '/').then(function(data) {
-					var formattedNormalData = [{ name: 'Active', data: [] }, { name: 'Enrolled', data: [] }];
-					var formattedAggregateData = [{ name: 'Aggregate Active', data: [] }, { name: 'Aggregate Enrolled', data: [] }];
+					RequestService.async('http://api.uqxdev.com/api/meta/courseinfo/').then(function(info) {
+						for (var key in info) {
+							if (info[key]['id'] === Course.currentCourse) {
+								if ('start' in info[key]) {
+									$scope.importantDates.push({ 'name': 'Course Start', 'date': info[key]['start'] });
+								}
 
-					for (var key in data) {
-						formattedNormalData[0].data.push({ date: key, value: data[key].active });
-						formattedNormalData[1].data.push({ date: key, value: data[key].enrolled });
-						formattedAggregateData[0].data.push({ date: key, value: data[key].aggregate_active });
-						formattedAggregateData[1].data.push({ date: key, value: data[key].aggregate_enrolled });
-					}
+								if ('end' in info[key]) {
+									$scope.importantDates.push({ 'name': 'Course End', 'date': info[key]['end'] });
+								}
+							}
+						}
 
-					$scope.normalData = formattedNormalData;
-					$scope.aggregateData = formattedAggregateData;
-                    $scope.$parent.state = "running";
+						var formattedNormalData = [{ name: 'Active', data: [] }, { name: 'Enrolled', data: [] }];
+						var formattedAggregateData = [{ name: 'Aggregate Active', data: [] }, { name: 'Aggregate Enrolled', data: [] }];
+
+						for (var key in data) {
+							formattedNormalData[0].data.push({ date: key, value: data[key].active });
+							formattedNormalData[1].data.push({ date: key, value: data[key].enrolled });
+							formattedAggregateData[0].data.push({ date: key, value: data[key].aggregate_active });
+							formattedAggregateData[1].data.push({ date: key, value: data[key].aggregate_enrolled });
+						}
+	 
+						$scope.normalData = formattedNormalData;
+						$scope.aggregateData = formattedAggregateData;
+	                    $scope.$parent.state = "running";
+					});
 				});
 			}
 

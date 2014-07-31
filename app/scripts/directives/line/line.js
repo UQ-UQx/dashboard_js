@@ -98,16 +98,11 @@ app.directive('visLine', function() {
 			chartData: '=data',
 			height: '=height',
 			allDates: '=allDates',
-			yAxisLabel: '=yAxisLabel',
+			dates: '=?',
+			yAxisLabel: '=?',
 		},
 		templateUrl: 'scripts/directives/line/line.html',
 		link: function(scope, element) {
-			if ((scope.yAxisLabel === undefined) || (scope.yAxisLabel === null)) {
-				scope.yAxisLabel = '';
-			}
-
-			//scope.yAxisLabel = 'asdfadsf';
-
 			scope.$watch('chartData', function() {
 				if ((scope.chartData !== undefined) && (scope.chartData !== null) && (scope.chartData !== [])) {
 					var parseDate = d3.time.format('%Y-%m-%d').parse;
@@ -173,9 +168,21 @@ app.directive('visLine', function() {
 								'<span style="color: ' + color(name) +'">' + ('0' + d.date.getDate()).slice(-2) + '-' + ('0' + (d.date.getMonth()+1)).slice(-2) + '-' + d.date.getFullYear() + '</span>' +
 								'<strong>Value:</strong>' +
 								'<span style="color: ' + color(name) +'">' + d.value + '</span>';
-							})
+							});
 
 						svg.call(tip);
+
+						var dateTip = d3.tip()
+							.attr('class', 'd3-tip')
+							.offset([-10, 0])
+							.html(function(d) {
+								return '<strong>Event:</strong>' +
+								'<span style="color: green">' + d.name + '</span>' +
+								'<strong>Date:</strong>' +
+								'<span style="color: green">' + d.date.substring(0, 10) + '</span>';
+							});
+
+						svg.call(dateTip);
 
 						svg.append('g')
 							.attr('class', 'x axis')
@@ -192,6 +199,37 @@ app.directive('visLine', function() {
 							.attr('dy', '.71em')
 							.style('text-anchor', 'middle')
 							.text(scope.yAxisLabel);
+
+						if (scope.dates !== undefined) {
+							svg.selectAll('.dates')
+								.data(scope.dates)
+								.enter().append('line')
+								.attr('y1', 0)
+								.attr('y2', height)
+								.attr('x1', function(d) { return x(parseDate(d.date.substring(0, 10))) })
+								.attr('x2', function(d) { return x(parseDate(d.date.substring(0, 10))) })
+								.attr('class', 'line')
+								.style('stroke', '#b2f7b2')
+								.style('stroke-width', 4)
+								.on('mouseover', function(d) {
+									d3.select(this)
+										.transition()
+										.duration(200)
+										.style('stroke', 'green')
+										.style('stroke-width', 6);
+
+									dateTip.show(d);
+								})
+								.on('mouseout', function(d) {
+									d3.select(this)
+										.transition()
+										.duration(200)
+										.style('stroke', '#b2f7b2')
+										.style('stroke-width', 4);
+
+									dateTip.hide();
+								});
+						}
 
 						var series = svg.selectAll('.series')
 							.data(scope.chartData)
@@ -218,6 +256,7 @@ app.directive('visLine', function() {
 									.transition()
 									.duration(200)
 									.attr('r', 5);
+								console.log(d3.select(this.parentNode).datum());
 
 								tip.show(d, d3.select(this.parentNode).datum().name);
 							})
