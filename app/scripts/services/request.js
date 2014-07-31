@@ -12,14 +12,18 @@ angular.module('dashboardJsApp')
 	.factory('RequestService', ['$http', 'AuthService', 'createDialog', function($http, AuthService, createDialogService) {
 		return {
 			async: function(url) {
+                var headers = {};
+                if(AuthService.getToken()) {
+                    headers = {'Authorization': 'JWT ' + AuthService.getToken()}
+                    console.log("CCC");
+                    console.log(headers);
+                }
                 url = url.replace("allcourses/","");
 				// $http returns a promise, which has a then function, which also returns a promise
 				var promise = $http({
 					url: url,
 					type: 'GET',
-					headers: {
-						'Authorization': 'JWT ' + AuthService.getToken(),
-					}
+					headers: headers,
 				})
 				.then(function(response) {
 					return response.data;

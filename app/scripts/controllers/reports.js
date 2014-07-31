@@ -61,6 +61,11 @@ angular.module('dashboardJsApp')
             console.log("CHANGING REPORT");
         }
 
+        $scope.embedded_report = function() {
+            window.open(window.location+"?embed=true");
+            return false;
+        }
+
         if ($scope.auth.isAuthenticated()) {
 
             //$scope.$parent.state = "running";

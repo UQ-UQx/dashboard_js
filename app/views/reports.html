@@ -31,6 +31,7 @@
             </div>
         </div>
         <div ng-class="{hideview:(state!='running')}">
+            <div class="embed_button"><a class="btn btn-info" ng-click="embedded_report()">Embedded report view</a></div>
             <h1>{{currentReportName}} for {{current_date}}</h1>
             <ui-view></ui-view>
         </div>

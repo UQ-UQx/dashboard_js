@@ -354,3 +354,9 @@ div.embedded div#report-content, div.embedded div#main_content {
     width:100% !important;
     margin:0;
 }
+div.embed_button {
+    float:right;
+}
+div.embedded div.embed_button {
+    display:none;
+}

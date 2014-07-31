@@ -109,7 +109,7 @@ var app = angular
 
 		var token = AuthService.loadTokenCookie();
 
-		if (!token) {
+		if (!token && !$scope.embed) {
 			$scope.launchLoginModal();
             setTimeout(function () {
                 $scope.$broadcast('broadcast_logout');
