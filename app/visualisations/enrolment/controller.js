@@ -62,7 +62,6 @@ angular.module('dashboardJsApp')
 					});
 				});
 			}
-
         }
 
 		$scope.$watch('auth.isAuthenticated()', $scope.loadData());

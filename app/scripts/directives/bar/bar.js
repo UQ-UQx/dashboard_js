@@ -29,8 +29,6 @@ app.directive('visBar', function() {
                     return
                 }
 
-
-
                 var drawChart = function() {
                     var thewidth = scope.width;
                     if (!thewidth) {
