@@ -31,7 +31,8 @@ app.directive('visWorld', ['COUNTRY', function(COUNTRY) {
 		scope: {
 			chartData: '=data',
 			colourString: '=colourString',
-			height: '=height'
+			height: '=height',
+            suffix: '=?'
 		},
 
 		templateUrl: 'scripts/directives/world/world.html',
@@ -39,6 +40,9 @@ app.directive('visWorld', ['COUNTRY', function(COUNTRY) {
 		link: function(scope, element) {
 			scope.chartWidth = (window.innerWidth - 240);
 			scope.chartWidthMax = scope.height * 2;
+            if(!scope.suffix) {
+                scope.suffix = '';
+            }
 
 			scope.$watch('chartData', function() {
 
@@ -90,13 +94,13 @@ app.directive('visWorld', ['COUNTRY', function(COUNTRY) {
 						data: finalData,
 						geographyConfig: {
 							popupTemplate: function (geo, data) {
-								var popupString = '<div class="hoverinfo"><strong>' + geo.properties.name + ': 0 ' + ' posts (0%)</strong></div>';
+								var popupString = '<div class="hoverinfo"><strong>' + geo.properties.name + ': 0 ' + ' '+scope.suffix+' (0%)</strong></div>';
 
 								if (data !== null) {
 									popupString = [
 										'<div class="hoverinfo"><strong>',
 										geo.properties.name,
-										': ' + data.value + ' posts (' + data.percentage + '%)',
+										': ' + data.value + ' '+scope.suffix+' (' + data.percentage + '%)',
 										'</strong></div>'
 									].join('');
 								}
