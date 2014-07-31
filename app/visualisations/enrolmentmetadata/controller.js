@@ -73,7 +73,7 @@ angular.module('dashboardJsApp')
 			}
 
 			for (var key in unformattedData) {
-				formattedData.push([key, (unformattedData[key] / totalDataValue) * 100, unformattedData[key]]);
+				formattedData.push([key, Math.round(((unformattedData[key] / totalDataValue) * 100) * 100) / 100 , unformattedData[key]]);
 			}
 
 			formattedData.sort(function(a, b) { return b[1] - a[1] });
