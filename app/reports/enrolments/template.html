@@ -1,163 +1,164 @@
-<h2>Enrolments For Courses</h2>
-<div class="row">
-    <div ng-repeat="course in courseEnrolment" class="col-sm-3 enrolment">
-        <div class="enrolment-container">
-            <h3>{{course.meta.name}}</h3>
-            <div class="enrolment-number"><strong><span style="{{ course.style }}"></span><em>{{ course.enrolments }}</em></strong> total enrolments</div>
-            <div class="enrolment-number"><strong><span style="{{ course.styleperday }}"></span><em>{{ course.perday }}</em></strong> enrolments per day</div>
-            <div class="enrolment-state">currently the course is <em>{{ course.status }}</em></div>
-        </div>
-    </div>
-</div>
 <h2>Total Enrolments</h2>
 <div class="row">
-    <div class="enrolment col-sm-6">
-        <div class="enrolment-container">
-            <div class="row">
-            <div class="enrolment-number col-sm-6"><strong><span></span><em>{{ totalenrolments }}</em></strong> total enrolments</div>
-            <div class="enrolment-number col-sm-6"><strong><span></span><em>{{ totalenrolments_per_day }}</em></strong>average enrolments per day</div>
-            </div>
-            <div style="height:20px;"></div>
-        </div>
-    </div>
-    <div class="enrolment col-sm-6">
-        <div class="enrolment-container">
-            <div class="enrolment-unique"><strong>{{ uniques }}</strong> unique students</div>
-        </div>
-    </div>
+	<div class="enrolment col-sm-6">
+		<div class="enrolment-container">
+			<div class="row">
+			<div class="enrolment-number col-sm-6"><strong><span></span><em>{{ totalenrolments }}</em></strong> total enrolments</div>
+			<div class="enrolment-number col-sm-6"><strong><span></span><em>{{ totalenrolments_per_day }}</em></strong>average enrolments per day</div>
+			</div>
+			<div style="height:20px;"></div>
+		</div>
+	</div>
+	<div class="enrolment col-sm-6">
+		<div class="enrolment-container">
+			<div class="enrolment-unique"><strong>{{ uniques }}</strong> unique students</div>
+		</div>
+	</div>
 </div>
-<h2>Top Countries</h2>
+<h2>Enrolments For Courses</h2>
 <div class="row">
-    <div class="enrolment col-sm-6">
-        <div class="enrolment-container">
-            <vis-bar data="enrolmentData" height="500" option="chartOption"></vis-bar>
-        </div>
-    </div>
-    <div class="enrolment col-sm-6">
-        <div class="enrolment-container">
-            <vis-world suffix="'registrations'" data="populationData" colour-string="colourString" height='500'></vis-world>
-        </div>
-    </div>
+	<div ng-repeat="course in courseEnrolment" class="col-sm-3 enrolment">
+		<div class="enrolment-container">
+			<h3>{{course.meta.name}}</h3>
+			<div class="enrolment-number"><strong><span style="{{ course.style }}"></span><em>{{ course.enrolments }}</em></strong> total enrolments</div>
+			<div class="enrolment-number"><strong><span style="{{ course.styleperday }}"></span><em>{{ course.perday }}</em></strong> enrolments per day</div>
+			<div class="enrolment-state">currently the course is <em>{{ course.status }}</em></div>
+		</div>
+	</div>
 </div>
 <h2>Demographics</h2>
-    <div class="row">
-		<div class="enrolment col-md-6">
-            <div class="enrolment-container" >
-			    <h3>Age</h3>
-			    <vis-pie data="ageData" height="400"></vis-pie>
-            </div>
-		</div>
-		<div class="enrolment col-md-6">
-            <div class="enrolment-container">
-			    <h3>Gender</h3>
-			    <vis-pie data="genderData" height="400"></vis-pie>
-            </div>
+<div class="row">
+	<div class="enrolment col-md-6">
+		<div class="enrolment-container">
+			<h3>Top Countries</h3>
+			<vis-bar data="enrolmentData" height="500" option="chartOption"></vis-bar>
 		</div>
 	</div>
-	<div class="row">
-		<div class="enrolment col-md-6">
-            <div class="enrolment-container">
-			    <h3>Education</h3>
-			    <vis-pie data="educationData" height="400"></vis-pie>
-            </div>
-		</div>
-		<div class="enrolment col-md-6">
-            <div class="enrolment-container">
-			    <h3>User Enrolment Types</h3>
-			    <vis-pie data="enrolTypeData" height="400"></vis-pie>
-            </div>
+	<div class="enrolment col-md-6">
+		<div class="enrolment-container">
+			<h3>Top Countries</h3>
+			<vis-world suffix="'registrations'" data="populationData" colour-string="colourString" height='500'></vis-world>
 		</div>
 	</div>
+</div>
+<div class="row">
+	<div class="enrolment col-md-6">
+		<div class="enrolment-container" >
+			<h3>Age</h3>
+			<vis-pie data="ageData" height="400"></vis-pie>
+		</div>
+	</div>
+	<div class="enrolment col-md-6">
+		<div class="enrolment-container">
+			<h3>Gender</h3>
+			<vis-pie data="genderData" height="400"></vis-pie>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="enrolment col-md-6">
+		<div class="enrolment-container">
+			<h3>Education</h3>
+			<vis-pie data="educationData" height="400"></vis-pie>
+		</div>
+	</div>
+	<div class="enrolment col-md-6">
+		<div class="enrolment-container">
+			<h3>User Enrolment Types</h3>
+			<vis-pie data="enrolTypeData" height="400"></vis-pie>
+		</div>
+	</div>
+</div>
 
 
 <style>
-    div.enrolment div.enrolment-container {
-        background:#fafafa;
-        border:1px solid #eee;
-        border-radius:5px;
-        margin:10px;
-        margin-bottom:40px;
-    }
-    div.enrolment div.enrolment-container h3 {
-        text-align:center;
-        font-weight:400;
-        margin-top:0;
-        border-top-left-radius:5px;
-        border-top-right-radius:5px;
-        background:#505050;
-        color:#eee;
-        padding:10px;
-    }
-    div.enrolment div.enrolment-container div.enrolment-number {
-        font-size:120%;
-        text-align:center;
-        font-weight:200;
-    }
-    div.enrolment div.enrolment-container div.enrolment-number strong {
-        font-size:180%;
-        text-align:center;
-        background:#ddd;
-        color:#fff;
-        display:block;
-        width:140px;
-        height:140px;
-        margin:0 auto;
-        border-radius:70px;
-        font-weight:800;
-        letter-spacing:0.1em;
-        margin-top:20px;
-        margin-bottom:5px;
-        position:relative;
-        border:1px solid #4A105A;
-    }
-    div.enrolment div.enrolment-container div.enrolment-number strong span {
-        background:#4A105A;
-        border:1px solid #fff;
-        position: absolute;
-        display:block;
-        /* OVERWRITE */
-        width:138px;
-        height:138px;
-        top:0px;
-        left:0px;
-        border-radius:70px;
-        /* END OVERWRITE */
-    }
-    div.enrolment div.enrolment-container div.enrolment-number strong em {
-        position: absolute;
-        display:block;
-        /* OVERWRITE */
-        text-shadow:
-            -1px -1px 0 #4A105A,
-            1px -1px 0 #4A105A,
-            -1px 1px 0 #4A105A,
-            1px 1px 0 #4A105A;
-        /* END OVERWRITE */
-        width:140px;
-        text-align:center;
-        margin-top:48px;
-    }
-    div.enrolment div.enrolment-container div.enrolment-state {
-        font-size:120%;
-        margin:20px;
-        text-align:center;
-    }
-    div.enrolment div.enrolment-container div.enrolment-state em {
-        font-size:120%;
-        font-weight:bold;
-        color:green;
-    }
-    div.enrolment div.enrolment-unique {
-        height:200px;
-        text-align:center;
-        font-weight:200;
-        font-size:120%;
-    }
-    div.enrolment div.enrolment-unique strong {
-        font-size:600%;
-        color:#4A105A;
-        display:block;
-        margin-bottom:10px;
-        margin-top:10px;
-    }
+	div.enrolment div.enrolment-container {
+		background:#fafafa;
+		border:1px solid #eee;
+		border-radius:5px;
+		margin:10px;
+		margin-bottom:40px;
+	}
+	div.enrolment div.enrolment-container h3 {
+		text-align:center;
+		font-weight:400;
+		margin-top:0;
+		border-top-left-radius:5px;
+		border-top-right-radius:5px;
+		background:#505050;
+		color:#eee;
+		padding:10px;
+	}
+	div.enrolment div.enrolment-container div.enrolment-number {
+		font-size:120%;
+		text-align:center;
+		font-weight:200;
+	}
+	div.enrolment div.enrolment-container div.enrolment-number strong {
+		font-size:180%;
+		text-align:center;
+		background:#ddd;
+		color:#fff;
+		display:block;
+		width:140px;
+		height:140px;
+		margin:0 auto;
+		border-radius:70px;
+		font-weight:800;
+		letter-spacing:0.1em;
+		margin-top:20px;
+		margin-bottom:5px;
+		position:relative;
+		border:1px solid #4A105A;
+	}
+	div.enrolment div.enrolment-container div.enrolment-number strong span {
+		background:#4A105A;
+		border:1px solid #fff;
+		position: absolute;
+		display:block;
+		/* OVERWRITE */
+		width:138px;
+		height:138px;
+		top:0px;
+		left:0px;
+		border-radius:70px;
+		/* END OVERWRITE */
+	}
+	div.enrolment div.enrolment-container div.enrolment-number strong em {
+		position: absolute;
+		display:block;
+		/* OVERWRITE */
+		text-shadow:
+			-1px -1px 0 #4A105A,
+			1px -1px 0 #4A105A,
+			-1px 1px 0 #4A105A,
+			1px 1px 0 #4A105A;
+		/* END OVERWRITE */
+		width:140px;
+		text-align:center;
+		margin-top:48px;
+	}
+	div.enrolment div.enrolment-container div.enrolment-state {
+		font-size:120%;
+		margin:20px;
+		text-align:center;
+	}
+	div.enrolment div.enrolment-container div.enrolment-state em {
+		font-size:120%;
+		font-weight:bold;
+		color:green;
+	}
+	div.enrolment div.enrolment-unique {
+		height:200px;
+		text-align:center;
+		font-weight:200;
+		font-size:120%;
+	}
+	div.enrolment div.enrolment-unique strong {
+		font-size:600%;
+		color:#4A105A;
+		display:block;
+		margin-bottom:10px;
+		margin-top:10px;
+	}
 </style>
