@@ -39,6 +39,10 @@ angular.module('dashboardJsApp')
             }
         });
 
+        $scope.$on('nav_clicked', function() {
+            $scope.goHome();
+        });
+
         $scope.$on('broadcast_logout', function() {
             $scope.state = 'notloggedin';
         });
@@ -58,7 +62,6 @@ angular.module('dashboardJsApp')
         $scope.$watch('auth.isAuthenticated()', function() {
             if ($scope.auth.isAuthenticated()) {
                 RequestService.async('http://api.uqxdev.com/api/meta/courses/').then(function(data) {
-                    console.log("CHANGING XXX "+$scope.course.currentCourse);
                     if(!$scope.course.currentCourse || $scope.course.currentCourse == '') {
                         $scope.state = 'notselected';
                     } else {

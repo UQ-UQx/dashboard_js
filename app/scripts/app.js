@@ -65,8 +65,16 @@ var app = angular
 
 		$urlRouterProvider.otherwise('dashboard');
   	})
-	.controller('AppCtrl', ['$scope', '$state', 'createDialog', 'AuthService', function($scope, $state, createDialogService, AuthService) {
+	.controller('AppCtrl', ['$scope', '$state', 'createDialog', 'AuthService', '$routeParams', function($scope, $state, createDialogService, AuthService, $routeParams) {
 		$scope.$state = $state;
+
+        $scope.embed = false;
+
+        for(var key in getUrlVars()) {
+            if(key == 'embed') {
+                $scope.embed = true;
+            }
+        }
 		$scope.currentUser = null;
 		$scope.auth = AuthService;
 		$scope.isAuthorised = $scope.auth.isAuthenticated();
@@ -74,6 +82,10 @@ var app = angular
 		$scope.$watch('auth.isAuthenticated()', function() {
 			$scope.currentUser = $scope.auth.getUserId();
 		});
+
+        $scope.mainNavChanged = function() {
+            $scope.$broadcast('nav_clicked');
+        }
 
 		$scope.userLogout = function() {
             $scope.$broadcast('broadcast_logout');
@@ -104,3 +116,11 @@ var app = angular
             },100);
 		}
 	}]);
+
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+    return vars;
+}

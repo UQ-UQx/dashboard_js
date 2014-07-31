@@ -6,6 +6,11 @@
     </ul>
     <div id="report-content" class="col-sm-10">
         <div ng-switch on="state">
+            <div ng-switch-when="notselected" class="notselected">
+                    <h1>Choose a Report</h1>
+                    <div id="icon"><i class="fa fa-list-alt"></i></div>
+                    <p>Choose a report from the left hand side</p>
+            </div>
             <div ng-switch-when="loading">
                 <div id='loading_spinner'></div>
                 <script type="text/javascript">

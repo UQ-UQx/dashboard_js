@@ -32,7 +32,7 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div ng-controller="AppCtrl">
+    <div ng-controller="AppCtrl" ng-class="{embedded:embed}">
     <header>
       <a ng-href="#" title="Home" rel="home" id="logo">
         <img src="https://online.ceit.uq.edu.au/sites/all/themes/uqx_ceit_bartik/images/uq-logo.png" alt="Home">
@@ -50,10 +50,10 @@
     </header>
     <nav id="nav" class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
         <ul class="nav navbar-nav">
-            <li ui-sref-active="active"><a ui-sref="dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li ui-sref-active="active"><a ui-sref="reports"><i class="fa fa-list-alt"></i> Reports</a></li>
-            <li ui-sref-active="active"><a ui-sref="explorer"><i class="fa fa-database"></i> Data Explorer</a></li>
-            <li ui-sref-active="active"><a ui-sref="status"><i class="fa fa-spinner"></i> Data Status</a></li>
+            <li ui-sref-active="active"><a ui-sref="dashboard" ng-click="mainNavChanged()"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li ui-sref-active="active"><a ui-sref="reports" ng-click="mainNavChanged()"><i class="fa fa-list-alt"></i> Reports</a></li>
+            <li ui-sref-active="active"><a ui-sref="explorer" ng-click="mainNavChanged()"><i class="fa fa-database"></i> Data Explorer</a></li>
+            <li ui-sref-active="active"><a ui-sref="status" ng-click="mainNavChanged()"><i class="fa fa-spinner"></i> Data Status</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li><a target="_blank" href="http://online.ceit.uq.edu.au"><i class="fa fa-home"></i> UQx</a></li>
