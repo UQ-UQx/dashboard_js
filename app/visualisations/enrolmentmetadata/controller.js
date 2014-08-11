@@ -36,6 +36,10 @@ angular.module('dashboardJsApp')
 					$scope.ageData = $scope.formatBarData(data);
 				});
 
+                RequestService.async('http://api.uqxdev.com/api/students/fullages/' + Course.currentCourse + '/'+refresh).then(function(data) {
+					$scope.fullAgeData = $scope.formatBarData(data, true);
+				});
+
 				RequestService.async('http://api.uqxdev.com/api/students/genders/' + Course.currentCourse + '/'+refresh).then(function(data) {
 					$scope.genderData = $scope.formatPieData(data);
 				});
@@ -64,7 +68,7 @@ angular.module('dashboardJsApp')
 			return formattedData;
 		};
 
-		$scope.formatBarData = function(unformattedData) {
+		$scope.formatBarData = function(unformattedData,nosort) {
 			var formattedData = [];
 			var totalDataValue = 0;
 
@@ -75,8 +79,11 @@ angular.module('dashboardJsApp')
 			for (var key in unformattedData) {
 				formattedData.push([key, Math.round(((unformattedData[key] / totalDataValue) * 100) * 100) / 100 , unformattedData[key]]);
 			}
-
-			formattedData.sort(function(a, b) { return b[1] - a[1] });
+            if(!nosort) {
+                formattedData.sort(function (a, b) {
+                    return b[1] - a[1]
+                });
+            }
 
 			return formattedData;
 		};

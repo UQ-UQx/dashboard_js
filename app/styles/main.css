@@ -366,3 +366,7 @@ div.metaactions {
     margin-right:-10px;
     height:60px;
 }
+div.chart_wrap {
+    border:1px solid #ddd;
+    padding:10px;
+}

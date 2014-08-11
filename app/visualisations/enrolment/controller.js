@@ -35,13 +35,13 @@ angular.module('dashboardJsApp')
 				RequestService.async('http://api.uqxdev.com/api/students/dates/' + Course.currentCourse + '/').then(function(data) {
 					RequestService.async('http://api.uqxdev.com/api/meta/courseinfo/').then(function(info) {
 						for (var key in info) {
-							if (info[key]['id'] === Course.currentCourse) {
+							if (info[key]['id'] === Course.currentCourse || Course.currentCourse == 'allcourses') {
 								if ('start' in info[key]) {
-									$scope.importantDates.push({ 'name': 'Course Start', 'date': info[key]['start'] });
+									$scope.importantDates.push({ 'name': 'Course Start for '+info[key]['display_name'], 'date': info[key]['start'] });
 								}
 
 								if ('end' in info[key]) {
-									$scope.importantDates.push({ 'name': 'Course End', 'date': info[key]['end'] });
+									$scope.importantDates.push({ 'name': 'Course End for'+info[key]['display_name'], 'date': info[key]['end'] });
 								}
 							}
 						}

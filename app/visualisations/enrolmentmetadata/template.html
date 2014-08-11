@@ -4,16 +4,16 @@
     </a>
 </div>
 <div style="float:left; width:100%;">
-<div class="container">
-	<div class="row">
-		<div class="col-md-6">
-			<h3 style="float: left; width: 220px; margin-top: 5px">Age</h3>
-			<a ng-href="http://api.uqxdev.com/api/students/ages/{{course.currentCourse}}?format=csv" data-name="csv" class="csv-download btn btn-success">
+
+	<div class="row" style="margin:20px;">
+		<div class="col-md-5 chart_wrap">
+			<h3 style="float: left; width: 220px; margin-top: 5px">Education</h3>
+			<a ng-href="http://api.uqxdev.com/api/students/educations/{{course.currentCourse}}?format=csv" data-name="csv" class="csv-download btn btn-success">
 				<i class="fa fa-file-excel-o"></i> CSV
 			</a>
-			<vis-bar data="ageData" height="600" options="{ marginLeft: 130 }"></vis-pie>
+			<vis-bar data="educationData" height="600" options="{ marginLeft: 130 }"></vis-pie>
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-5 chart_wrap col-md-offset-1">
 			<h3 style="float: left; width: 220px; margin-top: 5px">Gender</h3>
 			<a ng-href="http://api.uqxdev.com/api/students/genders/{{course.currentCourse}}?format=csv" data-name="csv" class="csv-download btn btn-success">
 				<i class="fa fa-file-excel-o"></i> CSV
@@ -21,22 +21,30 @@
 			<vis-pie data="genderData"  width="600" height="600"></vis-pie>
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-md-6">
-			<h3 style="float: left; width: 220px; margin-top: 5px">Education</h3>
-			<a ng-href="http://api.uqxdev.com/api/students/educations/{{course.currentCourse}}?format=csv" data-name="csv" class="csv-download btn btn-success">
+    <div class="row" style="margin:20px;">
+        <div class="col-md-5 chart_wrap">
+			<h3 style="float: left; width: 220px; margin-top: 5px">Age Groups</h3>
+			<a ng-href="http://api.uqxdev.com/api/students/ages/{{course.currentCourse}}?format=csv" data-name="csv" class="csv-download btn btn-success">
 				<i class="fa fa-file-excel-o"></i> CSV
 			</a>
-			<vis-bar data="educationData" height="600" options="{ marginLeft: 130 }"></vis-pie>
+			<vis-bar data="ageData" height="600" options="{ marginLeft: 130 }"></vis-pie>
 		</div>
-		<div class="col-md-6">
+        <div class="col-md-5 chart_wrap col-md-offset-1">
 			<h3 style="float: left; width: 220px; margin-top: 5px">User Enrolment Types</h3>
 			<a ng-href="http://api.uqxdev.com/api/students/modes/{{course.currentCourse}}?format=csv" data-name="csv" class="csv-download btn btn-success">
 				<i class="fa fa-file-excel-o"></i> CSV
 			</a>
 			<vis-pie data="enrolTypeData" width="600" height="600"></vis-pie>
 		</div>
+    </div>
+	<div class="row" style="margin:20px;" >
+        <div class="col-md-5 chart_wrap">
+			<h3 style="float: left; width: 220px; margin-top: 5px">Ages</h3>
+			<a ng-href="http://api.uqxdev.com/api/students/fullages/{{course.currentCourse}}?format=csv" data-name="csv" class="csv-download btn btn-success">
+				<i class="fa fa-file-excel-o"></i> CSV
+			</a>
+			<vis-bar data="fullAgeData" height="600" options="{ marginLeft: 130 }"></vis-pie>
+		</div>
 	</div>
-</div>
 </div>
 <div style="clear:left"></div>

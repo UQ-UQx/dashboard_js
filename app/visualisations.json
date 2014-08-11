@@ -15,11 +15,6 @@
         "icon": "fa-users"
     },
     {
-        "id": "studentactivity",
-        "name": "Student Activity",
-        "icon": "fa-users"
-    },
-    {
         "id": "enrolmentmap",
         "name": "Enrolment Countries",
         "icon": "fa-globe"
