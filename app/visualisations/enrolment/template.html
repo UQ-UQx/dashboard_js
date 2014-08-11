@@ -1,9 +1,11 @@
-<a ng-click="refreshData()" data-name="reload" class="refresh-cache btn btn-warning">
-	<i class="fa fa-refresh"></i> Recache
-</a>
-<a ng-href="http://api.uqxdev.com/api/students/dates/{{course.currentCourse}}?format=csv" data-name="csv" class="csv-download btn btn-success">
-	<i class="fa fa-file-excel-o"></i> CSV
-</a>
+<div class="metaactions">
+    <a ng-click="refreshData()" data-name="reload" class="refresh-cache btn btn-warning">
+        <i class="fa fa-refresh"></i> Recache
+    </a>
+    <a ng-href="http://api.uqxdev.com/api/students/dates/{{course.currentCourse}}?format=csv" data-name="csv" class="csv-download btn btn-success">
+        <i class="fa fa-file-excel-o"></i> CSV
+    </a>
+</div>
 
 <h3>New Registrations</h3>
 <vis-line data="normalData" height="500" y-axis-label="'Num. New Registrations'" dates="importantDates"></vis-line>

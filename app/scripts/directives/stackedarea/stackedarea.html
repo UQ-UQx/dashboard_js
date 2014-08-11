@@ -1,0 +1,51 @@
+    <style>
+        div.stackedarea-chart {
+            font-size: 14px;
+            color: #121401;
+        }
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: #121401;
+            stroke-width: 2px;
+            shape-rendering: crispEdges;
+        }
+        g.focus g.series path, g.focus g.x {
+            clip-path: url(#clip);
+        }
+        .point {
+            stroke: grey;
+            stroke-width: 3px;
+            opacity: 0;
+        }
+        .point:hover{
+            opacity: .5;
+        }
+        .brush .extent {
+            stroke: #fff;
+            fill-opacity: .125;
+            shape-rendering: crispEdges;
+        }
+        .context_bg {
+            stroke: #333;
+            fill:#fafafa;
+            stroke-width:1px;
+        }
+        .legend_bg {
+            fill:#fafafa;
+            stroke: #333;
+            stroke-width:1px;
+        }
+    </style>
+<div class="form-inline">
+    <div class="checkbox">
+        <label><input type="checkbox" name="filtertype_1" ng-model="filtertype_sequential" value="sequential" checked /> Sequences&nbsp;&nbsp;&nbsp;</label>
+    </div>
+    <div class="checkbox">
+        <label><input type="checkbox" name="filtertype_2" ng-model="filtertype_video" value="video" checked /> Videos&nbsp;&nbsp;&nbsp;</label>
+    </div>
+    <div class="checkbox">
+        <label><input type="checkbox" name="filtertype_3" ng-model="filtertype_problem" value="problem" checked /> Problems&nbsp;&nbsp;&nbsp;</label>
+    </div>
+</div>
+<div class="stackedarea-chart"></div>

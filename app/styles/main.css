@@ -168,10 +168,11 @@ div#main_content {
     border:1px solid #9A9CA2;
     margin-left:119px;
     background:#fff;
-    min-height:500px;
+    min-height:700px;
     padding:20px 0 0 20px;
     border-right:0;
     border-top:0;
+    overflow:auto;
 }
 div#main_content h1 {
     color:#4A105A;
@@ -359,4 +360,9 @@ div.embed_button {
 }
 div.embedded div.embed_button {
     display:none;
+}
+div.metaactions {
+    margin-top:-50px;
+    margin-right:-10px;
+    height:60px;
 }
