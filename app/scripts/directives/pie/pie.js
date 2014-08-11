@@ -83,7 +83,7 @@ app.directive('visPie', function ($window) {
                                     tipStr = d.data.comment;
                                 }
                                 else {
-                                    tipStr = '<strong>' + d.data.label + ': </strong>' + d.value + ' (' + (d.value / sum * 100).toFixed(1) + '%)';
+                                    tipStr = '<strong>' + d.data.label + ': </strong> ' + d.value + ' (' + (d.value / sum * 100).toFixed(1) + '%)';
                                 }
                                 return tipStr;
                             })
