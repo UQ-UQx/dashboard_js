@@ -208,7 +208,7 @@ app.directive('visPie', function ($window) {
                     scope.resizetimeout = setTimeout(scope.resize,100);
 				});
 
-                setTimeout(scope.resize,100);
+                setTimeout(scope.resize,500);
 
 			});
 		}
