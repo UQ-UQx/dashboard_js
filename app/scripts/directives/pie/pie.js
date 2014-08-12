@@ -195,7 +195,7 @@ app.directive('visPie', function ($window) {
                     }
                 }
 
-                drawChart();
+                //drawChart();
 
                 scope.resize = function() {
 					d3.select(element.find('.tip')[0]).selectAll().remove();
