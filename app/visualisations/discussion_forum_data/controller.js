@@ -97,6 +97,8 @@ angular.module('dashboardJsApp')
 
                     $scope.normalData = formattedNormalData;
                     $scope.aggregateData = formattedAggregateData;
+
+                    $scope.$parent.state = "running";
                 });
 
                 $scope.topNumber = 10;

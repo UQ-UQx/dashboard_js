@@ -165,7 +165,7 @@ div#content_wrapper {
     width:100%;
 }
 div#main_content {
-    border:1px solid #9A9CA2;
+    border-bottom:1px solid #9A9CA2;
     margin-left:119px;
     background:#fff;
     min-height:700px;
@@ -206,6 +206,10 @@ h2 {
     color:#4A105A;
     font-weight:200;
     margin-top:0;
+}
+h3 {
+    color:#4A105A;
+    font-weight:400;
 }
 
 ul#coursestructure, ul#coursestructure ul {
