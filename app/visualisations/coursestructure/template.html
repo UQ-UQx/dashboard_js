@@ -6,7 +6,24 @@
     <i class="fa fa-file-excel-o"></i> CSV
 </a>
 </div>
-
+<script>
+    $('#filter_width').change(function() {
+        console.log("WIDTH CHANGED"+$('#filter_width').val());
+        $('ul#coursestructure').width($('#filter_width').val()+"%");
+    });
+    $('#filter_height').change(function() {
+        console.log("WIDTH CHANGED");
+        var zoom = $('#filter_height').val()/100;
+        if(zoom < 0.1) {
+            $('div.node').css({'font-size':'5px'});
+        } else {
+            $('div.node').css({'font-size':'inherit'});
+        }
+        $('div.node').css({'zoom':zoom});
+    });
+</script>
+<div class="col-md-3">Width: <input id="filter_width" type="range" name="points" min="1" max="100" value="100"></div>
+<div class="col-md-3">Height: <input id="filter_height" type="range" name="points" min="1" max="100" value="100"></div>
 <div id="searchbox">
     <form class="navbar-form navbar-left" role="search">
         <div class="input-group">
