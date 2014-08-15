@@ -45,7 +45,7 @@ angular.module('dashboardJsApp')
 							$scope.populationEnrolData.push({ country: data['country_post_enrol'][key][0], value: data['country_post_enrol'][key][1], percentage: data['country_post_enrol'][key][3]})
 						}
 					}
-
+                    console.log($scope.populationEnrolData);
                     $scope.$parent.state = 'running';
 				});
 			}

@@ -17,21 +17,34 @@
 <h3>Discussion Categories</h3>
 <ul class = "list-group">
     <li class="list-group-item" ng-repeat="category in categoryData">
-        <a href="">{{category.display_name}}</a>
+        <a href="">{{category.discussion_category}}</a>
         <!--<a href="{% url  'visualization' 'discussion_forum_data' %}{{ selectedcoursename }}/discussion_category/{{ category.discussion_id }}">{{ category.discussion_display }}</a>-->
     </li>
 </ul>
 
+
+<script>
+    function accordian(index) {
+        var panel = $($('#accordion .panel-collapse')[index]);
+        if(panel.hasClass('in')) {
+            panel.collapse('hide');
+            panel.attr('data-toggle', 'collapse');
+        } else {
+            panel.collapse('show');
+            panel.attr('data-toggle', '');
+        }
+    }
+</script>
 <div class="panel-group" id="accordion">
 <div class="panel panel-default">
   <div class="panel-heading">
     <h4 class="panel-title">
-    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+    <a data-toggle="collapse" data-parent="#accordion" href="" onclick="accordian(0)">
     Most popular {{ topNumber }} Threads
     </a>
     </h4>
   </div>
-  <div id="collapseOne" class="panel-collapse collapse in">
+  <div id="collapseOne" class="panel-collapse collapse">
     <div class="panel-body">
         <ul class="list-group">
           <li class="list-group-item" ng-repeat="pop in popularData">
@@ -45,18 +58,17 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <h4 class="panel-title">
-    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+    <a data-toggle="collapse" data-parent="#accordion" href="" onclick="accordian(1)">
     Top {{ topNumber }} Threads
     </a>
     </h4>
   </div>
-  <div id="collapseTwo" class="panel-collapse collapse in">
+  <div id="collapseTwo" class="panel-collapse collapse">
     <div class="panel-body">
         <ul class="list-group">
             <li class="list-group-item" ng-repeat="thread in topData.threads">
           <span class="badge">{{ thread.votes.up_count}} up</span>
           {{ thread.body }}
-          <!-- <a href="{% url 'visualization' "discussion_forum_data" %}{{ selectedcoursename }}/thread/{{ thread.id }}" class="pushleft" target="_blank"> Diagram</a> -->
           </li>
         </ul>
     </div>
@@ -65,18 +77,17 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <h4 class="panel-title">
-      <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+      <a data-toggle="collapse" data-parent="#accordion" href="" onclick="accordian(2)">
       Top {{ topNumber }} Comments
       </a>
     </h4>
   </div>
-  <div id="collapseThree" class="panel-collapse collapse in">
+  <div id="collapseThree" class="panel-collapse collapse">
     <div class="panel-body">
         <ul class="list-group">
             <li class="list-group-item" ng-repeat="comment in topData.comments">
           <span class="badge">{{ comment.votes.up_count}} up</span>
           <p> <b>Thread: </b>{{ comment.comment_thread_body }}
-          <!--    <a href="{% url 'visualization' "discussion_forum_data" %}{{ selectedcoursename }}/thread/{{ comment.comment_thread_id }}" class="pushleft" target="_blank"> Diagram</a> -->
           </p>
           <p ng-if="comment.parent_body"><b>Parent: </b>{{ comment.parent_body }}</p>
           <p><b>Comment: </b>{{ comment.body }}</p>
