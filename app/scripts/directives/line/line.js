@@ -165,9 +165,9 @@ app.directive('visLine', function() {
 							.offset([-10, 0])
 							.html(function(d, name) {
 								return '<strong>Date:</strong>' +
-								'<span style="color: ' + color(name) +'">' + ('0' + d.date.getDate()).slice(-2) + '-' + ('0' + (d.date.getMonth()+1)).slice(-2) + '-' + d.date.getFullYear() + '</span>' +
+								'<span style="color: ' + d3.rgb(color(name)).brighter() +'">' + ('0' + d.date.getDate()).slice(-2) + '-' + ('0' + (d.date.getMonth()+1)).slice(-2) + '-' + d.date.getFullYear() + '</span>' +
 								'<strong>Value:</strong>' +
-								'<span style="color: ' + color(name) +'">' + d.value + '</span>';
+								'<span style="color: ' + d3.rgb(color(name)).brighter() +'">' + d.value + '</span>';
 							});
 
 						svg.call(tip);
