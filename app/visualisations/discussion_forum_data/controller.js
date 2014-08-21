@@ -188,17 +188,17 @@ angular.module('dashboardJsApp')
                         $scope.categoryData[i]['popularThreads'] = popularThreads;
 
                         // Comment Per Thread
-
-
-
-
+                        var comment_per_thread = []
+                        if('zones' in categoryDetails) {
+                            for ( var k = 0; k < categoryDetails['zones'].length; k++) {
+                                var zone = categoryDetails['zones'][k];
+                                comment_per_thread[k] = {label: zone["label"], value: zone["number"]};
+                            }
+                        }
+                        $scope.categoryData[i]['comment_per_thread'] = comment_per_thread;
 
                         console.log($scope.categoryData[i]);
                     }
-
-
-
-
 
                     console.log("$$$");
                     console.log($scope.categoryData);
