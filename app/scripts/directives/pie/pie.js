@@ -54,7 +54,7 @@ app.directive('visPie', function ($window) {
                                 return d.value;
                             });
 
-                        var margin = { top: 20, right: 150, bottom: 20, left: 20 };
+                        var margin = { top: 20, right: 200, bottom: 20, left: 20 };
                         var colors = d3.scale.category20();
                         var tipOn = true;
 
@@ -83,7 +83,7 @@ app.directive('visPie', function ($window) {
                                     tipStr = d.data.comment;
                                 }
                                 else {
-                                    tipStr = '<strong>' + d.data.label + ': </strong> ' + d.value + ' (' + (d.value / sum * 100).toFixed(1) + '%)';
+                                    tipStr = '<strong>' + d.data.label + ':</strong>&nbsp' + d.value + ' (' + (d.value / sum * 100).toFixed(1) + '%)';
                                 }
                                 return tipStr;
                             })

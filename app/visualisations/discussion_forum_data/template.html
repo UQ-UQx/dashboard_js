@@ -111,8 +111,11 @@
             <div ng-if="category.display_name == undefined">
                 <h3>{{category.discussion_category}}</h3>
             </div>
+            <p>Posts:</p>
             <vis-line data="category.dateCount" width="2000" height="500" all-dates="true"></vis-line>
+            <p>Most 20 Popular Threads</p>
             <vis-stackedbar data="category.popularThreads" width="2000" height="500" all-dates="true"></vis-stackedbar>
+            <p>Comments Per Thread</p>
             <vis-pie data="category.comment_per_thread" width="600" height="600"></vis-pie>
         </div>
     </div>
