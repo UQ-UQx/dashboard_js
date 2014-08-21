@@ -115,6 +115,76 @@ angular.module('dashboardJsApp')
 
                 RequestService.async('http://api.uqxdev.com/api/discussions/category/' + Course.currentCourse + '/').then(function (data) {
                     $scope.categoryData = data.categories;
+
+
+                    console.log("@@@");
+
+                    // Add category details here
+                    for ( var i = 0; i < $scope.categoryData.length; i++ ) {
+                        var discussion_id = $scope.categoryData[i]['discussion_id'];
+                        var categoryDetails = data[discussion_id];
+
+                        // Posts
+                        var formattedData = [
+                            { name: 'Thread', data: []},
+                            { name: 'Comment', data: []},
+                            { name: 'Comment2', data: []}
+                        ];
+
+                        if ('thread_datecount' in categoryDetails) {
+                            for (var key in categoryDetails['thread_datecount']) {
+                                formattedData[0]['data'].push({'date': categoryDetails['thread_datecount'][key][0], 'value': categoryDetails['thread_datecount'][key][1]});
+                            }
+                        }
+                        if ('comment_datecounts' in categoryDetails) {
+                            for (var key in categoryDetails['comment_datecounts']) {
+                                formattedData[1]['data'].push({'date': categoryDetails['comment_datecounts'][key][0], 'value': categoryDetails['comment_datecounts'][key][1]});
+                            }
+                        }
+                        if ('ccomment_datecounts' in categoryDetails) {
+                            for (var key in categoryDetails['ccomment_datecounts']) {
+                                formattedData[2]['data'].push({'date': categoryDetails['ccomment_datecounts'][key][0], 'value': categoryDetails['ccomment_datecounts'][key][1]});
+                            }
+                        }
+                        $scope.categoryData[i]['dateCount'] = formattedData;
+
+                        // Most 20 Popular Threads
+                        var popularThreads = {
+                            xAxisName: "Popular Threads",
+                            xTicks: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'],
+                            yAxisName: "Num of Comments",
+                            stackNames: ["Comment", "Comment2"],
+                            stackData: []
+                        }
+
+                        var stackData = [[], []];
+                        if ('popular_threads' in  categoryDetails) {
+                            for ( var j = 1; j <= categoryDetails['popular_threads'].length; j++ ) {
+                                var thread = categoryDetails['popular_threads'][j-1];
+                                var desc = "Thread Id: " + thread['thread_id'] + "</br>" + "Body: " + thread['body'];
+                                var com = { x: j.toString(), y: thread['comm_num'], comment: desc};
+                                var ccom = { x: j.toString(), y: thread['ccomm_num'], comment: desc};
+                                stackData[0][j-1]=com;
+                                stackData[1][j-1]=ccom;
+                            }
+                        }
+
+                        popularThreads['stackData'] = stackData;
+                        $scope.categoryData[i]['popularThreads'] = popularThreads;
+
+                        // Comment Per Thread
+
+
+
+
+
+                        console.log($scope.categoryData[i]);
+                    }
+
+
+
+
+
                     console.log("$$$");
                     console.log($scope.categoryData);
                 });

@@ -17,10 +17,30 @@
 <h3>Discussion Categories</h3>
 <ul class = "list-group">
     <li class="list-group-item" ng-repeat="category in categoryData">
-        <a href="">{{category.discussion_category}}</a>
+        <div ng-if="category.display_name !== undefined">
+            <a href="">{{category.display_name}}</a>
+        </div>
+        <div ng-if="category.display_name == undefined">
+            <a href="">{{category.discussion_category}}</a>
+        </div>
         <!--<a href="{% url  'visualization' 'discussion_forum_data' %}{{ selectedcoursename }}/discussion_category/{{ category.discussion_id }}">{{ category.discussion_display }}</a>-->
     </li>
 </ul>
+
+<h3> ... </h3>
+<div>
+    <div ng-repeat="category in categoryData">
+        <div ng-if="category.display_name !== undefined">
+            {{category.display_name}}
+        </div>
+        <div ng-if="category.display_name == undefined">
+            {{category.discussion_category}}
+        </div>
+        <vis-line data="category.dateCount" width="2000" height="500" all-dates="true"></vis-line>
+        <vis-stackedbar data="category.popularThreads" width="2000" height="500" all-dates="true"></vis-stackedbar>
+        abc
+    </div>
+</div>
 
 
 <script>
