@@ -45,6 +45,21 @@ angular.module('dashboardJsApp')
         $scope.refresh = false;
     }
 
+
+
+    $scope.sectionChanged = function(discussion_id) {
+        $('div.subsection').css({'display':'none'});
+        $('div#section_'+discussion_id).css({'display':'block'});
+        $('div#section_main').css({'display':'none'});
+        $('html,body').scrollTop(0);
+    }
+
+    $scope.sectionMain = function() {
+        $('div.subsection').css({'display':'none'});
+        $('div#section_main').css({'display':'block'});
+        $('html,body').scrollTop(0);
+    }
+
     $scope.loadData = function() {
 
         var refresh = '';
