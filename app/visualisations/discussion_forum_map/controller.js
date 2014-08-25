@@ -13,6 +13,8 @@ angular.module('dashboardJsApp')
 
         $scope.$parent.state = 'loading';
 
+        $scope.APIBASE = APIBASE;
+
         $scope.refresh = false;
 
         $scope.refreshData = function() {
@@ -30,7 +32,7 @@ angular.module('dashboardJsApp')
             }
 
             if ($scope.auth.isAuthenticated()) {
-				RequestService.async('http://api.uqxdev.com/api/discussions/countries/' + Course.currentCourse + '/').then(function(data) {
+				RequestService.async('/discussions/countries/' + Course.currentCourse + '/').then(function(data) {
 					$scope.populationData = [];
 					$scope.populationEnrolData = [];
 					$scope.postColour = '23, 148, 68';

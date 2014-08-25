@@ -13,6 +13,7 @@ angular.module('dashboardJsApp')
 
 		$scope.$parent.state = "loading";
 
+        $scope.APIBASE = APIBASE;
 
 		$scope.refresh = false;
 		$scope.refreshData = function() {
@@ -32,23 +33,23 @@ angular.module('dashboardJsApp')
 
 			if ($scope.auth.isAuthenticated()) {
 				console.log(refresh);
-				RequestService.async('http://api.uqxdev.com/api/students/ages/' + Course.currentCourse + '/'+refresh).then(function(data) {
+				RequestService.async('/students/ages/' + Course.currentCourse + '/'+refresh).then(function(data) {
 					$scope.ageData = $scope.formatBarData(data);
 				});
 
-                RequestService.async('http://api.uqxdev.com/api/students/fullages/' + Course.currentCourse + '/'+refresh).then(function(data) {
+                RequestService.async('/students/fullages/' + Course.currentCourse + '/'+refresh).then(function(data) {
 					$scope.fullAgeData = $scope.formatBarData(data, true);
 				});
 
-				RequestService.async('http://api.uqxdev.com/api/students/genders/' + Course.currentCourse + '/'+refresh).then(function(data) {
+				RequestService.async('/students/genders/' + Course.currentCourse + '/'+refresh).then(function(data) {
 					$scope.genderData = $scope.formatPieData(data);
 				});
 
-				RequestService.async('http://api.uqxdev.com/api/students/educations/' + Course.currentCourse + '/'+refresh).then(function(data) {
+				RequestService.async('/students/educations/' + Course.currentCourse + '/'+refresh).then(function(data) {
 					$scope.educationData = $scope.formatBarData(data);
 				});
 
-				RequestService.async('http://api.uqxdev.com/api/students/modes/' + Course.currentCourse + '/'+refresh).then(function(data) {
+				RequestService.async('/students/modes/' + Course.currentCourse + '/'+refresh).then(function(data) {
 					delete data['total'];
 					$scope.enrolTypeData = $scope.formatPieData(data);
 				});

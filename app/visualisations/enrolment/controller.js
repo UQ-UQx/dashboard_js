@@ -13,6 +13,8 @@ angular.module('dashboardJsApp')
 
         $scope.$parent.state = "loading";
 
+        $scope.APIBASE = APIBASE;
+
         $scope.refresh = false;
         $scope.importantDates = [];
 
@@ -32,8 +34,8 @@ angular.module('dashboardJsApp')
             }
 
             if ($scope.auth.isAuthenticated()) {
-				RequestService.async('http://api.uqxdev.com/api/students/dates/' + Course.currentCourse + '/').then(function(data) {
-					RequestService.async('http://api.uqxdev.com/api/meta/courseinfo/').then(function(info) {
+				RequestService.async('/students/dates/' + Course.currentCourse + '/').then(function(data) {
+					RequestService.async('/meta/courseinfo/').then(function(info) {
 						for (var key in info) {
 							if (info[key]['id'] === Course.currentCourse || Course.currentCourse == 'allcourses') {
 								if ('start' in info[key]) {

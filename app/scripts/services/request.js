@@ -10,8 +10,10 @@
 
 angular.module('dashboardJsApp')
 	.factory('RequestService', ['$http', 'AuthService', 'createDialog', function($http, AuthService, createDialogService) {
+        console.log("KEKE"+APIBASE);
 		return {
 			async: function(url) {
+                url = APIBASE + url;
                 var headers = {};
                 if(AuthService.getToken()) {
                     headers = {'Authorization': 'JWT ' + AuthService.getToken()}

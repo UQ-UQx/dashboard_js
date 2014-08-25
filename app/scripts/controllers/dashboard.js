@@ -61,7 +61,7 @@ angular.module('dashboardJsApp')
 
         $scope.$watch('auth.isAuthenticated()', function() {
             if ($scope.auth.isAuthenticated()) {
-                RequestService.async('http://api.uqxdev.com/api/meta/courses/').then(function(data) {
+                RequestService.async('/meta/courses/').then(function(data) {
                     if(!$scope.course.currentCourse || $scope.course.currentCourse == '') {
                         $scope.state = 'notselected';
                     } else {

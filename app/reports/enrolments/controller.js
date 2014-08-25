@@ -51,7 +51,7 @@ angular.module('dashboardJsApp')
 
             //Enrolment for each course
 
-            RequestService.async('http://api.uqxdev.com/api/meta/courseinfo/').then(function(data) {
+            RequestService.async('/meta/courseinfo/').then(function(data) {
                 $scope.courseEnrolment = [];
                 $scope.totalenrolments = 0;
                 Course.setCourseList(data);
@@ -120,13 +120,13 @@ angular.module('dashboardJsApp')
             });
 
             //Uniques
-            RequestService.async('http://api.uqxdev.com/api/meta/uniques/').then(function(data) {
+            RequestService.async('/meta/uniques/').then(function(data) {
                 $scope.uniques = data['uniques'];
             });
 
 
             //Countries
-            RequestService.async('http://api.uqxdev.com/api/students/countries/').then(function(data) {
+            RequestService.async('/students/countries/').then(function(data) {
                 $scope.populationData = [];
                 $scope.enrolmentData = [];
                 var tmpEnrolmentData = [];
@@ -139,6 +139,7 @@ angular.module('dashboardJsApp')
                         tmpEnrolmentData.push(enrolObject);
                     }
                 }
+                $scope.total_countries = tmpEnrolmentData.length;
                 function percentage_compare(a,b) {
                   if (a[1] > b[1])
                      return -1;
@@ -159,23 +160,23 @@ angular.module('dashboardJsApp')
             });
 
             //Meta-data
-            RequestService.async('http://api.uqxdev.com/api/students/ages/'+refresh).then(function(data) {
+            RequestService.async('/students/ages/'+refresh).then(function(data) {
                 $scope.ageData = $scope.formatPieData(data);
             });
 
-            RequestService.async('http://api.uqxdev.com/api/students/fullages/' + Course.currentCourse + '/'+refresh).then(function(data) {
+            RequestService.async('/students/fullages/' + Course.currentCourse + '/'+refresh).then(function(data) {
                 $scope.fullAgeData = $scope.formatBarData(data, true);
             });
 
-            RequestService.async('http://api.uqxdev.com/api/students/genders/'+refresh).then(function(data) {
+            RequestService.async('/students/genders/'+refresh).then(function(data) {
                 $scope.genderData = $scope.formatPieData(data);
             });
 
-            RequestService.async('http://api.uqxdev.com/api/students/educations/'+refresh).then(function(data) {
+            RequestService.async('/api/students/educations/'+refresh).then(function(data) {
                 $scope.educationData = $scope.formatPieData(data);
             });
 
-            RequestService.async('http://api.uqxdev.com/api/students/modes/'+refresh).then(function(data) {
+            RequestService.async('/students/modes/'+refresh).then(function(data) {
                 delete data['total'];
                 $scope.enrolTypeData = $scope.formatPieData(data);
             });

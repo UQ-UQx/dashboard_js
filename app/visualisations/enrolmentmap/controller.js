@@ -14,6 +14,10 @@ angular.module('dashboardJsApp')
 		$scope.auth = AuthService;
 		$scope.colourString = '23, 60, 68';
 
+        $scope.total_countries = 0;
+
+        $scope.APIBASE = APIBASE;
+
 		$scope.$parent.state = "loading";
 
 		$scope.refresh = false;
@@ -38,7 +42,7 @@ angular.module('dashboardJsApp')
 			}
 
             if ($scope.auth.isAuthenticated()) {
-                RequestService.async('http://api.uqxdev.com/api/students/countries/' + Course.currentCourse + '/').then(function(data) {
+                RequestService.async('/students/countries/' + Course.currentCourse + '/').then(function(data) {
                     $scope.populationData = [];
                     $scope.enrolmentData = [];
                     var tmpEnrolmentData = [];
@@ -51,6 +55,7 @@ angular.module('dashboardJsApp')
                             tmpEnrolmentData.push(enrolObject);
                         }
                     }
+                    $scope.total_countries = tmpEnrolmentData.length;
                     function percentage_compare(a,b) {
                       if (a[1] > b[1])
                          return -1;

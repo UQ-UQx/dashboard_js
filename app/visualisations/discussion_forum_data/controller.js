@@ -37,6 +37,8 @@ angular.module('dashboardJsApp')
 	$scope.auth = AuthService;
 	$scope.$parent.state = "loading";
 
+    $scope.APIBASE = APIBASE;
+
     $scope.refresh = false;
     $scope.refreshData = function() {
         $scope.$parent.state = "loading";
@@ -74,7 +76,7 @@ angular.module('dashboardJsApp')
                 $scope.$parent.state = "notavailable";
             } else {
 
-                RequestService.async('http://api.uqxdev.com/api/discussions/dates/' + Course.currentCourse + '/').then(function (data) {
+                RequestService.async('/discussions/dates/' + Course.currentCourse + '/').then(function (data) {
                     var formattedNormalData = [
                         { name: 'Posts', data: [] },
                         { name: 'Comments', data: [] }
@@ -118,17 +120,17 @@ angular.module('dashboardJsApp')
 
                 $scope.topNumber = 10;
 
-                RequestService.async('http://api.uqxdev.com/api/discussions/top/' + Course.currentCourse + '/').then(function (data) {
+                RequestService.async('/api/discussions/top/' + Course.currentCourse + '/').then(function (data) {
                     $scope.topData = data[Course.currentCourse];
                     console.log($scope.topData);
                 });
 
-                RequestService.async('http://api.uqxdev.com/api/discussions/popular/' + Course.currentCourse + '/').then(function (data) {
+                RequestService.async('/api/discussions/popular/' + Course.currentCourse + '/').then(function (data) {
                     $scope.popularData = data[Course.currentCourse];
                     console.log($scope.popularData);
                 });
 
-                RequestService.async('http://api.uqxdev.com/api/discussions/category/' + Course.currentCourse + '/').then(function (data) {
+                RequestService.async('/api/discussions/category/' + Course.currentCourse + '/').then(function (data) {
                     $scope.categoryData = data.categories;
 
 

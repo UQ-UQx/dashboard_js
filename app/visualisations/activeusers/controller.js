@@ -12,6 +12,8 @@ angular.module('dashboardJsApp')
 		$scope.auth = AuthService;
         $scope.$parent.state = "loading";
 
+        $scope.APIBASE = APIBASE;
+
         $scope.refresh = false;
         $scope.refreshData = function() {
             $scope.$parent.state = "loading";
@@ -29,7 +31,7 @@ angular.module('dashboardJsApp')
             }
 
 			if ($scope.auth.isAuthenticated()) {
-				RequestService.async('http://api.uqxdev.com/api/students/active/' + Course.currentCourse + '/'+refresh).then(function(data) {
+				RequestService.async('/students/active/' + Course.currentCourse + '/'+refresh).then(function(data) {
 					var formattedDailyData = [{ name: 'Daily', data: [] }];
 					var formattedWeeklyData = [{ name: 'Weekly', data: [] }];
 

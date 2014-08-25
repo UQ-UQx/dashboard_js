@@ -15,7 +15,7 @@ angular.module('dashboardJsApp')
 
     	authService.login = function(credentials) {
             return $http({
-                url: 'http://api.uqxdev.com/api-token-auth/',
+                url: APIBASE+'-token-auth/',
                 method: 'POST',
                 data: {
                     'username': credentials.username,

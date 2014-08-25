@@ -12,6 +12,8 @@ angular.module('dashboardJsApp')
 		$scope.auth = AuthService;
         $scope.$parent.state = "loading";
 
+        $scope.APIBASE = APIBASE;
+
         $scope.refresh = false;
         $scope.refreshData = function() {
             $scope.$parent.state = "loading";
@@ -31,7 +33,7 @@ angular.module('dashboardJsApp')
 			if ($scope.auth.isAuthenticated()) {
                 $scope.$parent.state = "loading";
                 console.log("LOADING");
-				RequestService.async('http://localhost:8000/api/students/student_activity/' + Course.currentCourse + '/'+refresh).then(function(data) {
+				RequestService.async('/students/student_activity/' + Course.currentCourse + '/'+refresh).then(function(data) {
                     console.log("FINISHED");
                     $scope.areaData = data;
                     $scope.$parent.state = "running";

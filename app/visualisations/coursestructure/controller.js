@@ -12,6 +12,8 @@ angular.module('dashboardJsApp')
 		$scope.auth = AuthService;
         $scope.$parent.state = "loading";
 
+        $scope.APIBASE = APIBASE;
+
         $scope.refresh = false;
         $scope.refreshData = function() {
             $scope.$parent.state = "loading";
@@ -33,7 +35,7 @@ angular.module('dashboardJsApp')
                 if(Course.currentCourse == 'allcourses') {
                     $scope.$parent.state = "notavailable";
                 } else {
-                    RequestService.async('http://api.uqxdev.com/api/meta/structure/' + Course.currentCourse + '/').then(function (data) {
+                    RequestService.async('/meta/structure/' + Course.currentCourse + '/').then(function (data) {
                         var coursecontent = data;
 
                         $scope.coursecontent = coursecontent;
