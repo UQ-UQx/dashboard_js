@@ -103,7 +103,7 @@
 
 <div>
     <div ng-repeat="category in categoryData">
-        <div class="subsection" id="section_{{category.discussion_id}}">
+        <div class="subsection" id="section_{{category.discussion_id}}" style="display:none">
             <button ng-click="sectionMain()" class="btn btn-primary">Back to all weeks</button>
             <div ng-if="category.display_name !== undefined">
                 <h3>{{category.display_name}}</h3>
