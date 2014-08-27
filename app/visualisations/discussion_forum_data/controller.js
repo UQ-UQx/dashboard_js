@@ -120,17 +120,17 @@ angular.module('dashboardJsApp')
 
                 $scope.topNumber = 10;
 
-                RequestService.async('/api/discussions/top/' + Course.currentCourse + '/').then(function (data) {
+                RequestService.async('/discussions/top/' + Course.currentCourse + '/').then(function (data) {
                     $scope.topData = data[Course.currentCourse];
                     console.log($scope.topData);
                 });
 
-                RequestService.async('/api/discussions/popular/' + Course.currentCourse + '/').then(function (data) {
+                RequestService.async('/discussions/popular/' + Course.currentCourse + '/').then(function (data) {
                     $scope.popularData = data[Course.currentCourse];
                     console.log($scope.popularData);
                 });
 
-                RequestService.async('/api/discussions/category/' + Course.currentCourse + '/').then(function (data) {
+                RequestService.async('/discussions/category/' + Course.currentCourse + '/').then(function (data) {
                     $scope.categoryData = data.categories;
 
 
