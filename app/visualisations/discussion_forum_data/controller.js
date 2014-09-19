@@ -76,7 +76,7 @@ angular.module('dashboardJsApp')
                 $scope.$parent.state = "notavailable";
             } else {
 
-                RequestService.async('/discussions/dates/' + Course.currentCourse + '/').then(function (data) {
+                RequestService.async('/discussions/dates/' + Course.currentCourse + '/'+refresh).then(function (data) {
                     var formattedNormalData = [
                         { name: 'Posts', data: [] },
                         { name: 'Comments', data: [] }

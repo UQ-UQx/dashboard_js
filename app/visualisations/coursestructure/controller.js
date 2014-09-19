@@ -35,7 +35,7 @@ angular.module('dashboardJsApp')
                 if(Course.currentCourse == 'allcourses') {
                     $scope.$parent.state = "notavailable";
                 } else {
-                    RequestService.async('/meta/structure/' + Course.currentCourse + '/').then(function (data) {
+                    RequestService.async('/meta/structure/' + Course.currentCourse + '/'+refresh).then(function (data) {
                         var coursecontent = data;
 
                         $scope.coursecontent = coursecontent;

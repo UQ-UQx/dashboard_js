@@ -32,7 +32,7 @@ angular.module('dashboardJsApp')
             }
 
             if ($scope.auth.isAuthenticated()) {
-				RequestService.async('/discussions/countries/' + Course.currentCourse + '/').then(function(data) {
+				RequestService.async('/discussions/countries/' + Course.currentCourse + '/'+refresh).then(function(data) {
 					$scope.populationData = [];
 					$scope.populationEnrolData = [];
 					$scope.postColour = '23, 148, 68';

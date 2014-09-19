@@ -42,7 +42,7 @@ angular.module('dashboardJsApp')
 			}
 
             if ($scope.auth.isAuthenticated()) {
-                RequestService.async('/students/countries/' + Course.currentCourse + '/').then(function(data) {
+                RequestService.async('/students/countries/' + Course.currentCourse + '/'+refresh).then(function(data) {
                     $scope.populationData = [];
                     $scope.enrolmentData = [];
                     var tmpEnrolmentData = [];

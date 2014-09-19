@@ -32,7 +32,7 @@ angular.module('dashboardJsApp')
 				}, function(response) {
 					if (response.status === 401) {
 						AuthService.deleteToken();
-					}					
+					}
 				});
 
 				// Return the promise to the controller

@@ -34,7 +34,7 @@ angular.module('dashboardJsApp')
             }
 
             if ($scope.auth.isAuthenticated()) {
-				RequestService.async('/students/dates/' + Course.currentCourse + '/').then(function(data) {
+				RequestService.async('/students/dates/' + Course.currentCourse + '/'+refresh).then(function(data) {
 					RequestService.async('/meta/courseinfo/').then(function(info) {
 						for (var key in info) {
 							if (info[key]['id'] === Course.currentCourse || Course.currentCourse == 'allcourses') {
