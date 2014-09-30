@@ -189,7 +189,7 @@ angular.module('dashboardJsApp')
                 $scope.genderData = $scope.formatPieData(data);
             });
 
-            RequestService.async('/api/students/educations/'+refresh).then(function(data) {
+            RequestService.async('/students/educations/'+refresh).then(function(data) {
                 $scope.educationData = $scope.formatPieData(data);
             });
 
