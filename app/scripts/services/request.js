@@ -32,6 +32,7 @@ angular.module('dashboardJsApp')
 				}, function(response) {
 					if (response.status === 401) {
 						AuthService.deleteToken();
+                        console.log("BAD BAD NEED TO REAUTH");
 					}
 				});
 

@@ -20,6 +20,7 @@ angular.module('dashboardJsApp')
         $scope.courseEnrolment = [];
         $scope.largestCourse = 0;
         $scope.largestPerDay = 0;
+        $scope.largestCertificates = 0;
         $scope.populationData = [];
         $scope.enrolmentData = [];
 
@@ -54,6 +55,7 @@ angular.module('dashboardJsApp')
             RequestService.async('/meta/courseinfo/').then(function(data) {
                 $scope.courseEnrolment = [];
                 $scope.totalenrolments = 0;
+
                 Course.setCourseList(data);
                 for(var course_index in Course.courseList) {
                     if(Course.courseList[course_index].id != 'allcourses') {
@@ -90,6 +92,10 @@ angular.module('dashboardJsApp')
                         if($scope.largestPerDay < course['perday']) {
                             $scope.largestPerDay = course['perday'];
                         }
+                        course['certificates'] = Course.courseList[course_index]['certificates'];
+                        if($scope.largestCertificates < course['certificates']) {
+                            $scope.largestCertificates = course['certificates'];
+                        }
                         $scope.courseEnrolment.push(course);
                     }
                     $scope.totalenrolments_per_day = 0;
@@ -115,6 +121,17 @@ angular.module('dashboardJsApp')
                     s_radius = Math.round(s_width/2);
 
                     $scope.courseEnrolment[course]['styleperday'] = "width:"+s_width+"px; height:"+s_width+"px; left:"+s_top+"px; top:"+s_top+"px; border-radius:"+s_radius+"px;";
+
+                    enrolments = $scope.courseEnrolment[course]['certificates'];
+                    percentage = Math.log(enrolments) / Math.log($scope.largestCertificates);
+                    s_width = Math.round($scope.style_biggest_width*percentage);
+                    s_top = Math.round(($scope.style_biggest_width-s_width)/2);
+                    s_radius = Math.round(s_width/2);
+                    if($scope.courseEnrolment[course]['certificates'] == 0) {
+                        s_width = 0;
+                    }
+
+                    $scope.courseEnrolment[course]['stylepercerts'] = "width:"+s_width+"px; height:"+s_width+"px; left:"+s_top+"px; top:"+s_top+"px; border-radius:"+s_radius+"px; background-color:crimson;";
 
                 }
             });
