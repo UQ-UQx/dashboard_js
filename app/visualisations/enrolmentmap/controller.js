@@ -72,8 +72,8 @@ angular.module('dashboardJsApp')
                         i++;
                         $scope.enrolmentData.push(tmpEnrolmentData[country]);
                     }
+                    $scope.$parent.state = "running";
                 });
-                $scope.$parent.state = "running";
             }
 
 		}
