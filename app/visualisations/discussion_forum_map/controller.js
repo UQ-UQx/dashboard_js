@@ -33,21 +33,25 @@ angular.module('dashboardJsApp')
 
             if ($scope.auth.isAuthenticated()) {
 				RequestService.async('/discussions/countries/' + Course.currentCourse + '/'+refresh).then(function(data) {
-					$scope.populationData = [];
-					$scope.populationEnrolData = [];
-					$scope.postColour = '23, 148, 68';
-					$scope.postEnrolColour = '255, 127, 127';
+                    if(data['post_total']+"" == '0') {
+                        $scope.$parent.state = "notavailable";
+                    } else {
+                        $scope.populationData = [];
+                        $scope.populationEnrolData = [];
+                        $scope.postColour = '23, 148, 68';
+                        $scope.postEnrolColour = '255, 127, 127';
 
-					if ('country_post' in data) {
-						for (var key in data['country_post']) {
-							$scope.populationData.push({ country: data['country_post'][key][0], value: data['country_post'][key][1], percentage: data['country_post'][key][2] })
-						}
+                        if ('country_post' in data) {
+                            for (var key in data['country_post']) {
+                                $scope.populationData.push({ country: data['country_post'][key][0], value: data['country_post'][key][1], percentage: data['country_post'][key][2] })
+                            }
 
-						for (var key in data['country_post_enrol']) {
-							$scope.populationEnrolData.push({ country: data['country_post_enrol'][key][0], value: data['country_post_enrol'][key][1], percentage: data['country_post_enrol'][key][3]})
-						}
-					}
-                    $scope.$parent.state = 'running';
+                            for (var key in data['country_post_enrol']) {
+                                $scope.populationEnrolData.push({ country: data['country_post_enrol'][key][0], value: data['country_post_enrol'][key][1], percentage: data['country_post_enrol'][key][3]})
+                            }
+                        }
+                        $scope.$parent.state = 'running';
+                    }
 				});
 			}
 
