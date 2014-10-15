@@ -1,37 +1,37 @@
 [
     {
         "id": "enrolment",
-        "name": "Enrolment Data",
+        "name": "Enrolments",
         "icon": "fa-university"
     },
     {
+        "id": "enrolmentmap",
+        "name": "Enrolment Map",
+        "icon": "fa-globe"
+    },
+    {
+        "id": "enrolmentmetadata",
+        "name": "Demographics",
+        "icon": "fa-th-large"
+    },
+    {
         "id": "coursestructure",
-        "name": "Course Structure",
+        "name": "Structure",
         "icon": "fa-sitemap"
     },
     {
         "id": "activeusers",
-        "name": "Active Users",
+        "name": "Active Students",
         "icon": "fa-users"
     },
     {
-        "id": "enrolmentmap",
-        "name": "Enrolment Countries",
-        "icon": "fa-globe"
-    },
-    {
         "id": "discussion_forum_data",
-        "name": "Discussion Forums",
+        "name": "Discussions",
         "icon": "fa-comments"
     },
     {
-        "id": "enrolmentmetadata",
-        "name": "Enrolment Meta-Data",
-        "icon": "fa-tag"
-    },
-    {
         "id": "discussion_forum_map",
-        "name": "Discussion Forum Map",
+        "name": "Discussion Map",
         "icon": "fa-globe"
     }
 ]
