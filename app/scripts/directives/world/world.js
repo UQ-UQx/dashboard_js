@@ -94,6 +94,7 @@ app.directive('visWorld', ['COUNTRY', function(COUNTRY) {
 						data: finalData,
 						geographyConfig: {
 							popupTemplate: function (geo, data) {
+
 								var popupString = '<div class="hoverinfo"><strong>' + geo.properties.name + ': 0 ' + ' '+scope.suffix+' (0%)</strong></div>';
 
 								if (data !== null) {
@@ -103,13 +104,30 @@ app.directive('visWorld', ['COUNTRY', function(COUNTRY) {
 										': ' + data.value + ' '+scope.suffix+' (' + data.percentage + '%)',
 										'</strong></div>'
 									].join('');
-								}
+
+                                    /* LEGEND */
+                                    var dataval = data.value/maxVal*300;
+                                    element.find('div.legend_tick').css('left',dataval);
+                                    element.find('div.legend_tick').css('display','block');
+								} else {
+                                    element.find('div.legend_tick').css('display','none');
+                                }
 
 								return popupString;
 							}
 						}
 					});
 				};
+
+                /* LEGEND */
+                var legend = element.find('div.legend');
+                var fullcolor = 'rgb('+scope.colourString+')';
+                legend.css("background","-moz-linear-gradient(left, #ffffff 0%, "+fullcolor+" 100%)");
+                legend.css("background","-webkit-linear-gradient(left, #ffffff 0%,"+fullcolor+" 100%)");
+                legend.css("background","-ms-linear-gradient(left, #ffffff 0%,"+fullcolor+" 100%)");
+                legend.css("background","linear-gradient(to right, #ffffff 0%,"+fullcolor+" 100%)");
+                legend.css("filter","progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='"+fullcolor+"',GradientType=1 )");
+                element.find('div.legend_max').text(maxVal);
 
                 scope.resize = function() {
 					scope.$apply(function() {

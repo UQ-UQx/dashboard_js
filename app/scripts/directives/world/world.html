@@ -29,7 +29,39 @@
 		margin-left: auto;
    		margin-right: auto;
 	}
+    .legend {
+        height:14px;
+        width:300px;
+        margin:0 auto;
+        margin-top:-30px;
+        position:relative;
+    }
+    .legend_tick {
+        background:#000;
+        height:20px;
+        width:2px;
+        position:absolute;
+        left:100px;
+        top:-3px;
+    }
+    .legend_toggle {
+        width:80px;
+        text-align:center;
+        position: absolute;
+        top:20px;
+    }
+    .legend_min {
+        left:-40px;
+    }
+    .legend_max {
+        right:-40px;
+    }
 </style>
 <div class="vis-world-outer" ng-style="{'position': 'relative', 'height': height, 'width': chartWidth }">
 	<div class="vis-world-inner" ng-style="{'position': 'relative', 'height': height, 'maxWidth': chartWidthMax }"></div>
+    <div class="legend">
+        <div class="legend_tick"></div>
+        <div class="legend_min legend_toggle">0</div>
+        <div class="legend_max legend_toggle">100,000</div>
+    </div>
 </div>
