@@ -51,6 +51,10 @@ Install javascript packages
 cd [BASE_PATH]
 bower install
 ```
+Point the dashboard at the API location in app/index.html in line 7:
+```bash
+var APIBASE = 'http://api.uqxapi.com';
+```
 Configure the web server to use the [BASE_PATH] as the web root
 
 Architecture
