@@ -36,60 +36,62 @@ angular.module('dashboardJsApp')
 			if ($scope.auth.isAuthenticated()) {
                 $scope.$parent.state = "loading";
 				RequestService.async('/students/personcourse/' + Course.currentCourse + '/?fields=user_id,certified,final_cc_cname,explored,registered,viewed,grade'+refresh).then(function(data) {
-                    var certificateData = {'Yes':0,'No':0};
-                    var attemptData = {'Registered':0,'Viewed':0,'Explored':0,'Certified':0};
-                    var countries = {};
-                    var grades = {'0-10%':0,'10-20%':0,'20-30%':0,'30-40%':0,'40-50%':0,'50-60%':0,'60-70%':0,'70-80%':0,'80-90%':0,'90-100%':0};
-                    for(var per in data) {
-                        if(data[per]['certified'] == '1') {
-                            certificateData['Yes'] += 1;
-                            attemptData['Certified'] += 1;
-                            if(!countries[data[per]['final_cc_cname']]) {
-                                countries[data[per]['final_cc_cname']] = 0;
-                            }
-                            countries[data[per]['final_cc_cname']] += 1;
-                        } else {
-                            certificateData['No'] += 1;
-                            if(data[per]['explored'] == '1') {
+                    if(!data || data.length == 0) {
+                        $scope.$parent.state = "notavailable";
+                    } else {
+                        var certificateData = {'Yes': 0, 'No': 0};
+                        var attemptData = {'Registered': 0, 'Viewed': 0, 'Explored': 0, 'Certified': 0};
+                        var countries = {};
+                        var grades = {'0-10%': 0, '10-20%': 0, '20-30%': 0, '30-40%': 0, '40-50%': 0, '50-60%': 0, '60-70%': 0, '70-80%': 0, '80-90%': 0, '90-100%': 0};
+                        for (var per in data) {
+                            if (data[per]['certified'] == '1') {
+                                certificateData['Yes'] += 1;
                                 attemptData['Certified'] += 1;
-                            } else if(data[per]['explored'] == '1') {
-                                attemptData['Explored'] += 1;
-                            } else if(data[per]['viewed'] == '1') {
-                                attemptData['Viewed'] += 1;
+                                if (!countries[data[per]['final_cc_cname']]) {
+                                    countries[data[per]['final_cc_cname']] = 0;
+                                }
+                                countries[data[per]['final_cc_cname']] += 1;
                             } else {
-                                attemptData['Registered'] += 1;
+                                certificateData['No'] += 1;
+                                if (data[per]['explored'] == '1') {
+                                    attemptData['Certified'] += 1;
+                                } else if (data[per]['explored'] == '1') {
+                                    attemptData['Explored'] += 1;
+                                } else if (data[per]['viewed'] == '1') {
+                                    attemptData['Viewed'] += 1;
+                                } else {
+                                    attemptData['Registered'] += 1;
+                                }
+                            }
+                            var grade = Math.round(100 * parseFloat(data[per]['grade']));
+                            if (grade > 89) {
+                                grades['90-100%'] += 1;
+                            } else if (grade > 79) {
+                                grades['80-90%'] += 1;
+                            } else if (grade > 69) {
+                                grades['70-80%'] += 1;
+                            } else if (grade > 59) {
+                                grades['60-70%'] += 1;
+                            } else if (grade > 49) {
+                                grades['50-60%'] += 1;
+                            } else if (grade > 39) {
+                                grades['40-50%'] += 1;
+                            } else if (grade > 29) {
+                                grades['30-40%'] += 1;
+                            } else if (grade > 19) {
+                                grades['20-30%'] += 1;
+                            } else if (grade > 9) {
+                                grades['10-20%'] += 1;
+                            } else {
+                                grades['0-10%'] += 1;
                             }
                         }
-                        var grade = Math.round(100*parseFloat(data[per]['grade']));
-                        if(grade > 89) {
-                            grades['90-100%'] += 1;
-                        } else if (grade > 79) {
-                            grades['80-90%'] += 1;
-                        } else if (grade > 69) {
-                            grades['70-80%'] += 1;
-                        } else if (grade > 59) {
-                            grades['60-70%'] += 1;
-                        } else if (grade > 49) {
-                            grades['50-60%'] += 1;
-                        } else if (grade > 39) {
-                            grades['40-50%'] += 1;
-                        } else if (grade > 29) {
-                            grades['30-40%'] += 1;
-                        } else if (grade > 19) {
-                            grades['20-30%'] += 1;
-                        } else if (grade > 9) {
-                            grades['10-20%'] += 1;
-                        } else {
-                            grades['0-10%'] += 1;
-                        }
+                        $scope.certificateData = $scope.formatBarData(certificateData);
+                        $scope.gradeData = $scope.formatBarData(grades, true);
+                        $scope.attemptData = $scope.formatPieData(attemptData);
+                        $scope.countries = $scope.formatMapData(countries);
+                        $scope.$parent.state = "running";
                     }
-                    $scope.certificateData = $scope.formatBarData(certificateData);
-                    $scope.gradeData = $scope.formatBarData(grades,true);
-                    console.log("###");
-                    console.log($scope.gradeData);
-                    $scope.attemptData = $scope.formatPieData(attemptData);
-                    $scope.countries = $scope.formatMapData(countries);
-                    $scope.$parent.state = "running";
 				});
 			}
 		}
