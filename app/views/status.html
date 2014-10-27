@@ -3,15 +3,15 @@
 <div id="status">
     <h2>Service Status</h2>
         <div id="services"></div>
-    <h2>Data Collections Status</h2>
-        <div id="services"></div>
+    <!--<h2>Data Collections Status</h2>
+        <div id="services"></div>-->
 </div>
-    <p><h2>Actions</h2></p>
+    <!--<p><h2>Actions</h2></p>
     <div id="actions">
         <a href="/dashboard/dashboard/copysql" class="btn btn-primary pushleft">Copy Latest SQL from QCloud for Injection</a>
         <a href="/dashboard/dashboard/copyclickstream" class="btn btn-primary pushleft">Copy Latest Clickstream from QCloud for Injection</a>
         <a href="/dashboard/dashboard/copyforumdata" class="btn btn-primary pushleft">Copy Latest Forum Data from QCloud for Injection</a>
-    </div>
+    </div>-->
 </div>
 <script>
     $(document).ready(function () {
@@ -22,28 +22,32 @@
     });
     function reloadData() {
         $.ajax({
-            url: 'http://uqxdev.com:8850/status',
+            url: STATUSBASE+'/status',
             success: function (data) {
+                console.log(data);
                 $('#services').html('');
                 for (var app in data.response) {
                     var list = '<dl class="dl-horizontal">';
                     var status = data.response[app];
                     list += '<dt>Status: </dt><dd>' + status['status'] + '</dd>';
-                    list += '<dt>Last Action Run: </dt><dd>' + status['actiontime'] + '</dd>';
                     if (status['status'] == 'sleeping') {
-                        list += '<dt>Last Time Awake: </dt><dd>' + status['lastawake'] + '</dd>';
+                        list += '<dt>Last Time Awake: </dt><dd>' + status['lastcompletedate'] + '</dd>';
+                    } else {
+                        list += '<dt>Started Task: </dt><dd>' + status['startdate'] + '</dd>';
                     }
-                    list += '<dt>Action: </dt><dd class="action">' + status['action'] + '</dd>';
+                    list += '<dt>Action: </dt><dd class="action"><strong>' + status['task'] + '</strong> ' + status['file'] + '</dd>';
                     list += '</dl>';
-                    var progress = ' (' + status['progress']['current'] + '/' + status['progress']['total'] + ')';
-                    if (status['progress']['total'] == 0) {
-                        status['progress']['current'] = 1;
-                        status['progress']['total'] = 1;
+                    var total = 100;
+                    var tasks_completed = total - status['tasksleft'];
+                    var progress = ' (' + tasks_completed + '/' + total + ')';
+                    if (total == 0) {
+                        tasks_completed = 0;
+                        total = 1;
                         progress = '';
                     }
-                    var percentage = Math.round(status['progress']['current'] / status['progress']['total'] * 100);
+                    var percentage = Math.round(tasks_completed / total * 100);
                     list +=
-                            '<div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="' + status['progress']['current'] + '" aria-valuemin="0" aria-valuemax="' + status['progress']['total'] + '" style="width: ' + percentage + '%;">' + progress + ' ' + percentage + '%</div></div>';
+                            '<div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="' + tasks_completed + '" aria-valuemin="0" aria-valuemax="' + total + '" style="width: ' + percentage + '%;">' + progress + ' ' + percentage + '%</div></div>';
                     var service = $('<div class="col-md-4"><div class="service service_' + status['status'] + '"><h4><span class="glyphicon glyphicon-tasks"></span> ' + status['name'] + '</h4>' + list + '</div></div>');
                     $('#services').append(service);
                 }
