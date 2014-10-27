@@ -17,14 +17,13 @@
     $(document).ready(function () {
         window.setInterval(function () {
             reloadData()
-        }, 5000);
+        }, 10000);
         reloadData();
     });
     function reloadData() {
         $.ajax({
             url: STATUSBASE+'/status',
             success: function (data) {
-                console.log(data);
                 $('#services').html('');
                 for (var app in data.response) {
                     var list = '<dl class="dl-horizontal">';
@@ -54,7 +53,8 @@
             },
             error: function (data) {
                 $('#services').html('<div class="alert alert-danger">Error: Could not connect to services</div>');
-            }
+            },
+            timeout: 2000
         });
     }
 </script>
