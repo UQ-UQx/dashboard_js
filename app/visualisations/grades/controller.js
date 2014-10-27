@@ -54,8 +54,6 @@ angular.module('dashboardJsApp')
                             } else {
                                 certificateData['No'] += 1;
                                 if (data[per]['explored'] == '1') {
-                                    attemptData['Certified'] += 1;
-                                } else if (data[per]['explored'] == '1') {
                                     attemptData['Explored'] += 1;
                                 } else if (data[per]['viewed'] == '1') {
                                     attemptData['Viewed'] += 1;
