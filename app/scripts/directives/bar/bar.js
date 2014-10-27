@@ -48,7 +48,7 @@ app.directive('visBar', function() {
 
 					/* default chart options */
 					var barFill = 'steelblue',
-						highlightFill = 'brown',
+						highlightFill = d3.rgb(barFill).brighter(),
 						tipOn = true,
 						ceilUnit = 5,
 						margin = {top: 50, right: 50, bottom: 20, left: 150},
