@@ -25,6 +25,11 @@
         "icon": "fa-users"
     },
     {
+        "id": "grades",
+        "name": "Certificates",
+        "icon": "fa-graduation-cap"
+    },
+    {
         "id": "discussion_forum_data",
         "name": "Discussions",
         "icon": "fa-comments"

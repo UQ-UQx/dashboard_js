@@ -43,6 +43,7 @@ angular.module('dashboardJsApp')
 
 				RequestService.async('/students/genders/' + Course.currentCourse + '/'+refresh).then(function(data) {
 					$scope.genderData = $scope.formatPieData(data);
+                    console.log($scope.genderData);
 				});
 
 				RequestService.async('/students/educations/' + Course.currentCourse + '/'+refresh).then(function(data) {

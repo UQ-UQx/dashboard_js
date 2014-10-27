@@ -55,6 +55,7 @@ angular.module('dashboardJsApp')
                             tmpEnrolmentData.push(enrolObject);
                         }
                     }
+                    console.log($scope.populationData);
                     $scope.total_countries = tmpEnrolmentData.length;
                     function percentage_compare(a,b) {
                       if (a[1] > b[1])
