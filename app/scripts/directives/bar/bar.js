@@ -87,9 +87,9 @@ app.directive('visBar', function() {
 						.html(function (d) {
 							//return '<strong>' + d[0] + '</strong></br>Percentage: ' + d[1];
 							return '<strong>Label:</strong>' +
-								'<span style="color: steelblue">' + d[0] + '</span>' +
+								'<span style="color: ' + d3.rgb('steelblue').brighter() + '">' + d[0] + '</span>' +
 								'<strong>Percentage (%):</strong>' +
-								'<span style="color: steelblue">' + d[1] + '</span>';
+								'<span style="color: ' + d3.rgb('steelblue').brighter() + '">' + d[1] + '</span>';
 							//return '<strong>Frequency:</strong> <span style='color:red'>' + d.frequency + '</span>';
 						});
 
@@ -142,7 +142,7 @@ app.directive('visBar', function() {
 
 					bars.append('text')
 						.attr('x', function (d) {
-							return x(d[1]) + 2;
+							return x(d[1]) + 10;
 						})
 						.attr('y', barHeight / 2)
 						.attr('dy', '.35em')
