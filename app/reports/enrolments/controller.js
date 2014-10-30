@@ -25,7 +25,7 @@ angular.module('dashboardJsApp')
         $scope.enrolmentData = [];
 
         $scope.totalenrolments = 0;
-        $scope.totalenrolments_per_day = 0;
+        $scope.totalenrolments_per_day = '-';
         $scope.uniques = '...';
 
         $scope.refresh = false;
@@ -98,11 +98,11 @@ angular.module('dashboardJsApp')
                         }
                         $scope.courseEnrolment.push(course);
                     }
-                    $scope.totalenrolments_per_day = 0;
-                    for(var course in $scope.courseEnrolment) {
-                        $scope.totalenrolments_per_day += $scope.courseEnrolment[course]['perday'];
-                    }
-                    $scope.totalenrolments_per_day = Math.round($scope.totalenrolments_per_day / $scope.courseEnrolment.length * 100)/100;
+                    //$scope.totalenrolments_per_day = 0;
+                    //for(var course in $scope.courseEnrolment) {
+                    //    $scope.totalenrolments_per_day += $scope.courseEnrolment[course]['perday'];
+                    //}
+                    //$scope.totalenrolments_per_day = Math.round($scope.totalenrolments_per_day / $scope.courseEnrolment.length * 100)/100;
                 }
                 for(var course in $scope.courseEnrolment) {
 
@@ -139,6 +139,12 @@ angular.module('dashboardJsApp')
             //Uniques
             RequestService.async('/meta/uniques/').then(function(data) {
                 $scope.uniques = data['uniques'];
+            });
+
+            //Total Enrolments Per Day
+            RequestService.async('/meta/enrolcount/').then(function(data) {
+                console.log("LOADED ENROL COUNT");
+                $scope.totalenrolments_per_day = Math.round(parseInt(data['last_month'])/30);
             });
 
 
