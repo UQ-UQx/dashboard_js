@@ -13,16 +13,19 @@ angular.module('dashboardJsApp')
 		this.courseList = [];
 
 		this.setCourseList = function(courseList) {
-            courseList.splice(0, 0, {'icon':'fa-dashboard', 'id':'allcourses', 'name':'All Courses List'});
-            console.log(courseList);
-			for (var i in courseList) {
-				var shortName = courseList[i].name.split(" ");
-				shortName.pop();
-				shortName = shortName.join(" ");
-				shortName = shortName.charAt(0).toUpperCase() + shortName.slice(1);
-				courseList[i].shortName = shortName;
-			}
-
+            if(!courseList['error']) {
+                courseList.splice(0, 0, {'icon': 'fa-dashboard', 'id': 'allcourses', 'name': 'All Courses List'});
+                for (var i in courseList) {
+                    var shortName = courseList[i].name.split(" ");
+                    shortName.pop();
+                    shortName = shortName.join(" ");
+                    shortName = shortName.charAt(0).toUpperCase() + shortName.slice(1);
+                    courseList[i].shortName = shortName;
+                }
+            } else {
+                alert(courseList['error']);
+                return null;
+            }
 			this.courseList = courseList;
 		};
 

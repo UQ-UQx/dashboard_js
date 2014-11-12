@@ -55,7 +55,6 @@ angular.module('dashboardJsApp')
             RequestService.async('/meta/courseinfo/').then(function(data) {
                 $scope.courseEnrolment = [];
                 $scope.totalenrolments = 0;
-
                 Course.setCourseList(data);
                 for(var course_index in Course.courseList) {
                     if(Course.courseList[course_index].id != 'allcourses') {
