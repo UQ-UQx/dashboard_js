@@ -32,7 +32,7 @@ angular.module('dashboardJsApp')
             mm='0'+mm
         }
 
-        today = mm+'/'+dd+'/'+yyyy;
+        today = dd+'/'+mm+'/'+yyyy;
 
         $scope.current_date = today;
 
