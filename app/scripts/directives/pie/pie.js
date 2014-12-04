@@ -55,7 +55,7 @@ app.directive('visPie', function ($window) {
                             });
 
                         var margin = { top: 20, right: 200, bottom: 20, left: 20 };
-                        var colors = d3.scale.category20();
+                        var colors = d3.scale.category20b();
                         var tipOn = true;
 
                         var width = thewidth - margin.right - margin.left,
