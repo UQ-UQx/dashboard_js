@@ -71,7 +71,7 @@ angular.module('dashboardJsApp')
                         }
                         if(startDate != '' && endDate != '') {
                             if(endDate < currentDate) {
-                                course['status'] = 'Finished';
+                                course['status'] = 'Archived';
                             }
                             if(startDate < currentDate && currentDate < endDate) {
                                 course['status'] = 'Running';
@@ -200,6 +200,9 @@ angular.module('dashboardJsApp')
 
             RequestService.async('/students/modes/'+refresh).then(function(data) {
                 delete data['total'];
+                //data['audit/honor'] = data['audit'] + data['honor'];
+                //delete data['audit'];
+                //delete data['honor'];
                 $scope.enrolTypeData = $scope.formatPieData(data);
             });
 
