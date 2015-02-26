@@ -45,6 +45,32 @@ angular.module('dashboardJsApp')
 
 					$scope.dailyData = formattedDailyData;
 					$scope.weeklyData = formattedWeeklyData;
+                    $scope.pc = {}
+                    RequestService.async('/students/personcourse/' + Course.currentCourse + '/'+refresh).then(function(pcdata) {
+                        $scope.pc.enrolled = 0;
+                        $scope.pc.viewed = 0;
+                        $scope.pc.explored = 0;
+                        $scope.pc.certified = 0;
+                        $scope.pc.onechapter = 0;
+                        $scope.pc.threechapters = 0;
+                        for(var person in pcdata) {
+                            $scope.pc.enrolled += 1;
+                            if(pcdata[person].certified) {
+                                $scope.pc.certified += 1;
+                            }
+                            if(pcdata[person].viewed) {
+                                $scope.pc.viewed += 1;
+                            }
+                            if(pcdata[person].explored) {
+                                $scope.pc.explored += 1;
+                            }
+                            if(pcdata[person].nchapters > 2) {
+                                $scope.pc.threechapters += 1;
+                            }
+                        }
+                        console.log($scope.pc.enrolled);
+                    });
+
                     $scope.$parent.state = "running";
 				});
 			}

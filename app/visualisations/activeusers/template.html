@@ -6,8 +6,25 @@
 	    <i class="fa fa-file-excel-o"></i> CSV
     </a>
 </div>
-
 <h3>Daily Active Users</h3>
 <vis-line data="dailyData" height="300" y-axis-label="'Num. Daily Active Users'"></vis-line>
 <h3>Weekly Active Users</h3>
 <vis-line data="weeklyData" height="500" y-axis-label="'Num. Weekly Active Users'"></vis-line>
+<h3>Active User Categories</h3>
+<table class="table" ng-show="pc.enrolled">
+    <tr>
+        <th># Registered</th>
+        <th># Viewed Any Content</th>
+        <th># Viewed at Least 3 weeks of Content</th>
+        <th># Viewed over 50% of the Content</th>
+        <th># Received Certificate</th>
+    </tr>
+    <tr>
+        <td>{{ pc.enrolled }}</td>
+        <td>{{ pc.viewed }}</td>
+        <td>{{ pc.threechapters }}</td>
+        <td>{{ pc.explored }}</td>
+        <td>{{ pc.certified }}</td>
+    </tr>
+</table>
+<div ng-hide="pc.enrolled">Loading...</div>
