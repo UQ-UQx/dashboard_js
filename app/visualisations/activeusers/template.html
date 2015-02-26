@@ -13,18 +13,36 @@
 <h3>Active User Categories</h3>
 <table class="table" ng-show="pc.enrolled">
     <tr>
-        <th># Registered</th>
-        <th># Viewed Any Content</th>
-        <th># Viewed at Least 3 weeks of Content</th>
-        <th># Viewed over 50% of the Content</th>
-        <th># Received Certificate</th>
+        <th>Type</th>
+        <th>Registered</th>
+        <th>Viewed Any Content</th>
+        <th>Viewed at Least 3 weeks of Content</th>
+        <th>Viewed over 50% of the Content</th>
+        <th>Received Certificate</th>
     </tr>
     <tr>
+        <td>Student Count</td>
         <td>{{ pc.enrolled }}</td>
         <td>{{ pc.viewed }}</td>
         <td>{{ pc.threechapters }}</td>
         <td>{{ pc.explored }}</td>
         <td>{{ pc.certified }}</td>
+    </tr>
+    <tr>
+        <td>% of Students</td>
+        <td>100%</td>
+        <td>{{ pc.viewed_stupercent }}</td>
+        <td>{{ pc.threechapters_stupercent }}</td>
+        <td>{{ pc.explored_stupercent }}</td>
+        <td>{{ pc.certified_stupercent }}</td>
+    </tr>
+    <tr>
+        <td>% of Previous Column</td>
+        <td>100%</td>
+        <td>{{ pc.viewed_stupercent }}</td>
+        <td>{{ pc.threechapters_lastcol }}</td>
+        <td>{{ pc.explored_lastcol }}</td>
+        <td>{{ pc.certified_lastcol }}</td>
     </tr>
 </table>
 <div ng-hide="pc.enrolled">Loading...</div>

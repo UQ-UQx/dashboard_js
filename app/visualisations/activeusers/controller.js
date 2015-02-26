@@ -53,6 +53,17 @@ angular.module('dashboardJsApp')
                         $scope.pc.certified = 0;
                         $scope.pc.onechapter = 0;
                         $scope.pc.threechapters = 0;
+
+                        $scope.pc.viewed_stupercent = 0;
+                        $scope.pc.explored_stupercent = 0;
+                        $scope.pc.certified_stupercent = 0;
+                        $scope.pc.onechapter_stupercent = 0;
+                        $scope.pc.threechapters_stupercent = 0;
+
+                        $scope.pc.threechapters_lastcol = 0;
+                        $scope.pc.explored_lastcol = 0;
+                        $scope.pc.certified_lastcol = 0;
+
                         for(var person in pcdata) {
                             $scope.pc.enrolled += 1;
                             if(pcdata[person].certified) {
@@ -68,6 +79,16 @@ angular.module('dashboardJsApp')
                                 $scope.pc.threechapters += 1;
                             }
                         }
+                        $scope.pc.viewed_stupercent = Math.round($scope.pc.viewed/$scope.pc.enrolled*100)+"%";
+                        $scope.pc.explored_stupercent = Math.round($scope.pc.explored/$scope.pc.enrolled*100)+"%";
+                        $scope.pc.certified_stupercent = Math.round($scope.pc.certified/$scope.pc.enrolled*100)+"%";
+                        $scope.pc.onechapter_stupercent = Math.round($scope.pc.onechapter/$scope.pc.enrolled*100)+"%";
+                        $scope.pc.threechapters_stupercent = Math.round($scope.pc.threechapters/$scope.pc.enrolled*100)+"%";
+
+                        $scope.pc.threechapters_lastcol = Math.round($scope.pc.threechapters/$scope.pc.viewed*100)+"%";
+                        $scope.pc.explored_lastcol = Math.round($scope.pc.explored/$scope.pc.threechapters*100)+"%";
+                        $scope.pc.certified_lastcol = Math.round($scope.pc.certified/$scope.pc.explored*100)+"%";
+
                         console.log($scope.pc.enrolled);
                     });
 
