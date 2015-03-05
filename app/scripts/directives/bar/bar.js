@@ -47,7 +47,7 @@ app.directive('visBar', function() {
 					}
 
 					/* default chart options */
-					var barFill = 'steelblue',
+					var barFill = '#393b79',
 						highlightFill = d3.rgb(barFill).brighter(),
 						tipOn = true,
 						ceilUnit = 5,
@@ -87,9 +87,9 @@ app.directive('visBar', function() {
 						.html(function (d) {
 							//return '<strong>' + d[0] + '</strong></br>Percentage: ' + d[1];
 							return '<strong>Label:</strong>' +
-								'<span style="color: ' + d3.rgb('steelblue').brighter() + '">' + d[0] + '</span>' +
+								'<span style="color: ' + d3.rgb('#393b79').brighter().brighter().brighter() + '">' + d[0] + '</span><br><br>' +
 								'<strong>Percentage (%):</strong>' +
-								'<span style="color: ' + d3.rgb('steelblue').brighter() + '">' + d[1] + '</span>';
+								'<span style="color: ' + d3.rgb('#393b79').brighter().brighter().brighter() + '">' + d[1] + '</span>';
 							//return '<strong>Frequency:</strong> <span style='color:red'>' + d.frequency + '</span>';
 						});
 

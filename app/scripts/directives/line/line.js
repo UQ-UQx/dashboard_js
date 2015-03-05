@@ -177,9 +177,9 @@ app.directive('visLine', function() {
 							.offset([-10, 0])
 							.html(function(d) {
 								return '<strong>Event:</strong>' +
-								'<span style="color: green">' + d.name + '</span>' +
+								'<span style="color: rgb(178,247,178)">' + d.name + '</span><br><br>' +
 								'<strong>Date:</strong>' +
-								'<span style="color: green">' + d.date.substring(0, 10) + '</span>';
+								'<span style="color: rgb(178,247,178)">' + d.date.substring(0, 10) + '</span>';
 							});
 
 						svg.call(dateTip);
@@ -241,30 +241,34 @@ app.directive('visLine', function() {
 							.attr('d', function(d) { return line(d.data) })
 							.style('stroke', function(d) { return color(d.name) });
 
-						series.selectAll('.point')
+						var dtpoints = series.selectAll('.point')
 							.data(function(d) { return d.data })
 							.enter().append('circle')
 							.attr('class', 'point')
 							.attr('cx', function(d) { return x(d.date) })
 							.attr('cy', function(d) { return y(d.value) })
-							.attr('r', 3)
-							.attr('fill', function(d) {
-								return color(d3.select(this.parentNode).datum().name);
-							})
+							.attr('r', 5)
+                            .attr('fill', 'rgba(0,0,200,0.0)')
 							.on('mouseover', function(d) {
 								d3.select(this)
+                                    .attr('fill', function(d) {
+								        return color(d3.select(this.parentNode).datum().name);
+							        })
 									.transition()
 									.duration(200)
-									.attr('r', 5);
+									.attr('r', 5)
+                                    ;
 								console.log(d3.select(this.parentNode).datum());
 
 								tip.show(d, d3.select(this.parentNode).datum().name);
 							})
 							.on('mouseout', function(d) {
 								d3.select(this)
-									.transition()
+									.attr('fill', 'rgba(0,0,200,0)')
+                                    .transition()
 									.duration(200)
-									.attr('r', 3);
+									.attr('r', 5)
+                                    ;
 
 								tip.hide(d, d3.select(this.parentNode).datum().name);
 							});

@@ -108,6 +108,7 @@ div#dashboard_container ul#vis-nav li a {
 div#dashboard_container ul#vis-nav li.selected a {
     background:#fff;
     border-bottom:1px solid #fff;
+    text-decoration: none;
 }
 div#dashboard_container ul#vis-nav li:first-child a {
     width:120px;
