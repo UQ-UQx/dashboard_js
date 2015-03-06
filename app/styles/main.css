@@ -145,6 +145,10 @@ div#dashboard_container ul#coursenav li a {
     border-right:1px solid #9A9CA2;
     color:#494949;
 }
+div#dashboard_container ul#coursenav li a .year {
+    display:block;
+    font-style:italic;
+}
 div#dashboard_container ul#coursenav li a:hover {
     text-decoration:none;
     color:#4A105A;
@@ -154,6 +158,7 @@ div#dashboard_container ul#coursenav li.selected a {
     border-right:1px solid #fff;
     color:#4A105A;
     font-weight:bold;
+    text-decoration:none;
 }
 div#dashboard_container ul#coursenav li a i {
     display:block;
@@ -211,6 +216,29 @@ h2 {
 h3 {
     color:#4A105A;
     font-weight:400;
+    padding:8px;
+    background:#fafafa;
+    border-bottom:1px solid #eee;
+    border-top:1px solid #eee;
+    border-left:1px solid #eee;
+    margin-left:-20px;
+    padding-left:24px;
+
+}
+h3.floated {
+    float: left;
+    width: 220px;
+    margin-top: 5px;
+    width:100%;
+    margin-left:0;
+}
+a.float_csv {
+    margin-top:-47px;
+    margin-right:2px !important;
+}
+
+.nav > li > a:hover, .nav > li > a:focus {
+    background:none;
 }
 
 ul#coursestructure, ul#coursestructure ul {

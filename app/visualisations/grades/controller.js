@@ -13,7 +13,7 @@ angular.module('dashboardJsApp')
 
 		$scope.$parent.state = "loading";
 
-        $scope.colourString = '23, 60, 68';
+        $scope.colourString = '81, 84, 172';
 
         $scope.APIBASE = APIBASE;
 

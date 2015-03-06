@@ -30,6 +30,7 @@ angular.module('dashboardJsApp')
 
         $scope.course.currentCourse = $state.params.course;
         $scope.currentVisualisation = $state.params.visualisation;
+        $scope.year = 'all';
 
         $scope.courseList = [];
 
@@ -57,6 +58,10 @@ angular.module('dashboardJsApp')
             $scope.currentVisualisationName = '';
             $scope.course.currentCourse = '';
             $scope.state = 'notselected';
+        }
+
+        $scope.changeYear = function() {
+            console.log($scope.year);
         }
 
         $scope.$watch('auth.isAuthenticated()', function() {
