@@ -22,22 +22,29 @@
     });
     function reloadData() {
         $.ajax({
-            url: STATUSBASE+'/status',
+            url: APIBASE+'/meta/ingeststatus',
             success: function (data) {
                 $('#services').html('');
-                for (var app in data.response) {
+                console.log(data);
+                for (var app in data) {
                     var list = '<dl class="dl-horizontal">';
-                    var status = data.response[app];
+                    var status = data[app];
+                    if(status['remaining'] == 0) {
+                        status['status'] = 'sleeping';
+                    } else {
+                        status['status'] = 'running';
+                    }
                     list += '<dt>Status: </dt><dd>' + status['status'] + '</dd>';
                     if (status['status'] == 'sleeping') {
-                        list += '<dt>Last Time Awake: </dt><dd>' + status['lastcompletedate'] + '</dd>';
+                        list += '<dt>Last Time Awake: </dt><dd>' + status['last_ingest_date'] + '</dd>';
+                        list += '<dt>Action: </dt><dd class="action">Waiting for data</dd>';
                     } else {
-                        list += '<dt>Started Task: </dt><dd>' + status['startdate'] + '</dd>';
+                        list += '<dt>Started Task: </dt><dd>' + status['current_start'] + '</dd>';
+                        list += '<dt>Action: </dt><dd class="action">' + status['current'] + '</dd>';
                     }
-                    list += '<dt>Action: </dt><dd class="action"><strong>' + status['task'] + '</strong> ' + status['file'] + '</dd>';
                     list += '</dl>';
-                    var total = 100;
-                    var tasks_completed = total - status['tasksleft'];
+                    var total = status['total'];
+                    var tasks_completed = total - status['remaining'];
                     var progress = ' (' + tasks_completed + '/' + total + ')';
                     if (total == 0) {
                         tasks_completed = 0;
@@ -47,7 +54,7 @@
                     var percentage = Math.round(tasks_completed / total * 100);
                     list +=
                             '<div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="' + tasks_completed + '" aria-valuemin="0" aria-valuemax="' + total + '" style="width: ' + percentage + '%;">' + progress + ' ' + percentage + '%</div></div>';
-                    var service = $('<div class="col-md-4"><div class="service service_' + status['status'] + '"><h4><span class="glyphicon glyphicon-tasks"></span> ' + status['name'] + '</h4>' + list + '</div></div>');
+                    var service = $('<div class="col-md-4"><div class="service service_' + status['status'] + '"><h4><span class="glyphicon glyphicon-tasks"></span> ' + app + '</h4>' + list + '</div></div>');
                     $('#services').append(service);
                 }
             },
