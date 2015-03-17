@@ -1,0 +1,53 @@
+<div class="container">
+<h3>Refresh All Endpoints</h3>
+<a class="btn btn-primary btn-lg btn-block">Refresh All</a>
+<div class="endpoint" ng-repeat="(key, value) in endpoints">
+    <h4><a href="{{ value.url }}" target="_blank">{{ key }}</a><a class="iconstatus" ng-click="refresh(key)">Last refresh {{ value.refreshdate }} <i class="fa fa-{{ value.status }}"></i></a></h4>
+</div>
+</div>
+
+<style>
+    div.endpoint {
+        border:1px solid #ccc;
+        margin:10px 0;
+        padding:5px 20px;
+    }
+    div.endpoint h4 {
+        font-weight:300;
+    }
+    a.iconstatus {
+        float:right;
+        margin-top:-15px;
+        margin-right:-20px;
+        width:300px;
+        font-size:70%;
+        padding-top:19px;
+        text-align:right;
+        padding-right:10px;
+        padding-bottom:2px;
+    }
+    a.iconstatus i {
+        font-size:200%;
+        margin-left:20px;
+        margin-top:-6px;
+        float:right;
+        display:block;
+    }
+    a.iconstatus:hover {
+        color:orange;
+        cursor: pointer;
+        text-decoration:none;
+    }
+    div.container {
+        margin-bottom:50px;
+    }
+    a.iconstatus i.fa-spin {
+        color:orange;
+    }
+    a.iconstatus i.fa-check {
+        color:green;
+    }
+    a.iconstatus i.fa-times {
+        color:red;
+    }
+</style>

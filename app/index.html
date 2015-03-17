@@ -5,6 +5,7 @@
     <title>Dashboard</title>
     <script type="text/javascript">
         var APIBASE = 'http://dashboard.ceit.uq.edu.au:8000/api';
+        var ADMIN_USERS = ['uqadekke','uqjzorni'];
     </script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
      <!-- <script>
@@ -56,6 +57,7 @@
             <li ng-class="{ active: $state.includes('reports')}"><a ui-sref="reports" ng-click="mainNavChanged()"><i class="fa fa-list-alt"></i> Reports</a></li>
             <!--<li ui-sref-active="active"><a ui-sref="explorer" ng-click="mainNavChanged()"><i class="fa fa-database"></i> Data Explorer</a></li>-->
             <li ui-sref-active="active"><a ui-sref="status" ng-click="mainNavChanged()"><i class="fa fa-spinner"></i> Data Status</a></li>
+            <li ui-sref-active="active" ng-show="adminUser"><a ui-sref="refresh" ng-click="mainNavChanged()"><i class="fa fa-refresh"></i> Refresh All Endpoints</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li><a target="_blank" href="http://online.ceit.uq.edu.au"><i class="fa fa-home"></i> UQx</a></li>
@@ -147,6 +149,7 @@
         <script src="scripts/controllers/reports.js"></script>
         <script src="scripts/controllers/explorer.js"></script>
         <script src="scripts/controllers/status.js"></script>
+        <script src="scripts/controllers/refresh.js"></script>
         <script src="scripts/services/auth.js"></script>
         <script src="scripts/controllers/login.js"></script>
         <script src="scripts/services/authevents.js"></script>

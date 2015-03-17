@@ -43,6 +43,11 @@ var app = angular
 				templateUrl: 'views/status.html',
 				controller: 'StatusCtrl'
 			})
+            .state('refresh', {
+				url: '/refresh',
+				templateUrl: 'views/refresh.html',
+				controller: 'RefreshCtrl'
+			})
 			.state('dashboard.visualisation', {
 				url: '/:visualisation/:course',
 				templateUrl: function(stateParams) {
@@ -76,11 +81,20 @@ var app = angular
             }
         }
 		$scope.currentUser = null;
+        $scope.adminUser = false;
 		$scope.auth = AuthService;
 		$scope.isAuthorised = $scope.auth.isAuthenticated();
 
 		$scope.$watch('auth.isAuthenticated()', function() {
 			$scope.currentUser = $scope.auth.getUserId();
+            console.log($scope.currentUser);
+            if (ADMIN_USERS.indexOf($scope.currentUser) >= 0) {
+                $scope.adminUser = true;
+            } else {
+                console.log("NO");
+            }
+            console.log(ADMIN_USERS);
+            console.log($scope.adminUser);
 		});
 
         $scope.mainNavChanged = function() {
