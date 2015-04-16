@@ -25,7 +25,14 @@ angular.module('dashboardJsApp')
                 RequestService.async('/endpointlist').then(function (endpointdata) {
                     for(var ep in endpointdata) {
                         var endpoint = endpointdata[ep];
-                        $scope.endpoints[ep] = {url:endpoint['url'], status:endpoint['status'], refreshdate:endpoint['lastcache']};
+                        var newness = 'old';
+                        var date = moment(endpoint['lastcache']);
+                        if(moment().diff(date, 'days') < 7) {
+                            newness = 'new';
+                        } else if(moment().diff(date, 'days') < 28) {
+                            newness = 'medium';
+                        }
+                        $scope.endpoints[ep] = {url:endpoint['url'], status:endpoint['status'], refreshdate:endpoint['lastcache'], newness:newness};
                     }
                 });
             });
@@ -41,8 +48,10 @@ angular.module('dashboardJsApp')
             RequestService.async('/endpointlist').then(function (endpointdata) {
                 if(oldtime == endpointdata[ep]['lastcache']) {
                     $scope.endpoints[ep].status = 'times';
+                    $scope.endpoints[ep].newness = 'old';
                 } else {
                     $scope.endpoints[ep].status = 'check';
+                    $scope.endpoints[ep].newness = 'new';
                 }
                 $scope.endpoints[ep].refreshdate = endpointdata[ep]['lastcache'];
             });
