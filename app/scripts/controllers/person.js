@@ -16,7 +16,7 @@ angular.module('dashboardJsApp')
     ];
 
     $scope.user_id = "";
-    $scope.searchterm = "Dekker";
+    $scope.searchterm = "";
     $scope.people = null;
     $scope.profile = null;
     $scope.empty = false;
