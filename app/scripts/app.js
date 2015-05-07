@@ -43,6 +43,11 @@ var app = angular
 				templateUrl: 'views/status.html',
 				controller: 'StatusCtrl'
 			})
+            .state('person', {
+				url: '/person',
+				templateUrl: 'views/person.html',
+				controller: 'PersonCtrl'
+			})
             .state('refresh', {
 				url: '/refresh',
 				templateUrl: 'views/refresh.html',
@@ -87,14 +92,9 @@ var app = angular
 
 		$scope.$watch('auth.isAuthenticated()', function() {
 			$scope.currentUser = $scope.auth.getUserId();
-            console.log($scope.currentUser);
             if (ADMIN_USERS.indexOf($scope.currentUser) >= 0) {
                 $scope.adminUser = true;
-            } else {
-                console.log("NO");
             }
-            console.log(ADMIN_USERS);
-            console.log($scope.adminUser);
 		});
 
         $scope.mainNavChanged = function() {
@@ -130,6 +130,13 @@ var app = angular
             },100);
 		}
 	}]);
+
+app.config(function($sceDelegateProvider) {
+  $sceDelegateProvider.resourceUrlWhitelist([
+   'self',
+   "https://www.google.com/maps/**"
+  ]);
+});
 
 function getUrlVars() {
     var vars = {};

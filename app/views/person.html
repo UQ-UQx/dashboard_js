@@ -1,0 +1,187 @@
+<div id="lookup" class="container">
+    <h1>User Lookup</h1>
+    <form ng-submit="searchUser()" class="row" name="searchfrom">
+        <div class="input-group col-sm-2 search-button">
+            <input class="btn btn-primary" type="submit" name="searchterm" value="Search" ng-click="searchUser" data-ng-disabled="checkLength()">
+        </div>
+        <div class="input-group col-sm-10">
+            <div class="input-group-addon"><i class="fa fa-search"></i></div>
+            <input class="form-control" type="text" ng-model="searchterm" placeholder="Email, username or name">
+        </div>
+        <p>Minimum length 4 characters</p>
+        <div role="alert">
+    </div>
+    </form>
+    <div ng-show="empty">
+        <div class="alert alert-warning" role="alert">No results found</div>
+    </div>
+    <div ng-show="loading">
+        <p id="loading">Loading Results <i id="loading_spinner" class='fa fa-spinner'></i></p>
+    </div>
+    <div ng-show="people">
+    <h3>Search Results</h3>
+        <table id="user_lookup">
+            <tr>
+                <th width="100">User ID</th><th class="name">Name</th><th>Enrolled Courses</th>
+            </tr>
+            <tr class="person" ng-repeat="(key, value) in people" ng-click="findUser(key)">
+                <td width="100">{{key}}</td>
+                <td class="name">{{value.name}}</td>
+                <td>
+                    <span ng-repeat="course in value.courses"><span class="label label-info">{{course}}</span> </span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div ng-show="profile">
+        <h3>User Profile for {{profile.profile.name}}</h3>
+        <div id="profile">
+            <div class="col-sm-6z">
+                <div class="panel">
+                    <h4>Profile</h4>
+                    <dl>
+                        <dt>User ID:</dt><dd>{{ user_id }}</dd>
+                        <dt>Year of Birth:</dt><dd>{{ profile.profile.year_of_birth }} </dd>
+                        <dt>Gender:</dt><dd>{{ profile.profile.gender }} </dd>
+                        <dt>Country:</dt><dd>{{ profile.profile.country }} </dd>
+                        <dt>Goals:</dt><dd>{{ profile.profile.goals }} </dd>
+                        <dt>Language:</dt><dd>{{ profile.profile.language }} </dd>
+                        <dt>Education:</dt><dd>{{ profile.profile.level_of_education }} </dd>
+                        <dt>Location:</dt><dd>{{ profile.profile.location }} </dd>
+                        <dt>Mailing Address:</dt><dd>{{ profile.profile.mailing_address }} </dd>
+                    </dl>
+                    <iframe
+                        width="100%"
+                        height="300"
+                        frameborder="0" style="border:0; margin-bottom:-5px;"
+                        ng-src="{{profile.profile.country_url}}"
+                        ng-show="profile.profile.country"
+                            >
+                    </iframe>
+                </div>
+            </div>
+            <div class="col-sm-6z">
+                <div class="panel">
+                    <h4>Enrolled Courses</h4>
+                    <ul>
+                        <li ng-repeat="course in profile.courses">{{course}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-6z" ng-repeat="(key, value) in profile.person_course">
+                <div class="panel">
+                <h4>{{ key }}</h4>
+                <dl>
+                    <dt>Registered:</dt><dd><i ng-if="value.registered == 1" class="fa fa-check" style="color:green;"></i><i ng-if="value.registered == 0" class="fa fa-times" style="color:red;"></i></dd>
+                    <dt>Explored:</dt><dd><i ng-if="value.explored == 1" class="fa fa-check" style="color:green;"></i><i ng-if="value.explored == 0" class="fa fa-times" style="color:red;"></i></dd>
+                    <dt>Certified:</dt><dd><i ng-if="value.certified == 1" class="fa fa-check" style="color:green;"></i><i ng-if="value.certified == 0" class="fa fa-times" style="color:red;"></i></dd>
+                    <dt>Grade:</dt><dd>{{ value.grade }}</dd>
+                    <dt>Mode:</dt><dd>{{ value.mode }}</dd>
+
+                    <dt>Chapters Viewed:</dt><dd>{{ value.nchapters }}</dd>
+                    <dt>Videos viewed:</dt><dd>{{ value.nplay_video }}</dd>
+                    <dt>Discussion Posts:</dt><dd>{{ value.nforum_posts }}</dd>
+                    <dt>Number of events:</dt><dd>{{ value.nevents }}</dd>
+
+                    <dt>Enrolled:</dt><dd>{{ value.start_time }}</dd>
+                    <dt>Last Event:</dt><dd>{{ value.last_event }}</dd>
+                    <dt>Days Active:</dt><dd>{{ value.ndays_act }}</dd>
+                </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    form.row {
+        margin-bottom:20px;
+    }
+    div.panel {
+        border:1px solid #ddd;
+    }
+    div.panel h4 {
+        text-align:center;
+        padding:5px;
+        margin:0;
+        background:#ddd;
+    }
+    div.panel dl, div.panel ul {
+        margin:10px;
+        overflow:auto;
+    }
+    div.panel dl dt {
+        width:150px;
+        text-align:right;
+        margin-right:10px;
+        float:left;
+        clear:left;
+    }
+    div.panel dl dd {
+        float:left;
+    }
+    a.person {
+        border:1px solid #fafafa;
+        padding:5px;
+        margin-bottom:5px;
+        background:#ddd;
+    }
+    div.search-button {
+        float:right !important;
+        padding-left:10px !important;
+    }
+    table#user_lookup {
+        margin-bottom:40px;
+        margin-top:20px;
+        border:1px solid #ccc;
+        width:100%;
+    }
+    table#user_lookup th {
+        text-align:center;
+        padding:10px;
+        background:#fafafa;
+        padding:4px;
+        color:#333 !important;
+        border:1px solid #ccc;
+    }
+    table#user_lookup td {
+        padding:6px;
+    }
+    table#user_lookup span {
+        margin-right:5px;
+    }
+    table#user_lookup tr:nth-child(even) {
+        background:#eee;
+    }
+    table .name {
+        width:200px !important;
+    }
+    table#user_lookup tr:hover {
+        background:#369;
+        color:#fff;
+        cursor: pointer;
+    }
+    #profile {
+        margin-bottom:40px;
+    }
+    #profile {
+        -webkit-column-count: 3;
+        -webkit-column-gap: 10px;
+        -webkit-column-fill: auto;
+        -moz-column-count: 3;
+        -moz-column-gap: 10px;
+        -moz-column-fill: auto;
+        column-count: 3;
+        column-gap: 15px;
+        column-fill: auto;
+    }
+    .col-sm-6z {
+        -webkit-column-break-inside: avoid; /* Chrome, Safari, Opera */
+          page-break-inside: avoid; /* Firefox */
+               break-inside: avoid; /* IE 10+ */
+    }
+    #loading {
+        font-size:150%;
+        margin-bottom:20px;
+    }
+</style>

@@ -56,6 +56,7 @@
             <li ng-class="{ active: $state.includes('dashboard')}"><a ui-sref="dashboard" ng-click="mainNavChanged()"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li ng-class="{ active: $state.includes('reports')}"><a ui-sref="reports" ng-click="mainNavChanged()"><i class="fa fa-list-alt"></i> Reports</a></li>
             <!--<li ui-sref-active="active"><a ui-sref="explorer" ng-click="mainNavChanged()"><i class="fa fa-database"></i> Data Explorer</a></li>-->
+            <li ui-sref-active="active" ng-show="adminUser"><a ui-sref="person" ng-click="mainNavChanged()"><i class="fa fa-users"></i> User Lookup</a></li>
             <li ui-sref-active="active"><a ui-sref="status" ng-click="mainNavChanged()"><i class="fa fa-spinner"></i> Data Status</a></li>
             <li ui-sref-active="active" ng-show="adminUser"><a ui-sref="refresh" ng-click="mainNavChanged()"><i class="fa fa-refresh"></i> Refresh All Endpoints</a></li>
         </ul>
@@ -149,6 +150,7 @@
         <script src="scripts/controllers/reports.js"></script>
         <script src="scripts/controllers/explorer.js"></script>
         <script src="scripts/controllers/status.js"></script>
+        <script src="scripts/controllers/person.js"></script>
         <script src="scripts/controllers/refresh.js"></script>
         <script src="scripts/services/auth.js"></script>
         <script src="scripts/controllers/login.js"></script>

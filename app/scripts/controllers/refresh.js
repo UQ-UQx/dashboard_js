@@ -40,7 +40,6 @@ angular.module('dashboardJsApp')
     });
 
     $scope.refresh = function (ep) {
-        console.log("ZING");
         var oldtime = $scope.endpoints[ep].refreshdate;
         var refreshURL = '/'+ep+'/?refreshcache=true';
         $scope.endpoints[ep].status = 'refresh fa-spin';

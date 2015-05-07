@@ -50,6 +50,7 @@ angular.module('dashboardJsApp')
 
 
     $scope.sectionChanged = function(discussion_id) {
+        console.log(discussion_id);
         $('div.subsection').css({'display':'none'});
         $('div#section_'+discussion_id).css({'display':'block'});
         $('div#section_main').css({'display':'none'});
