@@ -42,7 +42,6 @@ angular.module('dashboardJsApp')
 
     $scope.findUser = function (user_id) {
         $scope.user_id = user_id;
-        console.log("ZING");
         RequestService.async('/person/profile/'+$scope.user_id+'/').then(function (persondata) {
            console.log(persondata);
             $scope.profile = persondata;
@@ -75,9 +74,6 @@ angular.module('dashboardJsApp')
             return true;
         }
     }
-
-    $scope.searchUser();
-    $scope.findUser("1860705");
 
     $scope.genders = {
         "f": "Female",
