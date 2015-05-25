@@ -122,7 +122,6 @@ app.directive('visPie', function ($window) {
                             .attr('fill', function (d, i) {
                                 return colors(i);
                             })
-                            .attr('d', arc)
                             .on('mouseover', function (d, i) {
                                 //d3.select(this).remove();
                                 //var savedSlice = d3.select(this);
@@ -138,6 +137,12 @@ app.directive('visPie', function ($window) {
                                 if (tipOn) {
                                     tip.hide();
                                 }
+                            })
+                            .transition()
+                            .duration(800)
+                            .attrTween('d',function(b) {
+                                var i = d3.interpolate({startAngle: 1.1*Math.PI, endAngle: 1.1*Math.PI}, b);
+                                return function(t) { return arc(i(t)); };
                             });
 
                         arcs.append('text')
@@ -212,5 +217,6 @@ app.directive('visPie', function ($window) {
 
 			});
 		}
+
 	};
 });

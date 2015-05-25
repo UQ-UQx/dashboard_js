@@ -154,6 +154,10 @@ app.directive('visLine', function() {
 							.x(function(d) { return x(d.date) })
 							.y(function(d) { return y(d.value) });
 
+                        var startline = d3.svg.line()
+							.x(function(d) { return x(d.date) })
+							.y(function(d) { return y(0) });
+
 						var svg = d3.select(element.find('.line-chart')[0])
 							.attr('width', width + margin.left + margin.right)
 							.attr('height', height + margin.top + margin.bottom)
@@ -238,6 +242,9 @@ app.directive('visLine', function() {
 
 						series.append('path')
 							.attr('class', 'line')
+                            .attr('d', function(d) { return startline(d.data) })
+                            .transition()
+                            .duration(800)
 							.attr('d', function(d) { return line(d.data) })
 							.style('stroke', function(d) { return color(d.name) });
 

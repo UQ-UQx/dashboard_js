@@ -122,9 +122,6 @@ app.directive('visBar', function() {
 						});
 
 					var rects = bars.append('rect')
-						.attr('width', function (d) {
-							return x(d[1]);
-						})
 						.attr('height', barHeight)
 						.style('fill', barFill)
 						.on('mouseover', function (d, i) {
@@ -138,6 +135,14 @@ app.directive('visBar', function() {
 							if (tipOn) {
 								tip.hide(d);
 							}
+						})
+                        .attr('width', function (d) {
+							return x(0);
+						})
+                        .transition()
+                        .duration(800)
+						.attr('width', function (d) {
+							return x(d[1]);
 						});
 
 					bars.append('text')
