@@ -43,7 +43,7 @@ angular.module('dashboardJsApp')
                                 }
 
                                 if ('end' in info[key]) {
-                                    $scope.importantDates.push({ 'name': 'Course End for' + info[key]['display_name'], 'date': info[key]['end'] });
+                                    $scope.importantDates.push({ 'name': 'Course End for ' + info[key]['display_name'], 'date': info[key]['end'] });
                                 }
                             }
                         }
