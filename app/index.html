@@ -44,7 +44,7 @@
       </a>
       <div ng-switch on="!!currentUser">
           <div ng-switch-when="true">
-              <p id="user_welcome">Welcome, {{currentUser}} (<a href="#" ng-click="userLogout()">Logout</a>)</p>
+              <p id="user_welcome">Welcome {{currentUser}} (<a href="#" ng-click="userLogout()">Logout</a>)</p>
           </div>
           <div ng-switch-default>
               <p id="user_welcome"><a href="#" ng-click="launchLoginModal()">Login</a></p>
@@ -61,7 +61,7 @@
             <li ui-sref-active="active" ng-show="adminUser"><a ui-sref="refresh" ng-click="mainNavChanged()"><i class="fa fa-refresh"></i> Refresh All Endpoints</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><a target="_blank" href="http://online.ceit.uq.edu.au"><i class="fa fa-home"></i> UQx</a></li>
+            <li><a target="_blank" href="http://uqx.uq.edu.au"><i class="fa fa-home"></i> UQx</a></li>
         </ul>
     </nav>
 
