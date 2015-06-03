@@ -54,10 +54,22 @@ angular.module('dashboardJsApp')
 
             RequestService.async('/meta/courseinfo/').then(function(data) {
                 $scope.courseEnrolment = [];
+                console.log("AAA");
+                console.log(data);
+                data.sort(function(a, b){
+                    var keyA = a['start'].replace('"', ""),
+                    keyB = b['start'].replace('"', "");
+                    console.log(keyA);
+                    console.log(keyB);
+                    // Compare the 2 dates
+                    if(keyA < keyB) return -1;
+                    if(keyA > keyB) return 1;
+                    return 0;
+                });
                 $scope.totalenrolments = 0;
                 Course.setCourseList(data);
                 for(var course_index in Course.courseList) {
-                    if(Course.courseList[course_index].id != 'allcourses') {
+                    if(Course.courseList[course_index].id != 'allcourses' && Course.courseList[course_index].id != 'learn_101x_1T2015') {
                         var course = {}
                         course['status'] = 'Pending';
                         var startDate = '';
