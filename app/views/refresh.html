@@ -1,6 +1,6 @@
 <div class="container">
 <h3>Refresh All Endpoints</h3>
-<a class="btn btn-primary btn-lg btn-block">Refresh All</a>
+<a class="btn btn-primary btn-lg btn-block" ng-click="refreshAll()" ng-disabled="running_mass">Refresh All</a>
 <div class="endpoint newness_{{ value.newness }}" ng-repeat="(key, value) in endpoints">
     <h4 class="newness_{{ value.newness }}"><a href="{{ value.url }}" target="_blank">{{ key }}</a><a class="iconstatus" ng-click="refresh(key)">Last refresh {{ value.refreshdate }} <i class="fa fa-{{ value.status }}"></i></a></h4>
 </div>

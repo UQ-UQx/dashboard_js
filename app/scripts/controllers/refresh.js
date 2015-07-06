@@ -17,6 +17,10 @@ angular.module('dashboardJsApp')
 
     $scope.endpoints = {};
     $scope.courses = [];
+    $scope.refresh_list = [];
+    $scope.running_current = 0;
+    $scope.running_max = 5;
+    $scope.running_mass = false;
 
     $scope.$watch('auth.isAuthenticated()', function() {
         if ($scope.auth.isAuthenticated()) {
@@ -40,11 +44,13 @@ angular.module('dashboardJsApp')
     });
 
     $scope.refresh = function (ep) {
+        $scope.running_current += 1;
         var oldtime = $scope.endpoints[ep].refreshdate;
         var refreshURL = '/'+ep+'/?refreshcache=true';
         $scope.endpoints[ep].status = 'refresh fa-spin';
         RequestService.async(refreshURL).then(function (refreshURL) {
             RequestService.async('/endpointlist').then(function (endpointdata) {
+                $scope.running_current -= 1;
                 if(oldtime == endpointdata[ep]['lastcache']) {
                     $scope.endpoints[ep].status = 'times';
                     $scope.endpoints[ep].newness = 'old';
@@ -58,4 +64,20 @@ angular.module('dashboardJsApp')
         console.log(refreshURL);
     };
 
+    $scope.refreshAll = function() {
+        $scope.running_mass = true;
+        for(var end in $scope.endpoints) {
+            $scope.refresh_list.push(end);
+        }
+        $scope.refresh_list.sort();
+        var jojo = setInterval(function() {
+            if($scope.refresh_list.length == 0) {
+                clearInterval(jojo);
+                $scope.running_mass = false;
+            }else if($scope.running_current < $scope.running_max) {
+                $scope.refresh($scope.refresh_list[0]+"");
+                $scope.refresh_list.shift();
+            }
+        },2000);
+    }
   }]);
