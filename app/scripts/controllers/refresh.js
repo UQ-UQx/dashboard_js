@@ -33,7 +33,7 @@ angular.module('dashboardJsApp')
                         var date = moment(endpoint['lastcache']);
                         if(moment().diff(date, 'days') < 1) {
                             newness = 'new';
-                        } else if(moment().diff(date, 'days') < 28) {
+                        } else if(moment().diff(date, 'days') < 8) {
                             newness = 'medium';
                         }
                         $scope.endpoints[ep] = {url:endpoint['url'], status:endpoint['status'], refreshdate:endpoint['lastcache'], newness:newness};
