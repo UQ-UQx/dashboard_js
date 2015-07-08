@@ -31,7 +31,7 @@ angular.module('dashboardJsApp')
                         var endpoint = endpointdata[ep];
                         var newness = 'old';
                         var date = moment(endpoint['lastcache']);
-                        if(moment().diff(date, 'days') < 1) {
+                        if(moment().diff(date, 'days') < 2) {
                             newness = 'new';
                         } else if(moment().diff(date, 'days') < 8) {
                             newness = 'medium';
