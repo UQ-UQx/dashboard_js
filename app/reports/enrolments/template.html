@@ -23,7 +23,7 @@
 			<div class="enrolment-number"><strong><span style="{{ course.style }}"></span><em>{{ course.enrolments }}</em></strong> total enrolments</div>
 			<div class="enrolment-number"><strong><span style="{{ course.styleperday }}"></span><em>{{ course.perday }}</em></strong> enrolments per day</div>
             <div class="enrolment-number"><strong><span style="{{ course.stylepercerts }}"></span><em>{{ course.certificates }}</em></strong> certificates given</div>
-			<div class="enrolment-state">currently the course is <em>{{ course.status }}</em></div>
+			<div class="enrolment-state">currently the course is <br /><em>{{ course.status }}</em></div>
 		</div>
 	</div>
 </div>
@@ -97,7 +97,8 @@
 		background:#505050;
 		color:#eee;
 		padding:10px;
-		font-size:130%;
+		font-size:120%;
+		margin-left:-2px;
 	}
 	div.enrolment div.enrolment-container div.enrolment-number {
 		font-size:120%;

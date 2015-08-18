@@ -4,9 +4,8 @@
     <meta charset="utf-8">
     <title>Dashboard</title>
     <script type="text/javascript">
-        //var APIBASE = 'http://127.0.0.1:8000/api';
-        var APIBASE = 'http://dashboard.uqx.uq.edu.au:8000/api';
-        var ADMIN_USERS = ['uqadekke','uqjzorni'];
+        var APIBASE = 'http://dashboard.ceit.uq.edu.au:8000/api';
+        var ADMIN_USERS = ['uqadekke','uqjzorni','uqssun','uqakonda','uqamurr3'];
     </script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
      <!-- <script>
@@ -59,7 +58,7 @@
             <!--<li ui-sref-active="active"><a ui-sref="explorer" ng-click="mainNavChanged()"><i class="fa fa-database"></i> Data Explorer</a></li>-->
             <li ui-sref-active="active" ng-show="adminUser"><a ui-sref="person" ng-click="mainNavChanged()"><i class="fa fa-users"></i> User Lookup</a></li>
             <li ui-sref-active="active"><a ui-sref="status" ng-click="mainNavChanged()"><i class="fa fa-spinner"></i> Data Status</a></li>
-            <li ui-sref-active="active" ng-show="adminUser"><a ui-sref="refresh" ng-click="mainNavChanged()"><i class="fa fa-refresh"></i> Refresh All Endpoints</a></li>
+            <li ui-sref-active="active" ng-show="adminUser"><a ui-sref="refresh" ng-click="mainNavChanged()"><i class="fa fa-refresh"></i> Refresh Endpoints</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li><a target="_blank" href="http://uqx.uq.edu.au"><i class="fa fa-home"></i> UQx</a></li>
