@@ -1,0 +1,10 @@
+<div class="metaactions">
+    <a ng-href="{{APIBASE}}/meta/courseevents/{{course.currentCourse}}?format=csv" data-name="csv" class="csv-download btn btn-success">
+		<i class="fa fa-file-excel-o"></i> CSV
+	</a>
+</div>
+
+<!--<vis-line data="formattedData" height="500" y-axis-label="'Number. Events'"><</vis-line>-->
+<div style="width:100%%; overflow-x:scroll; border:1px solid #333; padding-bottom:20px;">
+    <vis-stackedarea2 data="layerData" height="800" ndata="metaData"></vis-stackedarea2>
+</div>

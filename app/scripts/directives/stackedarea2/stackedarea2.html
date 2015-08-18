@@ -1,0 +1,44 @@
+    <style>
+        div.stackedarea-chart {
+            font-size: 14px;
+            color: #121401;
+        }
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: #121401;
+            stroke-width: 2px;
+            shape-rendering: crispEdges;
+        }
+        g.focus g.series path {
+            clip-path: url(#clip);
+        }
+        .point {
+            stroke: grey;
+            stroke-width: 3px;
+            opacity: 0;
+        }
+        .point:hover{
+            opacity: .5;
+        }
+        .brush .extent {
+            stroke: #fff;
+            fill-opacity: .125;
+            shape-rendering: crispEdges;
+        }
+        .context_bg {
+            stroke: #333;
+            fill:#fafafa;
+            stroke-width:1px;
+        }
+        .legend_bg {
+            fill:#fafafa;
+            stroke: #333;
+            stroke-width:1px;
+        }
+        .area {
+            clip-path:url('#clip');
+        }
+    </style>
+
+<svg class="stackedarea2-chart"></svg>
