@@ -13,53 +13,59 @@ app.directive('visStackedarea2', function() {
 		templateUrl: 'scripts/directives/stackedarea2/stackedarea2.html',
         link: function(scope, element) {
 
-            var wrapText = function(text, labelheight) {
-                console.log('running', labelheight);
+            var wrapText = function(text, labelWidth) {
                 text.each(function() {
-                    var a = $(this),
-                        b = d3.select(this);
-                    console.log('a', a);
-                    console.log('b', b);
+                ///*
+                    var text = d3.select(this);
+                    var words = text.text().split(/\s+/).reverse();
+                    // We only split the lable into two lines
+                    var y = text.attr("y"),
+                        dy0 = "0.15em",
+                        dy1 = "-0.4em",
+                        dy2 = "0.65em",
+                        line = [],
+                        ll = 0,
+                        word;
 
-
+                    //console.log('words', words);
+                    var tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy0);
+                    while((word = words.pop()) && ll < 2) {
+                        line.push(word);
+                        tspan.text(line.join(" "));
+                        if(tspan.node().getComputedTextLength() > labelWidth) {
+                            ll++;
+                            line.pop();
+                            if(ll === 1) {
+                                tspan.text(line.join(" ")).attr("dy", dy1);
+                                line = [word];
+                                //console.log(words.length);
+                                tspan = text.append("tspan").attr("x", -10).attr("y", y).attr("dy", dy2);
+                                if(words.length == 0) {
+                                    tspan.text(line.join(" "));
+                                }
+                            }
+                            else {
+                                line.push("...");
+                                tspan.text(line.join(" "));
+                            }
+                        }
+                   }
+                //*/
+                 if( ll == 1) {
+                     text.style("text-anchor", 'end')
+                         .attr("dx", "-.8em")
+                         //.attr("dy", ".15em")
+                         .attr("transform", "rotate(-65)");
+                 }
+                 else {
+                     text.style("text-anchor", 'end')
+                         .attr("dx", "-.8em")
+                         //.attr("dy", ".1em")
+                         .attr("transform", "rotate(-65)");
+                 }
 
                 });
-
-             text.style("text-anchor", 'end')
-                    .attr("dx", "-.8em")
-                    .attr("dy", ".15em")
-                    .attr("transform", "rotate(-65)");
-
-
             }
-
-
-
-/*
-            var wrapText = function (text, width) {
-              text.each(function() {
-                var text = d3.select(this),
-                    words = text.text().split(/\s+/).reverse(),
-                    word,
-                    line = [],
-                    lineNumber = 0,
-                    lineHeight = 1.1, // ems
-                    y = text.attr("y"),
-                    dy = parseFloat(text.attr("dy")),
-                    tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
-                while (word = words.pop()) {
-                  line.push(word);
-                  tspan.text(line.join(" "));
-                  if (tspan.node().getComputedTextLength() > width) {
-                    line.pop();
-                    tspan.text(line.join(" "));
-                    line = [word];
-                    tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
-                  }
-                }
-              });
-            }
-*/
 
             var drawChart = function() {
 
@@ -74,17 +80,8 @@ app.directive('visStackedarea2', function() {
                         labelMaxNum = labelEnd - labelStart + 1;
                     var labelNum = (labelMaxNum > labelCompNum) ? labelCompNum : labelMaxNum;
                     xAxis.ticks(labelNum);
-                    //console.log('aaa', m, width);
-                    //console.log(labelMaxNum, labelCompNum);
 
                     focus.select(".x.axis").call(xAxis).selectAll("text").call(wrapText,labelheight);
-                    /*
-                    .style("text-anchor", 'end')
-                    .attr("dx", "-.8em")
-                    .attr("dy", ".15em")
-                    .attr("transform", "rotate(-65)");
-                    */
-
                 }
 
 
@@ -100,12 +97,11 @@ app.directive('visStackedarea2', function() {
                     if (thewidth < 900) {
                         thewidth = 900;
                     }
-                    //thewidth = 10000;
 
                     // Set Variables
                     var topheight = scope.height*0.8;
                     var bottomheight = scope.height*0.2;
-                    var labelheight = 300;
+                    var labelheight = 200;
                     var margin = {top: 20, right: 50, bottom: bottomheight+labelheight, left: 120},
                         margin2 = {top: topheight, right: 50, bottom: 20, left: 120};
                     var width = thewidth - margin.left - margin.right;
@@ -118,7 +114,6 @@ app.directive('visStackedarea2', function() {
 
 
                     var m = scope.ndata.eventList.length;
-                    //var m = 3;
 
                     var layers = scope.data;
 
@@ -204,14 +199,6 @@ app.directive('visStackedarea2', function() {
                         .selectAll("text")
                         .call(wrapText,labelheight);
 
-                    /*
-                    xAxisGroup.style("text-anchor", 'end')
-                        .attr("dx", "-.8em")
-                        .attr("dy", ".15em")
-                        .attr("transform", "rotate(-65)");
-//                        .call(wrapText, xT.rangePoints());
-                    */
-
                     var yAxisGroup = focus.append('g')
                         .attr('class', 'y axis')
                         .call(yAxis);
@@ -229,7 +216,6 @@ app.directive('visStackedarea2', function() {
                       .selectAll("rect")
                       .attr("y", 0)
                       .attr("height", height2 + 1);
-
                 }
             }
 
@@ -238,10 +224,5 @@ app.directive('visStackedarea2', function() {
             });
 
         }
-
-
-
-
-
     };
 });
