@@ -39,6 +39,9 @@ angular.module('dashboardJsApp')
 
                 RequestService.async('/students/fullages/' + Course.currentCourse + '/'+refresh).then(function(data) {
 					$scope.fullAgeData = $scope.formatBarData(data, true);
+                    $scope.comment = [];
+                    $scope.comment.push(['Median', getMedian($scope.fullAgeData)]);
+                    $scope.comment.push(['Average', getAverage($scope.fullAgeData)]);
 				});
 
 				RequestService.async('/students/genders/' + Course.currentCourse + '/'+refresh).then(function(data) {
@@ -90,3 +93,40 @@ angular.module('dashboardJsApp')
 			return formattedData;
 		};
 	}]);
+
+function getMedian(data) {
+    console.log('data', data);
+
+    var sequence = [];
+
+    for(var i=0; i<data.length; i++) {
+        var num = data[i][0];
+        for(var j=0; j<data[i][2]; j++) {
+            sequence.push(num);
+        }
+    }
+    //console.log('sequence', sequence);
+
+    if(sequence.length == 0) {
+        return null;
+    }
+
+    if(sequence.length % 2 == 0) {
+        return Math.round((parseInt(sequence[sequence.length/2]) + parseInt(sequence[sequence.length/2-1]))/2);
+
+    }
+    else {
+        return parseInt(sequence[(sequence.length-1)/2]);
+    }
+}
+
+function getAverage(data) {
+
+    var average = 0;
+    for(var i=0; i<data.length; i++) {
+        average += data[i][0] * data[i][1];
+        //console.log('average', average);
+    }
+
+    return Math.round(average/100);
+}
