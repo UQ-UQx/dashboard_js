@@ -3,7 +3,7 @@
 	<div class="enrolment col-sm-6">
 		<div class="enrolment-container">
 			<div class="row">
-			<div class="enrolment-number col-sm-6"><strong><span></span><em>{{ totalenrolments }}</em></strong> total enrolments</div>
+			<div class="enrolment-number col-sm-6"><strong><span></span><em>{{ uniques }}</em></strong>unique students</div>
 			<div class="enrolment-number col-sm-6"><strong><span></span><em>{{ totalenrolments_per_day }}</em></strong>average enrolments per day over last 30 days</div>
 			</div>
 			<div style="height:20px;"></div>
@@ -11,7 +11,7 @@
 	</div>
 	<div class="enrolment col-sm-6">
 		<div class="enrolment-container">
-			<div class="enrolment-unique"><strong>{{ uniques }}</strong> unique students (ignoring registrations for those who enrol in multiple UQx Courses)</div>
+			<div class="enrolment-unique"><strong>{{ totalenrolments }}</strong>Total Enrolments</div>
 		</div>
 	</div>
 </div>
@@ -74,7 +74,7 @@
 	<div class="enrolment col-md-6">
 		<div class="enrolment-container" >
 			<h3>Ages</h3>
-			<vis-bar data="fullAgeData" height="600" options="{ marginLeft: 130 }"></vis-bar>
+			<vis-bar data="fullAgeData" height="600" options="{ marginLeft: 130 }"  comment="comment"></vis-bar>
 		</div>
 	</div>
 </div>

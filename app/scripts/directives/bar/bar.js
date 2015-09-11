@@ -197,7 +197,7 @@ app.directive('visBar', function() {
                             .attr('dy', '.35em')
                             .style('text-anchor', 'start')
                             .text(function(d) {
-                                console.log('abc', d);
+                                //console.log('abc', d);
                                 return d[0] + " : " + d[1];
                             })
                     }
