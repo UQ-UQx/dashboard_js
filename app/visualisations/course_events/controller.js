@@ -40,41 +40,45 @@ angular.module('dashboardJsApp')
                 }
                 else {
 
-                    $scope.$parent.state = "loading";
                     RequestService.async('/meta/courseevents/' + Course.currentCourse + '/' + refresh).then(function (data) {
-                        //console.log('Data API', data);
+                        console.log('Data API', data);
 
-                        var layerData = [];
-                        for (var i = 0; i < data.date_list.length; i++) {
-                            layerData[i] = [];
-                        }
+                        $scope.$parent.state = "notavailable";
 
-                        var metaData = {};
-                        metaData.eventList = [];
-                        for (var i = 0; i < data.happened_events.length; i++) {
-                            metaData.eventList.push(data.event_display_names[data.happened_events[i]]);
-                        }
+                        if(data) {
+                            $scope.$parent.state = "loading";
+                            var layerData = [];
+                            for (var i = 0; i < data.date_list.length; i++) {
+                                layerData[i] = [];
+                            }
 
-                        metaData.dateList = data.date_list;
+                            var metaData = {};
+                            metaData.eventList = [];
+                            for (var i = 0; i < data.happened_events.length; i++) {
+                                metaData.eventList.push(data.event_display_names[data.happened_events[i]]);
+                            }
 
-                        var event_values = data.happened_events_values;
+                            metaData.dateList = data.date_list;
 
-                        for (var i = 0; i < event_values.length; i++) {
+                            var event_values = data.happened_events_values;
 
-                            for (var j = 0; j < event_values[i].length; j++) {
-                                if (j == 0) {
-                                    layerData[j].push({x: i, y: Number(event_values[i][j]), y0: 0});
-                                }
-                                else {
-                                    var y0 = layerData[j - 1][i].y + layerData[j - 1][i].y0;
-                                    layerData[j].push({x: i, y: Number(event_values[i][j]), y0: y0});
+                            for (var i = 0; i < event_values.length; i++) {
+
+                                for (var j = 0; j < event_values[i].length; j++) {
+                                    if (j == 0) {
+                                        layerData[j].push({x: i, y: Number(event_values[i][j]), y0: 0});
+                                    }
+                                    else {
+                                        var y0 = layerData[j - 1][i].y + layerData[j - 1][i].y0;
+                                        layerData[j].push({x: i, y: Number(event_values[i][j]), y0: y0});
+                                    }
                                 }
                             }
-                        }
 
-                        $scope.layerData = layerData;
-                        $scope.metaData = metaData;
-                        $scope.$parent.state = "running";
+                            $scope.layerData = layerData;
+                            $scope.metaData = metaData;
+                            $scope.$parent.state = "running";
+                        }
 
                     });
                 }

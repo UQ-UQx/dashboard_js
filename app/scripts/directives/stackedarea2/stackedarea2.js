@@ -87,6 +87,19 @@ app.directive('visStackedarea2', function() {
 
                 if(scope.data && scope.ndata) {
 
+                    var tip = d3.tip()
+                        .attr('class', 'd3-tip')
+                        .html(function(d, i) {
+                            //console.log('ddd', d);
+                            //console.log('iii', i);
+                            var week_no = i + 1;
+                            var tip_text =  '<strong>Week ' + week_no + ' (' +  scope.ndata.dateList[i] + ')</strong>';
+                            console.log('tip', tip_text);
+                            return tip_text;
+                        });
+
+
+
                     var thewidth = scope.width;
                     if (!thewidth) {
                         thewidth = element.parent().width();
@@ -173,6 +186,8 @@ app.directive('visStackedarea2', function() {
                         .attr('class', 'focus')
                         .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
+                    focus.call(tip);
+
                     var context = svg.append('g')
                         .attr('class', 'context')
                         .attr('transform', 'translate(' + margin2.left + ',' + margin2.top + ')');
@@ -190,7 +205,39 @@ app.directive('visStackedarea2', function() {
                         .enter().append('path')
                         .attr("class", "area")
                         .attr('d', area)
-                        .style('fill', function(d, i) { return color(i); });
+                        .style('fill', function(d, i) { return color(i); })
+                        .on('mouseover', function(d, i) {
+
+                            /*
+                            console.log(d3.mouse(this));
+                            var coordinates = d3.mouse(this);
+                            var x = coordinates[0];
+                            var y = coordinates[1];
+
+                            var top = d3.event.pageX,
+                                left = d3.event.pageY;
+
+                            console.log('aaa', x, y, top, left);
+
+
+                            tip.show(x, y, top, left, d, i);
+                            console.log('a');
+                            var tip_node = d3.select('#layer_tip');
+                            console.log('tip_node', tip_node);
+                            console.log('b');
+                            tip_node.style({
+                                top: x + 'px',
+                                left: y + 'px'
+                            });
+
+                            console.log('tip_node', tip_node);
+                            */
+                            tip.show(d, i);
+
+                        })
+                        .on('mouseout', function(d, i) {
+                            tip.hide(d, i);
+                        });
 
                     var xAxisGroup = focus.append('g')
                         .attr('class', 'x axis')
