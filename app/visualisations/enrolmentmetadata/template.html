@@ -46,5 +46,14 @@
 			<vis-bar data="fullAgeData" height="600" options="{ marginLeft: 130 }" comment="comment"></vis-bar>
 		</div>
 	</div>
+    <div class="row" style="margin:20px;">
+        <div class="col-md-11 chart_wrap">
+            <h3 class="floated">Student enrollments in age range (13 - 17 years old)</h3>
+            <a ng-href="{{APIBASE}}/students/inagerange/{{course.currentCourse}}?format=csv" data-name="csv" class="csv-download btn btn-success float_csv">
+				<i class="fa fa-file-excel-o"></i> CSV
+			</a>
+            <vis-line data="inagerangeData" height="500" y-axis-label="'Percentage of Students In Range (%)'" dates="importantDates"></vis-line>
+        </div>
+    </div>
 </div>
 <div style="clear:left"></div>

@@ -57,11 +57,56 @@ angular.module('dashboardJsApp')
 					delete data['total'];
 					$scope.enrolTypeData = $scope.formatPieData(data);
 				});
+
+                // Add data for students in age range
+                RequestService.async('/students/inagerange/' + Course.currentCourse + '/'+refresh).then(function(data) {
+                    RequestService.async('/meta/courseinfo/').then(function(info) {
+                        $scope.importantDates = [];
+                        // Add data for importantDates
+                        for (var key in info) {
+                            if (info[key]['id'] === Course.currentCourse || Course.currentCourse == 'allcourses') {
+                                if ('start' in info[key]) {
+                                    $scope.importantDates.push({ 'name': 'Course Start for '+info[key]['display_name'], 'date': info[key]['start'] });
+                                }
+
+                                if ('end' in info[key]) {
+                                    $scope.importantDates.push({ 'name': 'Course End for'+info[key]['display_name'], 'date': info[key]['end'] });
+                                }
+                            }
+                        }
+
+                       $scope.inagerangeData = $scope.formatAgeRangeData(data.month_data);
+                   });
+                });
+
+
 				$scope.$parent.state = "running";
 			}
 		}
 
 		$scope.$watch('auth.isAuthenticated()', $scope.loadData, true);
+
+        $scope.formatAgeRangeData = function(unformattedData) {
+            /*
+            var formattedData = [{name:'Users known ages', data:[]}, {name:'Users in age range', data:[]}];
+
+            for(var key in unformattedData) {
+                formattedData[0].data.push({date: key, value: unformattedData[key].user_known_age});
+                formattedData[1].data.push({date: key, value: unformattedData[key].user_in_range});
+            }
+            */
+            var formattedData = [{name: 'Monthly', data:[]}];
+
+            for(var key in unformattedData) {
+                console.log('ttt', typeof(key));
+                formattedData[0].data.push({date: key, value: unformattedData[key].percentage,
+                    comment: [{key: 'Students In Range', val: unformattedData[key].user_in_range},
+                              {key: 'Students Known Age', val: unformattedData[key].user_known_age},
+                              {key: 'Percentage', val: unformattedData[key].percentage}]});
+            }
+
+            return formattedData;
+        }
 
 		$scope.formatPieData = function(unformattedData) {
 			var formattedData = [];

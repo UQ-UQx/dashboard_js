@@ -16,7 +16,7 @@ app.directive('visBar', function() {
 			width: '=width',
 			height: '=height',
 			options: '=?',
-            comment: '=?',
+            comment: '=?'
 		},
 		templateUrl: 'scripts/directives/bar/bar.html',
 		link: function(scope, element) {
