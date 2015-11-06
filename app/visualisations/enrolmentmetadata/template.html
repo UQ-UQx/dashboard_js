@@ -52,7 +52,10 @@
             <a ng-href="{{APIBASE}}/students/inagerange/{{course.currentCourse}}?format=csv" data-name="csv" class="csv-download btn btn-success float_csv">
 				<i class="fa fa-file-excel-o"></i> CSV
 			</a>
-            <vis-line data="inagerangeData" height="500" y-axis-label="'Percentage of Students In Range (%)'" dates="importantDates"></vis-line>
+            <p class="col-md-3"> Students with known ages: {{sum_known_age}}</p>
+            <p class="col-md-3"> Students in age range: {{sum_in_range}}</p>
+            <p class="col-md-3"> Percentage: {{sum_percentage}}</p>
+            <vis-line data="inagerangeData" height="700" y-axis-label="'Percentage of Students In Range (%)'" dates="importantDates"></vis-line>
         </div>
     </div>
 </div>

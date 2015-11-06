@@ -123,7 +123,13 @@ app.directive('visLine', function() {
 						nameList.push(d.name);
 					});
 
-					var color = d3.scale.category10();
+                    var color;
+                    if(nameList.length <= 10) {
+                        color = d3.scale.category10();
+                    }
+                    else {
+                        color = d3.scale.category20();
+                    }
 
 					color.domain(nameList);
 

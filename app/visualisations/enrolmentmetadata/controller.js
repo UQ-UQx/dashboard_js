@@ -59,8 +59,74 @@ angular.module('dashboardJsApp')
 				});
 
                 // Add data for students in age range
+                if(Course.currentCourse == 'allcourses') {
+                    RequestService.async('/students/inagerangetogether/'+refresh).then(function(data) {
+                        RequestService.async('/meta/courseinfo/').then(function(info) {
+                            console.log(data);
+
+                            // Add data for importantDates
+                            $scope.importantDates = [];
+                            for (var key in info) {
+                                if (info[key]['id'] === Course.currentCourse) {
+                                    if ('start' in info[key]) {
+                                        $scope.importantDates.push({ 'name': 'Course Start for '+info[key]['display_name'], 'date': info[key]['start'] });
+                                    }
+
+                                    if ('end' in info[key]) {
+                                        $scope.importantDates.push({ 'name': 'Course End for'+info[key]['display_name'], 'date': info[key]['end'] });
+                                    }
+                                }
+                            }
+
+                            $scope.inagerangeData = [];
+                            for(var key in data) {
+                                if(key == 'all') {
+                                    $scope.sum_known_age = data[key].sum.user_known_age;
+                                    $scope.sum_in_range = data[key].sum.user_in_range;
+                                    $scope.sum_percentage = data[key].sum.percentage;
+                                }
+                                $scope.inagerangeData.push({name: key, data: $scope.formatAgeRangeData(data[key].month_data)});
+                            }
+                       });
+                    });
+
+                }
+                else {
+                    RequestService.async('/students/inagerange/' + Course.currentCourse + '/'+refresh).then(function(data) {
+                        RequestService.async('/meta/courseinfo/').then(function(info) {
+                            console.log('aaaaa');
+
+                            $scope.sum_known_age = data.sum.user_known_age;
+                            $scope.sum_in_range = data.sum.user_in_range;
+                            $scope.sum_percentage = data.sum.percentage;
+
+                            // Add data for importantDates
+                            $scope.importantDates = [];
+                            for (var key in info) {
+                                if (info[key]['id'] === Course.currentCourse) {
+                                    if ('start' in info[key]) {
+                                        $scope.importantDates.push({ 'name': 'Course Start for '+info[key]['display_name'], 'date': info[key]['start'] });
+                                    }
+
+                                    if ('end' in info[key]) {
+                                        $scope.importantDates.push({ 'name': 'Course End for'+info[key]['display_name'], 'date': info[key]['end'] });
+                                    }
+                                }
+                            }
+
+                           $scope.inagerangeData = [{name: 'Monthly', data: $scope.formatAgeRangeData(data.month_data)}];
+                       });
+                    });
+
+                }
+
+                /*
                 RequestService.async('/students/inagerange/' + Course.currentCourse + '/'+refresh).then(function(data) {
                     RequestService.async('/meta/courseinfo/').then(function(info) {
+                        $scope.sum_known_age = data.sum.user_known_age;
+                        $scope.sum_in_range = data.sum.user_in_range;
+                        $scope.sum_percentage = data.sum.percentage;
+
                         $scope.importantDates = [];
                         // Add data for importantDates
                         for (var key in info) {
@@ -78,7 +144,7 @@ angular.module('dashboardJsApp')
                        $scope.inagerangeData = $scope.formatAgeRangeData(data.month_data);
                    });
                 });
-
+                */
 
 				$scope.$parent.state = "running";
 			}
@@ -87,19 +153,12 @@ angular.module('dashboardJsApp')
 		$scope.$watch('auth.isAuthenticated()', $scope.loadData, true);
 
         $scope.formatAgeRangeData = function(unformattedData) {
-            /*
-            var formattedData = [{name:'Users known ages', data:[]}, {name:'Users in age range', data:[]}];
+            //var formattedData = [{name: 'Monthly', data:[]}];
+            var formattedData = [];
 
             for(var key in unformattedData) {
-                formattedData[0].data.push({date: key, value: unformattedData[key].user_known_age});
-                formattedData[1].data.push({date: key, value: unformattedData[key].user_in_range});
-            }
-            */
-            var formattedData = [{name: 'Monthly', data:[]}];
-
-            for(var key in unformattedData) {
-                console.log('ttt', typeof(key));
-                formattedData[0].data.push({date: key, value: unformattedData[key].percentage,
+                //console.log('ttt', typeof(key));
+                formattedData.push({date: key, value: unformattedData[key].percentage,
                     comment: [{key: 'Students In Range', val: unformattedData[key].user_in_range},
                               {key: 'Students Known Age', val: unformattedData[key].user_known_age},
                               {key: 'Percentage', val: unformattedData[key].percentage}]});
