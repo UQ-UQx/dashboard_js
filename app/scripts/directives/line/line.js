@@ -123,7 +123,13 @@ app.directive('visLine', function() {
 						nameList.push(d.name);
 					});
 
-					var color = d3.scale.category10();
+                    var color;
+                    if(nameList.length <= 10) {
+                        color = d3.scale.category10();
+                    }
+                    else {
+                        color = d3.scale.category20();
+                    }
 
 					color.domain(nameList);
 
@@ -168,10 +174,26 @@ app.directive('visLine', function() {
 							.attr('class', 'd3-tip')
 							.offset([-10, 0])
 							.html(function(d, name) {
-								return '<strong>Date:</strong>' +
-								'<span style="color: ' + d3.rgb(color(name)).brighter() +'">' + ('0' + d.date.getDate()).slice(-2) + '-' + ('0' + (d.date.getMonth()+1)).slice(-2) + '-' + d.date.getFullYear() + '</span>' +
-								'<strong>Value:</strong>' +
+                                console.log('ddd', d);
+                                console.log('name', name);
+                                console.log('type', typeof(d.date));
+                                var tip_html = '<strong>Date:</strong>' +
+								'<span style="color: ' + d3.rgb(color(name)).brighter() +'">' + ('0' + d.date.getDate()).slice(-2) + '-' + ('0' + (d.date.getMonth()+1)).slice(-2) + '-' + d.date.getFullYear() + '</span>';
+
+                                if(d.comment) {
+                                  for(i = 0; i < d.comment.length; i++) {
+                                      tip_html += '<strong>' + d.comment[i].key + ': </strong>' +
+                                   '<span style="color: ' + d3.rgb(color(name)).brighter() +'">' + d.comment[i].val + '</span>';
+
+                                  }
+                                }
+                                else {
+                                    tip_html += '<strong>Value:</strong>' +
 								'<span style="color: ' + d3.rgb(color(name)).brighter() +'">' + d.value + '</span>';
+                                }
+
+
+								return tip_html;
 							});
 
 						svg.call(tip);
@@ -216,6 +238,7 @@ app.directive('visLine', function() {
 								.style('stroke', '#b2f7b2')
 								.style('stroke-width', 4)
 								.on('mouseover', function(d) {
+                                    //console.log('d', d);
 									d3.select(this)
 										.transition()
 										.duration(200)

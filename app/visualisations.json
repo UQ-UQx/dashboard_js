@@ -25,6 +25,11 @@
         "icon": "fa-users"
     },
     {
+        "id": "course_events",
+        "name": "Course Events",
+        "icon": "fa-globe"
+    },
+    {
         "id": "grades",
         "name": "Certificates",
         "icon": "fa-graduation-cap"

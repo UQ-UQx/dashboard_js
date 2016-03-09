@@ -16,19 +16,26 @@ app.directive('visBar', function() {
 			width: '=width',
 			height: '=height',
 			options: '=?',
+            comment: '=?'
 		},
 		templateUrl: 'scripts/directives/bar/bar.html',
 		link: function(scope, element) {
 			scope.$watch('data', function() {
 				var data = scope.data;
-
-				scope.options = scope.options || false;
+                console.log('data', data);
 
 				if(!data) {
 					return
 				}
 
+				scope.options = scope.options || false;
+                console.log('options', scope.options);
+
+                scope.comment = scope.comment || false;
+                console.log('comment', scope.comment);
+
 				var drawChart = function() {
+
 					var thewidth = scope.width;
 					if (!thewidth) {
 						thewidth = element.parent().width();
@@ -165,6 +172,35 @@ app.directive('visBar', function() {
 						.text('Percentage (%)');
 
 					var yAxisGroup = svg.append('g').attr('class', 'y axis').call(yAxis);
+
+                    // Add Comment
+                    if(scope.comment) {
+                        var comment = svg.selectAll('g.comment')
+                            .data(scope.comment)
+                            .enter()
+                            .append('g')
+                            .attr('class', 'comment')
+                            .attr('transform', function(d, i) {
+                                return 'translate(' + ( width - margin.right - 50)  + ',' + (margin.top + i*20) + ')';
+                             })
+                            .style('fill', '#4A105A');
+
+                        comment.append('circle')
+                            .attr('cx', 10)
+                            .attr('cy', 10)
+                            .attr('r', 4);
+
+
+                        comment.append('text')
+                            .attr('x', 20)
+                            .attr('y', 9)
+                            .attr('dy', '.35em')
+                            .style('text-anchor', 'start')
+                            .text(function(d) {
+                                //console.log('abc', d);
+                                return d[0] + " : " + d[1];
+                            })
+                    }
 				}
 
 				drawChart();

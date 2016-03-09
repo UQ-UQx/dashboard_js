@@ -1,0 +1,99 @@
+    <style>
+        div.stackedarea-chart {
+            font-size: 14px;
+            color: #121401;
+        }
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: #121401;
+            stroke-width: 2px;
+            shape-rendering: crispEdges;
+        }
+        g.focus g.series path {
+            clip-path: url(#clip);
+        }
+        .point {
+            stroke: grey;
+            stroke-width: 3px;
+            opacity: 0;
+        }
+        .point:hover{
+            opacity: .5;
+        }
+        .brush .extent {
+            stroke: #fff;
+            fill-opacity: .125;
+            shape-rendering: crispEdges;
+        }
+        .context_bg {
+            stroke: #333;
+            fill:#fafafa;
+            stroke-width:1px;
+        }
+        .legend_bg {
+            fill:#fafafa;
+            stroke: #333;
+            stroke-width:1px;
+        }
+        .area {
+            clip-path:url('#clip');
+        }
+        .d3-tip {
+          line-height: 1;
+          font-weight: bold;
+          padding: 12px;
+          background: rgba(0, 0, 0, 0.8);
+          color: #fff;
+          border-radius: 2px;
+        }
+
+        .tip {
+          display: none;
+          color: steelblue;
+          border-radius: 4px;
+          padding: 5px 10px 5px 10px;
+          position: absolute;
+          font: 12px sans-serif;
+          line-height: 30px;
+          text-align: center;
+          background: rgba(0, 0, 255, 0.1);
+        }
+
+        .d3-tip strong {
+          clear: left;
+          display: inline-block;
+          float:left;
+
+        }
+
+        .d3-tip span {
+          float: left;
+          color: red;
+          margin-left: 10px;
+          display: inline-block;
+        }
+
+        /* Creates a small triangle extender for the tooltip */
+        .d3-tip:after {
+          box-sizing: border-box;
+          display: inline;
+          font-size: 10px;
+          width: 100%;
+          line-height: 1;
+          color: rgba(0, 0, 0, 0.8);
+          content: "\25BC";
+          position: absolute;
+          text-align: center;
+        }
+
+        /* Style northward tooltips differently */
+        .d3-tip.n:after {
+          margin: -1px 0 0 0;
+          top: 100%;
+          left: 0;
+        }
+    </style>
+
+<div class="tip" id="layer_tip"></div>
+<svg class="stackedarea2-chart"></svg>
