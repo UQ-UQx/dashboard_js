@@ -23,7 +23,7 @@
     <div id="content_wrapper">
         <ul id="coursenav">
             <li ng-repeat="c in course.courseList" ng-class="{selected:(c.id === course.currentCourse)}">
-                <a ng-show="year==c.year || year=='all'" ng-click='course.currentCourse = c.id' ui-sref="dashboard.visualisation({visualisation: (!!currentVisualisation ? currentVisualisation : 'home'), course: c.id})" data-name="{{c.id}}"><i class="fa {{c.icon}}"></i>{{c.shortName}} <span class="year">{{c.year}}</span></a>
+                <a ng-show="year==c.year || year=='all'" ng-click='course.currentCourse = c.id' ui-sref="dashboard.visualisation({visualisation: (!!currentVisualisation ? currentVisualisation : 'home'), course: c.id})" data-name="{{c.id}}"><i class="fa {{c.icon}}"></i>{{c.shortName}}<span class="year">{{c.term}}{{c.year}}</span></a>
             </li>
         </ul>
         <div id="main_content">

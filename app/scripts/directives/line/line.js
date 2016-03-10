@@ -174,9 +174,9 @@ app.directive('visLine', function() {
 							.attr('class', 'd3-tip')
 							.offset([-10, 0])
 							.html(function(d, name) {
-                                console.log('ddd', d);
-                                console.log('name', name);
-                                console.log('type', typeof(d.date));
+                                //console.log('ddd', d);
+                                //console.log('name', name);
+                                //console.log('type', typeof(d.date));
                                 var tip_html = '<strong>Date:</strong>' +
 								'<span style="color: ' + d3.rgb(color(name)).brighter() +'">' + ('0' + d.date.getDate()).slice(-2) + '-' + ('0' + (d.date.getMonth()+1)).slice(-2) + '-' + d.date.getFullYear() + '</span>';
 
