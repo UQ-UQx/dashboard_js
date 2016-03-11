@@ -27,6 +27,7 @@ angular.module('dashboardJsApp')
                 return null;
             }
             
+            console.log(courseList);
 			this.courseList = courseList.sort(compareCourse);
 		};
 
@@ -78,13 +79,28 @@ angular.module('dashboardJsApp')
 
 
 function compareCourse(course1,course2) {
+	// 'All Courses List' is always the first one
 	if(course1.name == "All Courses List") 
 		return -1;	
 	if(course2.name == "All Courses List") 
 		return 1;
-	if(course1.name < course2.name)
+	
+	// Rule1: compare shortName
+	if(course1.shortName < course2.shortName)
 		return -1;
-	if (course1.name > course2.name)
+	if(course1.shortName > course2.shortName)
+		return 1;
+	
+	// Rule2: compare yeasr
+	if(course1.year < course2.year)
+		return -1;
+	if(course1.year > course2.year)
+		return 1;
+	
+	// Rule3: compare Term
+	if(course1.term < course2.term)
+		return -1;
+	if(course1.term > course2.term)
 		return 1;
 	
 	return 0;
