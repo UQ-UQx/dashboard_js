@@ -32,8 +32,6 @@ angular.module('dashboardJsApp')
         $scope.currentVisualisation = $state.params.visualisation;
         $scope.year = 'all';
 
-        $scope.courseList = [];
-
         $scope.$watch('state',function() {
             if($scope.course.currentCourse == '') {
                 $scope.state = 'notselected';

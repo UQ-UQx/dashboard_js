@@ -26,7 +26,8 @@ angular.module('dashboardJsApp')
                 alert(courseList['error']);
                 return null;
             }
-			this.courseList = courseList;
+            
+			this.courseList = courseList.sort(compareCourse);
 		};
 
 		this.getCurrentCourseShortName = function() {
@@ -74,3 +75,17 @@ angular.module('dashboardJsApp')
 
 		return this;
 	});
+
+
+function compareCourse(course1,course2) {
+	if(course1.name == "All Courses List") 
+		return -1;	
+	if(course2.name == "All Courses List") 
+		return 1;
+	if(course1.name < course2.name)
+		return -1;
+	if (course1.name > course2.name)
+		return 1;
+	
+	return 0;
+}
