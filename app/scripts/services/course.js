@@ -27,7 +27,7 @@ angular.module('dashboardJsApp')
                 return null;
             }
             
-            console.log(courseList);
+            //console.log(courseList);
 			this.courseList = courseList.sort(compareCourse);
 		};
 

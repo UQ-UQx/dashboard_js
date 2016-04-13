@@ -54,8 +54,8 @@ angular.module('dashboardJsApp')
 
             RequestService.async('/meta/courseinfo/').then(function(data) {
                 $scope.courseEnrolment = [];
-                console.log("AAA");
-                console.log(data);
+                //console.log("AAA");
+                //console.log(data);
                 data.sort(function(a, b){
                     var keyA = a['start'].replace('"', ""),
                     keyB = b['start'].replace('"', "");
@@ -155,8 +155,40 @@ angular.module('dashboardJsApp')
             //Total Enrolments Per Day
             RequestService.async('/meta/enrolcount/').then(function(data) {
                 console.log("LOADED ENROL COUNT");
+                console.log(data);
                 $scope.totalenrolments_per_day = Math.round(parseInt(data['last_month'])/30);
             });
+
+			//Progress and Certificates
+			RequestService.async('/meta/courseprofile/').then(function(data) {
+				console.log('courseprofile');
+				console.log(data);
+				var progress = {}
+				progress['registered'] = 0;
+				progress['viewed'] = 0;
+				progress['explored'] = 0;
+				progress['certified'] = 0;
+				//console.log('progress', progress);
+				for(var course_id in data) {
+					//console.log(course_id);
+					if(course_id != 'allcourses' && course_id != 'learn_101x_1T2015' && data[course_id]['status'] != 'unavailable') {
+						//console.log(data[course_id]['nregistered_students']);
+						progress['registered'] += data[course_id]['nregistered_students'];
+						//console.log(progress['registered']);
+						progress['viewed'] += data[course_id]['nviewed_students'];
+						progress['explored'] += data[course_id]['nexplored_students'];
+						progress['certified'] += data[course_id]['ncertified_students'];
+					}
+				}
+				console.log('after', progress);
+				var progress2 = {}
+				progress2['Only Registered'] = progress['registered'] - progress['viewed'];
+				progress2['Only Viewed'] = progress['viewed'] - progress['explored'];
+				progress2['Only Explored'] = progress['explored'] - progress['certified'];
+				progress2['Certified'] = progress['certified'];
+				console.log('progress2', progress2);
+				$scope.progress = $scope.formatPieData(progress2);				
+			});
 
 
             //Countries
@@ -218,7 +250,10 @@ angular.module('dashboardJsApp')
                 //data['audit/honor'] = data['audit'] + data['honor'];
                 //delete data['audit'];
                 //delete data['honor'];
+                console.log('modes');
+                console.log(data);
                 $scope.enrolTypeData = $scope.formatPieData(data);
+                console.log($scope.enrolTypeData);
             });
 
         }
