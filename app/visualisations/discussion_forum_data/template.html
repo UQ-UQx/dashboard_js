@@ -1,122 +1,133 @@
-<div id="section_main">
-    <div class="metaactions">
-        <!--<a ng-click="refreshData()" data-name="reload" class="refresh-cache btn btn-warning">-->
-            <!--<i class="fa fa-refresh"></i> Recache-->
-        <!--</a>-->
-        <a ng-href="{{APIBASE}}/discussions/dates/{{course.currentCourse}}?format=csv" data-name="csv" class="csv-download btn btn-success">
-            <i class="fa fa-file-excel-o"></i> CSV
-        </a>
-    </div>
+<div ng-switch on="state">
+    <div ng-switch-when="notavailable" class="notselected">
+            <h1>Visualisation is not available</h1>
+            <div id="icon"><i class="fa fa-exclamation-triangle"></i></div>
+            <p>{{$parent.currentVisualisationName}} is not available for {{$parent.course.getCurrentCourseShortName()}}</p>
 
-    <h3>New Posts</h3>
-    <vis-line data="normalData" width="2000" height="500" all-dates="true"></vis-line>
-    <h3>Total Posts</h3>
-    <vis-line data="aggregateData" width="2000" height="500"></vis-line>
-
-    <h3>Discussion Categories</h3>
-    <ul class = "list-group">
-        <li class="list-group-item" ng-repeat="category in categoryData">
-            <div ng-if="category.display_name !== undefined">
-                <a ng-click="sectionChanged(category.discussion_id)" style="cursor: pointer;">{{category.display_name}}</a>
-            </div>
-            <div ng-if="category.display_name == undefined">
-                <a ng-click="sectionChanged(category.discussion_id)" style="cursor: pointer;">{{category.discussion_category}}</a>
-            </div>
-        </li>
-    </ul>
-
-    <script>
-        function accordian(index) {
-            var panel = $($('#accordion .panel-collapse')[index]);
-            if(panel.hasClass('in')) {
-                panel.collapse('hide');
-                panel.attr('data-toggle', 'collapse');
-            } else {
-                panel.collapse('show');
-                panel.attr('data-toggle', '');
-            }
-        }
-    </script>
-    <div class="panel-group" id="accordion">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="" onclick="accordian(0)">
-        Most popular {{ topNumber }} Threads
-        </a>
-        </h4>
-      </div>
-      <div id="collapseOne" class="panel-collapse collapse">
-        <div class="panel-body">
-            <ul class="list-group">
-              <li class="list-group-item" ng-repeat="pop in popularData">
-              <span class="badge"> {{ pop.comment_count }} comments</span>
-              {{ pop.body }}
-              </li>
-            </ul>
-        </div>
-      </div>
     </div>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="" onclick="accordian(1)">
-        Top {{ topNumber }} Threads
-        </a>
-        </h4>
-      </div>
-      <div id="collapseTwo" class="panel-collapse collapse">
-        <div class="panel-body">
-            <ul class="list-group">
-                <li class="list-group-item" ng-repeat="thread in topData.threads">
-              <span class="badge">{{ thread.votes.up_count}} up</span>
-              {{ thread.body }}
-              </li>
-            </ul>
-        </div>
-      </div>
-    </div>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4 class="panel-title">
-          <a data-toggle="collapse" data-parent="#accordion" href="" onclick="accordian(2)">
-          Top {{ topNumber }} Comments
-          </a>
-        </h4>
-      </div>
-      <div id="collapseThree" class="panel-collapse collapse">
-        <div class="panel-body">
-            <ul class="list-group">
-                <li class="list-group-item" ng-repeat="comment in topData.comments">
-              <span class="badge">{{ comment.votes.up_count}} up</span>
-              <p> <b>Thread: </b>{{ comment.comment_thread_body }}
-              </p>
-              <p ng-if="comment.parent_body"><b>Parent: </b>{{ comment.parent_body }}</p>
-              <p><b>Comment: </b>{{ comment.body }}</p>
-              </li>
-            </ul>
-        </div>
-      </div>
-    </div>
-    </div>
-</div>
-
-<div>
-    <div ng-repeat="category in categoryData">
-        <div class="subsection" id="section_{{category.discussion_id}}" style="display:none">
-            <button ng-click="sectionMain()" class="btn btn-primary">Back to all weeks</button>
-            <div ng-if="category.display_name !== undefined">
-                <h3>{{category.display_name}}</h3>
-            </div>
-            <div ng-if="category.display_name == undefined">
-                <h3>{{category.discussion_category}}</h3>
-            </div>
-            <p>Posts:</p>
-            <vis-line data="category.dateCount" width="2000" height="500" all-dates="true"></vis-line>
-            <p>Most 20 Popular Threads</p>
-            <vis-stackedbar data="category.popularThreads" width="2000" height="500" all-dates="true"></vis-stackedbar>
-            <p>Comments Per Thread</p>
-            <vis-pie data="category.comment_per_thread" width="600" height="600"></vis-pie>
-        </div>
+    <div ng-switch-default>
+		<h2>{{$parent.currentVisualisationName}} for {{$parent.course.getCurrentCourseShortName()}}</h2>			
+		<div id="section_main">
+		    <div class="metaactions">
+		        <!--<a ng-click="refreshData()" data-name="reload" class="refresh-cache btn btn-warning">-->
+		            <!--<i class="fa fa-refresh"></i> Recache-->
+		        <!--</a>-->
+		        <a ng-href="{{APIBASE}}/discussions/dates/{{course.currentCourse}}?format=csv" data-name="csv" class="csv-download btn btn-success">
+		            <i class="fa fa-file-excel-o"></i> CSV
+		        </a>
+		    </div>
+	
+		    <h3>New Posts</h3>
+		    <vis-line data="normalData" width="2000" height="500" all-dates="true"></vis-line>
+		    <h3>Total Posts</h3>
+		    <vis-line data="aggregateData" width="2000" height="500"></vis-line>
+		
+		    <h3>Discussion Categories</h3>
+		    <ul class = "list-group">
+		        <li class="list-group-item" ng-repeat="category in categoryData">
+		            <div ng-if="category.display_name !== undefined">
+		                <a ng-click="sectionChanged(category.discussion_id)" style="cursor: pointer;">{{category.display_name}}</a>
+		            </div>
+		            <div ng-if="category.display_name == undefined">
+		                <a ng-click="sectionChanged(category.discussion_id)" style="cursor: pointer;">{{category.discussion_category}}</a>
+		            </div>
+		        </li>
+		    </ul>
+		
+		    <script>
+		        function accordian(index) {
+		            var panel = $($('#accordion .panel-collapse')[index]);
+		            if(panel.hasClass('in')) {
+		                panel.collapse('hide');
+		                panel.attr('data-toggle', 'collapse');
+		            } else {
+		                panel.collapse('show');
+		                panel.attr('data-toggle', '');
+		            }
+		        }
+		    </script>
+		    <div class="panel-group" id="accordion">
+		    <div class="panel panel-default">
+		      <div class="panel-heading">
+		        <h4 class="panel-title">
+		        <a data-toggle="collapse" data-parent="#accordion" href="" onclick="accordian(0)">
+		        Most popular {{ topNumber }} Threads
+		        </a>
+		        </h4>
+		      </div>
+		      <div id="collapseOne" class="panel-collapse collapse">
+		        <div class="panel-body">
+		            <ul class="list-group">
+		              <li class="list-group-item" ng-repeat="pop in popularData">
+		              <span class="badge"> {{ pop.comment_count }} comments</span>
+		              {{ pop.body }}
+		              </li>
+		            </ul>
+		        </div>
+		      </div>
+		    </div>
+		    <div class="panel panel-default">
+		      <div class="panel-heading">
+		        <h4 class="panel-title">
+		        <a data-toggle="collapse" data-parent="#accordion" href="" onclick="accordian(1)">
+		        Top {{ topNumber }} Threads
+		        </a>
+		        </h4>
+		      </div>
+		      <div id="collapseTwo" class="panel-collapse collapse">
+		        <div class="panel-body">
+		            <ul class="list-group">
+		                <li class="list-group-item" ng-repeat="thread in topData.threads">
+		              <span class="badge">{{ thread.votes.up_count}} up</span>
+		              {{ thread.body }}
+		              </li>
+		            </ul>
+		        </div>
+		      </div>
+		    </div>
+		    <div class="panel panel-default">
+		      <div class="panel-heading">
+		        <h4 class="panel-title">
+		          <a data-toggle="collapse" data-parent="#accordion" href="" onclick="accordian(2)">
+		          Top {{ topNumber }} Comments
+		          </a>
+		        </h4>
+		      </div>
+		      <div id="collapseThree" class="panel-collapse collapse">
+		        <div class="panel-body">
+		            <ul class="list-group">
+		                <li class="list-group-item" ng-repeat="comment in topData.comments">
+		              <span class="badge">{{ comment.votes.up_count}} up</span>
+		              <p> <b>Thread: </b>{{ comment.comment_thread_body }}
+		              </p>
+		              <p ng-if="comment.parent_body"><b>Parent: </b>{{ comment.parent_body }}</p>
+		              <p><b>Comment: </b>{{ comment.body }}</p>
+		              </li>
+		            </ul>
+		        </div>
+		      </div>
+		    </div>
+		    </div>
+		</div>
+		
+		<div>
+		    <div ng-repeat="category in categoryData">
+		        <div class="subsection" id="section_{{category.discussion_id}}" style="display:none">
+		            <button ng-click="sectionMain()" class="btn btn-primary">Back to all weeks</button>
+		            <div ng-if="category.display_name !== undefined">
+		                <h3>{{category.display_name}}</h3>
+		            </div>
+		            <div ng-if="category.display_name == undefined">
+		                <h3>{{category.discussion_category}}</h3>
+		            </div>
+		            <p>Posts:</p>
+		            <vis-line data="category.dateCount" width="2000" height="500" all-dates="true"></vis-line>
+		            <p>Most 20 Popular Threads</p>
+		            <vis-stackedbar data="category.popularThreads" width="2000" height="500" all-dates="true"></vis-stackedbar>
+		            <p>Comments Per Thread</p>
+		            <vis-pie data="category.comment_per_thread" width="600" height="600"></vis-pie>
+		        </div>
+		    </div>
+		</div>
     </div>
 </div>

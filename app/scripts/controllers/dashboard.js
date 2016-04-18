@@ -9,6 +9,7 @@
  */
 angular.module('dashboardJsApp')
     .controller('DashboardCtrl', ['$scope','$http','RequestService', 'AuthService', 'Course', '$state', function ($scope, $http, RequestService, AuthService, Course, $state) {
+	    console.log('dashboard.js');
         $scope.currentVisualisation = '';
         $scope.currentVis = '';
         $scope.currentVisualisationName = '';

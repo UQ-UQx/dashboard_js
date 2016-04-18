@@ -1,34 +1,45 @@
-<div class="metaactions">
-    <!--<a ng-click="refreshData()" data-name="reload" class="refresh-cache btn btn-warning">-->
-        <!--<i class="fa fa-refresh"></i> Recache-->
-    <!--</a>-->
-    <a ng-href="{{APIBASE}}/students/personcourse/{{course.currentCourse}}?format=csv&fields=user_id,certified,final_cc_cname,explored,registered,viewed,grade" data-name="csv" class="csv-download btn btn-success">
-		<i class="fa fa-file-excel-o"></i> CSV
-	</a>
-</div>
-<div style="float:left; width:100%;">
+<div ng-switch on="state">
+    <div ng-switch-when="notavailable" class="notselected">
+            <h1>Visualisation is not available</h1>
+            <div id="icon"><i class="fa fa-exclamation-triangle"></i></div>
+            <p>{{$parent.currentVisualisationName}} is not available for {{$parent.course.getCurrentCourseShortName()}}</p>
 
-	<div class="row" style="margin:20px;">
-		<div class="col-md-5 chart_wrap">
-			<h3 class="floated">Certificates Awarded</h3>
-			<vis-bar data="certificateData" height="600" options="{ marginLeft: 130 }"></vis-pie>
+    </div>
+	<div ng-switch-default>
+		<h2>{{$parent.currentVisualisationName}} for {{$parent.course.getCurrentCourseShortName()}}</h2>		
+		<div class="metaactions">
+		    <!--<a ng-click="refreshData()" data-name="reload" class="refresh-cache btn btn-warning">-->
+		        <!--<i class="fa fa-refresh"></i> Recache-->
+		    <!--</a>-->
+		    <a ng-href="{{APIBASE}}/students/personcourse/{{course.currentCourse}}?format=csv&fields=user_id,certified,final_cc_cname,explored,registered,viewed,grade" data-name="csv" class="csv-download btn btn-success">
+				<i class="fa fa-file-excel-o"></i> CSV
+			</a>
 		</div>
-		<div class="col-md-5 chart_wrap col-md-offset-1">
-			<h3 class="floated">Progress</h3>
-			<vis-pie data="attemptData"  width="600" height="600"></vis-pie>
+		<div style="float:left; width:100%;">
+			<div class="row" style="margin:20px;">
+				<div class="col-md-5 chart_wrap">
+					<h3 class="floated">Certificates Awarded</h3>
+					<vis-bar data="certificateData" height="600" options="{ marginLeft: 130 }"></vis-bar>
+				</div>
+				<div class="col-md-5 chart_wrap col-md-offset-1">
+					<h3 class="floated">Progress</h3>
+					<vis-pie data="attemptData"  width="600" height="600"></vis-pie>
+				</div>
+			</div>
+		    <div class="row" style="margin:20px;">
+		        <div class="col-md-11 chart_wrap">
+					<h3 class="floated">Certifcates Per Country</h3>
+					<vis-world suffix="' certificates'" data="countries" colour-string="colourString" height='500'></vis-world>
+				</div>
+		    </div>
+		    <div class="row" style="margin:20px;">
+		        <div class="col-md-11 chart_wrap">
+					<h3 class="floated">Grade Distribution</h3>
+					<vis-bar data="gradeData" height="600" options="{ marginLeft: 130 }"></vis-bar>
+				</div>
+		    </div>
 		</div>
+		<div style="clear:left"></div>		
 	</div>
-    <div class="row" style="margin:20px;">
-        <div class="col-md-11 chart_wrap">
-			<h3 class="floated">Certifcates Per Country</h3>
-			<vis-world suffix="' certificates'" data="countries" colour-string="colourString" height='500'></vis-world>
-		</div>
-    </div>
-    <div class="row" style="margin:20px;">
-        <div class="col-md-11 chart_wrap">
-			<h3 class="floated">Grade Distribution</h3>
-			<vis-bar data="gradeData" height="600" options="{ marginLeft: 130 }"></vis-pie>
-		</div>
-    </div>
 </div>
-<div style="clear:left"></div>
+

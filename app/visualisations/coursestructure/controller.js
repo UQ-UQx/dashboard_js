@@ -11,6 +11,7 @@ angular.module('dashboardJsApp')
 	.controller('Visualisation_coursestructure_Ctrl', ['$scope', 'RequestService', 'Course', 'AuthService', 'createDialog', function ($scope, RequestService, Course, AuthService, createDialog) {
 		$scope.auth = AuthService;
         $scope.$parent.state = "loading";
+        $scope.state = "loading";
 
         $scope.APIBASE = APIBASE;
 
@@ -34,6 +35,7 @@ angular.module('dashboardJsApp')
 
                 if(Course.currentCourse == 'allcourses') {
                     $scope.$parent.state = "notavailable";
+                    $scope.state = "notavailable";
                 } else {
                     RequestService.async('/meta/structure/' + Course.currentCourse + '/'+refresh).then(function (data) {
                         var coursecontent = data;
@@ -62,7 +64,7 @@ angular.module('dashboardJsApp')
                         };
 
                         $scope.$parent.state = "running";
-
+                        $scope.state = "running";
                     });
                 }
 			}

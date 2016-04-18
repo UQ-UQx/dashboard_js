@@ -12,6 +12,7 @@ angular.module('dashboardJsApp')
         $scope.course = Course;
 		$scope.auth = AuthService;
 		$scope.$parent.state = "loading";
+		$scope.state = "loading";
 
         //$scope.colourString = '81, 84, 172';
 
@@ -30,13 +31,14 @@ angular.module('dashboardJsApp')
 			var refresh = '';
 
 			if($scope.refresh) {
-				refresh = '&refreshcache=true';
+				refresh = '?refreshcache=true';
 			}
 
 			if ($scope.auth.isAuthenticated()) {
 
                 if (Course.currentCourse == 'allcourses') {
                     $scope.$parent.state = "notavailable";
+                    $scope.state = "notavailable";
                 }
                 else {
 
@@ -44,9 +46,11 @@ angular.module('dashboardJsApp')
                         console.log('Data API', data);
 
                         $scope.$parent.state = "notavailable";
+                        $scope.state = "notavailable";
 
                         if(data) {
                             $scope.$parent.state = "loading";
+                            $scope.state = "loading";
                             var layerData = [];
                             for (var i = 0; i < data.date_list.length; i++) {
                                 layerData[i] = [];
@@ -78,6 +82,7 @@ angular.module('dashboardJsApp')
                             $scope.layerData = layerData;
                             $scope.metaData = metaData;
                             $scope.$parent.state = "running";
+                            $scope.state = "running";
                         }
 
                     });

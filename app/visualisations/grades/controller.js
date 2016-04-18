@@ -12,6 +12,7 @@ angular.module('dashboardJsApp')
 		$scope.auth = AuthService;
 
 		$scope.$parent.state = "loading";
+		$scope.state = "loading";
 
         $scope.colourString = '81, 84, 172';
 
@@ -35,9 +36,11 @@ angular.module('dashboardJsApp')
 
 			if ($scope.auth.isAuthenticated()) {
                 $scope.$parent.state = "loading";
+                $scope.state = "loading";
 				RequestService.async('/students/personcourse/' + Course.currentCourse + '/?fields=user_id,certified,final_cc_cname,explored,registered,viewed,grade'+refresh).then(function(data) {
                     if(!data || data.length == 0) {
                         $scope.$parent.state = "notavailable";
+                        $scope.state = "notavailable";
                     } else {
                         var certificateData = {'Yes': 0, 'No': 0};
                         var attemptData = {'Registered': 0, 'Viewed': 0, 'Explored': 0, 'Certified': 0};
@@ -89,6 +92,7 @@ angular.module('dashboardJsApp')
                         $scope.attemptData = $scope.formatPieData(attemptData);
                         $scope.countries = $scope.formatMapData(countries);
                         $scope.$parent.state = "running";
+                        $scope.state = "running";
                     }
 				});
 			}

@@ -1,113 +1,124 @@
-<div class="metaactions">
-<!--<a ng-click="refreshData()" data-name="reload" class="refresh-cache btn btn-warning">
-    <i class="fa fa-refresh"></i> Recache
-</a>-->
-<a ng-href="{{APIBASE}}/meta/structure/{{course.currentCourse}}?format=csv" data-name="csv" class="csv-download btn btn-success">
-    <i class="fa fa-file-excel-o"></i> CSV
-</a>
-</div>
-<script>
-    $('#filter_width').change(function() {
-        console.log("WIDTH CHANGED"+$('#filter_width').val());
-        $('ul#coursestructure').width($('#filter_width').val()+"%");
-        $('div.thumb_chapter').width($('#filter_width').val());
-        $('div.thumb_problem').width($('#filter_width').val()*2);
-    });
-    $('#filter_height').change(function() {
-        console.log("WIDTH CHANGED");
-        $('div.thumb_html').height($('#filter_height').val()/30);
-        $('div.thumb_problem').height($('#filter_height').val()/30);
-        $('div.thumb_video').height($('#filter_height').val()/100);
-        var zoom = $('#filter_height').val()/100;
-        if(zoom < 0.1) {
-            $('div.node').css({'font-size':'5px'});
-        } else {
-            $('div.node').css({'font-size':'inherit'});
-        }
-        $('div.node').css({'zoom':zoom});
-    });
-    $('#thumbnail').click(function() {
-       if($('#thumbnail').hasClass('btn-default')) {
-           $('#thumbnail').removeClass('btn-default');
-           $('#thumbnail').addClass('btn-primary');
-           $('#coursestructure').fadeOut();
-           $('#coursethumb').fadeIn();
-       } else {
-           $('#thumbnail').addClass('btn-default');
-           $('#thumbnail').removeClass('btn-primary');
-           $('#coursestructure').fadeIn();
-           $('#coursethumb').fadeOut();
-       }
-    });
-</script>
-<div class="col-md-3">Width: <input id="filter_width" type="range" name="points" min="1" max="100" value="100"></div>
-<div class="col-md-3">Height: <input id="filter_height" type="range" name="points" min="1" max="100" value="100"></div>
-<div class="col-md-3"><button class="btn btn-default" id="thumbnail">Thumbnail View</button></div>
-<div id="searchbox">
-    <form class="navbar-form navbar-left" role="search">
-        <div class="input-group">
-            <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-            <input type="text" id='searchbox' class="form-control" placeholder="Search" ng-model="searchText">
-        </div>
-    </form>
-</div>
-<script type="text/ng-template"  id="tree_item_renderer.html">
-    <div class="node node_{{data.tag}}">
-    <div ng-click="launchStructureModal(data)">
-        &lt;{{data.tag}}&gt; <strong>{{data.display_name}}</strong> <em>{{ data.url_name }}</em>
-    </div>
-    <ul ng-if="data.tag != 'problem' && data.children.length > 0">
-        <li ng-repeat="data in data.children | filter:searchText" ng-include="'tree_item_renderer.html'"></li>
-    </ul>
-    </div>
-</script>
-<ul id="coursestructure">
-    <li ng-repeat="data in [coursecontent] | filter:searchText" ng-include="'tree_item_renderer.html'"></li>
-</ul>
+<div ng-switch on="state">
+    <div ng-switch-when="notavailable" class="notselected">
+            <h1>Visualisation is not available</h1>
+            <div id="icon"><i class="fa fa-exclamation-triangle"></i></div>
+            <p>{{$parent.currentVisualisationName}} is not available for {{$parent.course.getCurrentCourseShortName()}}</p>
 
-<style>
-    div#coursethumb {
-        margin-top:100px;
-        margin-bottom:20px;
-    }
-    div.thumb_chapter {
-        background:yellow;
-        width:100px;
-        margin-left:90px;
-        margin-bottom:20px;
-    }
-    div#coursethumb strong {
-        display:block;
-        float:left;
-        width:80px;
-    }
-    div.thumb_html {
-        height:2px;
-    }
-    div.thumb_video {
-        height:2px;
-    }
-    div.thumb_problem {
-        height:2px;
-        background:#ccc;
-        width:200px;
-    }
-</style>
-<div id="coursethumb">
-    <div ng-repeat="course in [coursecontent]">
-        <div ng-repeat="chapter in course.children">
-            <div ng-if="chapter.tag == 'chapter'">
-                <strong>Week {{ $index+1 }}</strong>
-                <div class="thumb_chapter">
-                    <div ng-repeat="seq in chapter.children">
-                        <div ng-repeat="vert in seq.children">
-                            <div ng-repeat="item in vert.children">
-                                <div class="thumb_{{ item.tag }}"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
+	<div ng-switch-default>
+		<h2>{{$parent.currentVisualisationName}} for {{$parent.course.getCurrentCourseShortName()}}</h2>
+		<div class="metaactions">
+		<!--<a ng-click="refreshData()" data-name="reload" class="refresh-cache btn btn-warning">
+		    <i class="fa fa-refresh"></i> Recache
+		</a>-->
+		<a ng-href="{{APIBASE}}/meta/structure/{{course.currentCourse}}?format=csv" data-name="csv" class="csv-download btn btn-success">
+		    <i class="fa fa-file-excel-o"></i> CSV
+		</a>
+		</div>
+		<script>
+		    $('#filter_width').change(function() {
+		        console.log("WIDTH CHANGED"+$('#filter_width').val());
+		        $('ul#coursestructure').width($('#filter_width').val()+"%");
+		        $('div.thumb_chapter').width($('#filter_width').val());
+		        $('div.thumb_problem').width($('#filter_width').val()*2);
+		    });
+		    $('#filter_height').change(function() {
+		        console.log("WIDTH CHANGED");
+		        $('div.thumb_html').height($('#filter_height').val()/30);
+		        $('div.thumb_problem').height($('#filter_height').val()/30);
+		        $('div.thumb_video').height($('#filter_height').val()/100);
+		        var zoom = $('#filter_height').val()/100;
+		        if(zoom < 0.1) {
+		            $('div.node').css({'font-size':'5px'});
+		        } else {
+		            $('div.node').css({'font-size':'inherit'});
+		        }
+		        $('div.node').css({'zoom':zoom});
+		    });
+		    $('#thumbnail').click(function() {
+		       if($('#thumbnail').hasClass('btn-default')) {
+		           $('#thumbnail').removeClass('btn-default');
+		           $('#thumbnail').addClass('btn-primary');
+		           $('#coursestructure').fadeOut();
+		           $('#coursethumb').fadeIn();
+		       } else {
+		           $('#thumbnail').addClass('btn-default');
+		           $('#thumbnail').removeClass('btn-primary');
+		           $('#coursestructure').fadeIn();
+		           $('#coursethumb').fadeOut();
+		       }
+		    });
+		</script>
+		<div class="col-md-3">Width: <input id="filter_width" type="range" name="points" min="1" max="100" value="100"></div>
+		<div class="col-md-3">Height: <input id="filter_height" type="range" name="points" min="1" max="100" value="100"></div>
+		<div class="col-md-3"><button class="btn btn-default" id="thumbnail">Thumbnail View</button></div>
+		<div id="searchbox">
+		    <form class="navbar-form navbar-left" role="search">
+		        <div class="input-group">
+		            <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+		            <input type="text" id='searchbox' class="form-control" placeholder="Search" ng-model="searchText">
+		        </div>
+		    </form>
+		</div>
+		<script type="text/ng-template"  id="tree_item_renderer.html">
+		    <div class="node node_{{data.tag}}">
+		    <div ng-click="launchStructureModal(data)">
+		        &lt;{{data.tag}}&gt; <strong>{{data.display_name}}</strong> <em>{{ data.url_name }}</em>
+		    </div>
+		    <ul ng-if="data.tag != 'problem' && data.children.length > 0">
+		        <li ng-repeat="data in data.children | filter:searchText" ng-include="'tree_item_renderer.html'"></li>
+		    </ul>
+		    </div>
+		</script>
+		<ul id="coursestructure">
+		    <li ng-repeat="data in [coursecontent] | filter:searchText" ng-include="'tree_item_renderer.html'"></li>
+		</ul>
+		
+		<style>
+		    div#coursethumb {
+		        margin-top:100px;
+		        margin-bottom:20px;
+		    }
+		    div.thumb_chapter {
+		        background:yellow;
+		        width:100px;
+		        margin-left:90px;
+		        margin-bottom:20px;
+		    }
+		    div#coursethumb strong {
+		        display:block;
+		        float:left;
+		        width:80px;
+		    }
+		    div.thumb_html {
+		        height:2px;
+		    }
+		    div.thumb_video {
+		        height:2px;
+		    }
+		    div.thumb_problem {
+		        height:2px;
+		        background:#ccc;
+		        width:200px;
+		    }
+		</style>
+		<div id="coursethumb">
+		    <div ng-repeat="course in [coursecontent]">
+		        <div ng-repeat="chapter in course.children">
+		            <div ng-if="chapter.tag == 'chapter'">
+		                <strong>Week {{ $index+1 }}</strong>
+		                <div class="thumb_chapter">
+		                    <div ng-repeat="seq in chapter.children">
+		                        <div ng-repeat="vert in seq.children">
+		                            <div ng-repeat="item in vert.children">
+		                                <div class="thumb_{{ item.tag }}"></div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+	</div>
 </div>

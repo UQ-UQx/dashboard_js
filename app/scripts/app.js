@@ -56,6 +56,7 @@ var app = angular
 			.state('dashboard.visualisation', {
 				url: '/:visualisation/:course',
 				templateUrl: function(stateParams) {
+					console.log('app.js');
 					return 'visualisations/' + stateParams.visualisation + '/template.html';
 				},
 				controllerProvider: function($stateParams, Course) {

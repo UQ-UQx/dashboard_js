@@ -36,6 +36,7 @@ angular.module('dashboardJsApp')
 	$scope.course = Course;
 	$scope.auth = AuthService;
 	$scope.$parent.state = "loading";
+	$scope.state = "loading";
 
     $scope.APIBASE = APIBASE;
 
@@ -75,11 +76,13 @@ angular.module('dashboardJsApp')
 
             if(Course.currentCourse == 'allcourses') {
                 $scope.$parent.state = "notavailable";
+                $scope.state = "notavailable";
             } else {
 
                 RequestService.async('/discussions/dates/' + Course.currentCourse + '/'+refresh).then(function (data) {
                     if(!data) {
                         $scope.$parent.state = "notavailable";
+                        $scope.state = "notavailable";
                     } else {
                         var formattedNormalData = [
                             { name: 'Posts', data: [] },
@@ -119,6 +122,7 @@ angular.module('dashboardJsApp')
                         $scope.aggregateData = formattedAggregateData;
 
                         $scope.$parent.state = "running";
+                        $scope.state = "running";
                     }
                 });
 

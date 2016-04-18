@@ -1,48 +1,58 @@
-<div class="metaactions">
-    <!--<a ng-click="refreshData()" data-name="reload" class="refresh-cache btn btn-warning">
-	    <i class="fa fa-refresh"></i> Recache
-    </a>-->
-    <a ng-href="{{APIBASE}}/students/active/{{course.currentCourse}}?format=csv" data-name="csv" class="csv-download btn btn-success">
-	    <i class="fa fa-file-excel-o"></i> CSV
-    </a>
+<div ng-switch on="state">
+    <div ng-switch-when="notavailable" class="notselected">
+            <h1>Visualisation is not available</h1>
+            <div id="icon"><i class="fa fa-exclamation-triangle"></i></div>
+            <p>{{$parent.currentVisualisationName}} is not available for {{$parent.course.getCurrentCourseShortName()}}</p>
+
+    </div>
+    
+    <div ng-switch-default>
+		<h2>{{$parent.currentVisualisationName}} for {{$parent.course.getCurrentCourseShortName()}}</h2>
+		<div class="metaactions">
+		    <a ng-href="{{APIBASE}}/students/active/{{course.currentCourse}}?format=csv" data-name="csv" class="csv-download btn btn-success">
+			    <i class="fa fa-file-excel-o"></i> CSV
+		    </a>
+		</div>
+		
+		<h3>Daily Active Users</h3>
+		<vis-line data="dailyData" height="300" y-axis-label="'Num. Daily Active Users'" dates="importantDates"></vis-line>
+		<h3>Weekly Active Users</h3>
+		<vis-line data="weeklyData" height="500" y-axis-label="'Num. Weekly Active Users'" dates="importantDates"></vis-line>
+		<h3>Active User Categories</h3>
+		<table class="table" ng-show="pc.enrolled">
+		    <tr>
+		        <th>Type</th>
+		        <th>Registered</th>
+		        <th>Viewed Any Chapters</th>
+		        <th>Viewed at Least 3 weeks of Chapters</th>
+		        <th>Viewed over 50% of the Chapters</th>
+		        <th>Received Certificate</th>
+		    </tr>
+		    <tr>
+		        <td>Student Count</td>
+		        <td>{{ pc.enrolled }}</td>
+		        <td>{{ pc.viewed }}</td>
+		        <td>{{ pc.threechapters }}</td>
+		        <td>{{ pc.explored }}</td>
+		        <td>{{ pc.certified }}</td>
+		    </tr>
+		    <tr>
+		        <td>% of Registered Students</td>
+		        <td>100%</td>
+		        <td>{{ pc.viewed_stupercent }}</td>
+		        <td>{{ pc.threechapters_stupercent }}</td>
+		        <td>{{ pc.explored_stupercent }}</td>
+		        <td>{{ pc.certified_stupercent }}</td>
+		    </tr>
+		    <tr>
+		        <td>% of Previous Column</td>
+		        <td>N/A</td>
+		        <td>{{ pc.viewed_stupercent }}</td>
+		        <td>{{ pc.threechapters_lastcol }}</td>
+		        <td>{{ pc.explored_lastcol }}</td>
+		        <td>{{ pc.certified_lastcol }}</td>
+		    </tr>
+		</table>
+		<div ng-hide="pc.enrolled">Loading...</div>
+    </div>
 </div>
-<h3>Daily Active Users</h3>
-<vis-line data="dailyData" height="300" y-axis-label="'Num. Daily Active Users'" dates="importantDates"></vis-line>
-<h3>Weekly Active Users</h3>
-<vis-line data="weeklyData" height="500" y-axis-label="'Num. Weekly Active Users'" dates="importantDates"></vis-line>
-<h3>Active User Categories</h3>
-<table class="table" ng-show="pc.enrolled">
-    <tr>
-        <th>Type</th>
-        <th>Registered</th>
-        <th>Viewed Any Chapters</th>
-        <th>Viewed at Least 3 weeks of Chapters</th>
-        <th>Viewed over 50% of the Chapters</th>
-        <th>Received Certificate</th>
-    </tr>
-    <tr>
-        <td>Student Count</td>
-        <td>{{ pc.enrolled }}</td>
-        <td>{{ pc.viewed }}</td>
-        <td>{{ pc.threechapters }}</td>
-        <td>{{ pc.explored }}</td>
-        <td>{{ pc.certified }}</td>
-    </tr>
-    <tr>
-        <td>% of Registered Students</td>
-        <td>100%</td>
-        <td>{{ pc.viewed_stupercent }}</td>
-        <td>{{ pc.threechapters_stupercent }}</td>
-        <td>{{ pc.explored_stupercent }}</td>
-        <td>{{ pc.certified_stupercent }}</td>
-    </tr>
-    <tr>
-        <td>% of Previous Column</td>
-        <td>N/A</td>
-        <td>{{ pc.viewed_stupercent }}</td>
-        <td>{{ pc.threechapters_lastcol }}</td>
-        <td>{{ pc.explored_lastcol }}</td>
-        <td>{{ pc.certified_lastcol }}</td>
-    </tr>
-</table>
-<div ng-hide="pc.enrolled">Loading...</div>
